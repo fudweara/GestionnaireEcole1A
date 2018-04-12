@@ -64,7 +64,7 @@ public class Fenetre extends JFrame{
 
         this.setContentPane(fenetre);
         this.setVisible(true);
-        
+
     }
 
 }
