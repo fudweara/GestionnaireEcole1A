@@ -3,6 +3,16 @@ Pour l'ouverture de projet, executer la classe main qui se situe dans Identifica
 HOW TO IMPORT A GITHUB PROJECT INTO ECLIPSE :
 https://github.com/collab-uniba/socialcde4eclipse/wiki/How-to-import-a-GitHub-project-into-Eclipse
 
+PROJET QUI UTILISE ORACLE DATABASE 11g Release 2
+
+Pour faire fonctionner le projet :
+<li> 1/Créer la BDD avec Create_BDD_Gestionnaire.sql</li>
+<li> 2/Créer la auto incrémentation des ID avec Create_AutoIncrementation_ID.sql ( On éxécute chaque bloc de création séparément)</li>
+<li> 3/importer le projet dans l'IDE</li>
+<li> 4/Lier la base de données dans l'IDE</li>
+<li> 5/ Ajouter à la structure du projet les dépendences correspondant au driver JDBC (http://www.oracle.com/technetwork/apps-tech/jdbc-112010-090769.html) </li>
+<li> 4/Executer le main dans src/Main.java</li>
+
 
 PATCHNOTES :
 
