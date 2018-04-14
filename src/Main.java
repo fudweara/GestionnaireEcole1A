@@ -1,8 +1,4 @@
 import Interface.FenetreIdentification;
-import JDBC.TablePersonne;
-import objetStockage.Personne;
-
-import java.util.ArrayList;
 
 /**
  * Gestionnaire ESIGELEC pour la gestion de personnes, de cartes Léo et de lieux

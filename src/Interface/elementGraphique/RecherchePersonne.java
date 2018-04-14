@@ -1,8 +1,7 @@
 package Interface.elementGraphique;
 
 import Interface.Fenetre;
-import JDBC.TablePersonne;
-import objetStockage.DateDeNaissance;
+import DAO.TablePersonneDAO;
 import objetStockage.Personne;
 
 import javax.swing.*;
@@ -10,7 +9,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class RecherchePersonne {
 
@@ -73,7 +71,7 @@ public class RecherchePersonne {
     class ecouteBoutonRechercher implements ActionListener {
         public void actionPerformed(ActionEvent arg0) {
 
-            TablePersonne tablePersonne = new TablePersonne();
+            TablePersonneDAO tablePersonneDAO = new TablePersonneDAO();
 
             System.out.println("Appuie sur boutton validation");
 
@@ -81,7 +79,7 @@ public class RecherchePersonne {
             creationInterface();
 
 
-            listePersonne =  tablePersonne.rechercherPersonne( champDeRechercheNom.getText() );
+            listePersonne =  tablePersonneDAO.rechercherPersonne( champDeRechercheNom.getText() );
 
             bouttonJradio = new JRadioButton[listePersonne.size()];
 

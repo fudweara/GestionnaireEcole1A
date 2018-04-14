@@ -1,4 +1,4 @@
-package JDBC;
+package DAO;
 
 import java.sql.DriverManager;
 import java.sql.Connection;
@@ -6,17 +6,17 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 
-public class ConnectionBDD {
+public class ConnectionDAO {
 
     private String URL = "jdbc:oracle:thin:@localhost:1521:XE";
-    private String LOGIN = "Gestionnaire";  //exemple BDD1
-    private String PASS = "vic1997";   //exemple BDD1
+    private String LOGIN = "GestionnaireESIG";  //exemple BDD1
+    private String PASS = "esigelec123";   //exemple BDD1
 
     Connection connection = null;
     PreparedStatement ps = null;
 
 
-    public ConnectionBDD(){
+    public ConnectionDAO(){
 
         System.out.println("-------- Oracle JDBC Connection Test ------");
 

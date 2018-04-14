@@ -1,13 +1,13 @@
-package JDBC;
+package DAO;
 
 import objetStockage.Personne;
 
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-public class TablePersonne extends ConnectionBDD{
+public class TablePersonneDAO extends ConnectionDAO {
 
-    public TablePersonne(){
+    public TablePersonneDAO(){
         super();
     }
 
@@ -18,14 +18,14 @@ public class TablePersonne extends ConnectionBDD{
         ResultSet rs = null;
 
         try {
-            ps = connection.prepareStatement("SELECT * FROM personne WHERE NOMPERSONNE LIKE ?");
+            ps = connection.prepareStatement("SELECT * FROM personne WHERE NOM_PERSONNE LIKE ?");
             ps.setString(1, nom);
 
             rs = ps.executeQuery();
 
             while (rs.next() ){
 
-                personne.add( new Personne( rs.getString("NOMPERSONNE"), rs .getString("PRENOM"), rs.getDate("DATENAISSANCCE"), rs.getString("FONCTION")));
+                personne.add( new Personne( rs.getString("NOM_PERSONNE"), rs .getString("PRENOM_PERSONNE"), rs.getDate("DATENAISSANCE"), rs.getString("FONCTION")));
             }
 
 
