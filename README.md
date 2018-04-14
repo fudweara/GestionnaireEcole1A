@@ -29,3 +29,8 @@ PATCHNOTES :
 <li> Ajout de la lecture de personnes dans la base de données ( ATTENTION : La lecture des dates n'est pas fonctionnelle pour le moment) </li>
 <li> Ajout de recherche de personne</li>
 <li> Ajout de la mise à jour du formulaire de recherche lors de la selection d'une personne avec la recherche</li>
+
+0.0.11:
+<li> Fix de la récupération de la date dans la base de données</li>
+<li> Ajout d'une fonction de mise à jour de personne dans la base de données</li>
+<li> Ajout de la fonction Modifier une personne</li>

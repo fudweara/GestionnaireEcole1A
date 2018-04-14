@@ -14,7 +14,7 @@ public class RecherchePersonne {
 
     private Fenetre fenetre;
 
-    FormulairePersonne formulairePersonne;
+    private FormulairePersonne formulairePersonne;
 
     private ArrayList<Personne> listePersonne;
 
@@ -26,6 +26,8 @@ public class RecherchePersonne {
 
     private ButtonGroup groupeButton;
     private JRadioButton[] bouttonJradio;
+
+    private int idPersonneSelectionne;
 
     public RecherchePersonne(Fenetre fenetre,  FormulairePersonne formulairePersonne){
 
@@ -105,15 +107,19 @@ public class RecherchePersonne {
         public void actionPerformed(ActionEvent arg0) {
 
             int persSelect = Integer.parseInt( groupeButton.getSelection().getActionCommand() );
-            System.out.println( persSelect );
-            formulairePersonne.setAtributs( listePersonne.get(persSelect).getNom(), listePersonne.get(persSelect).getPrenom(), listePersonne.get(persSelect).getDateNaissance(), listePersonne.get(persSelect).getFonction());
 
+            formulairePersonne.setAtributs( listePersonne.get(persSelect).getNom(), listePersonne.get(persSelect).getPrenom(), listePersonne.get(persSelect).getDateNaissance(), listePersonne.get(persSelect).getFonction());
+            idPersonneSelectionne = listePersonne.get(persSelect).getId();
         }
     }
 
 
     public JPanel getJPanel(){
         return recherchePersonne;
+    }
+
+    public int getIdPersonneSelectionne(){
+        return idPersonneSelectionne;
     }
 
 }

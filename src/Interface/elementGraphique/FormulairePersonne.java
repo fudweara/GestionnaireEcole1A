@@ -88,7 +88,7 @@ public class FormulairePersonne{
     public DateDeNaissance getDateDeNaissance(){
 
         String[] temp =  champDateDeNaissance.getText().split("\\s+");
-        DateDeNaissance dateDeNaissance = new DateDeNaissance( Integer.parseInt( temp[0] ), Integer.parseInt( temp[1] ), Integer.parseInt( temp[2]) );
+        DateDeNaissance dateDeNaissance = new DateDeNaissance( temp[0],temp[1],temp[2]);
         return dateDeNaissance;
     }
 
@@ -96,14 +96,11 @@ public class FormulairePersonne{
         return champFonction.getText();
     }
 
-    public void setAtributs(String nom, String prenom, Date dateDeNaissance, String fonction){
+    public void setAtributs(String nom, String prenom, DateDeNaissance dateDeNaissance, String fonction){
 
         champNom.setText(nom);
         champPrenom.setText(prenom);
-
-
-    System.out.println("TEST"+dateDeNaissance.getTime() );
-        champDateDeNaissance.setValue( dateDeNaissance.getDay() );
+        champDateDeNaissance.setText( dateDeNaissance.getJour()+""+dateDeNaissance.getMois()+""+dateDeNaissance.getAnnee() );
         champFonction.setText(fonction);
 
     }

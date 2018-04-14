@@ -1,12 +1,13 @@
 package objetStockage;
 
-import java.util.Date;
 
 public class Personne {
 
+
+    private int id;
     private String nom;
     private String prenom;
-    private Date dateNaissance;
+    private DateDeNaissance dateNaissance;
     private String fonction;
 
     public Personne(){
@@ -20,7 +21,8 @@ public class Personne {
      * @param dateDeNaissance (DateDeNaissance)
      * @param fonction (String)
      */
-    public Personne(String nom, String prenom, Date dateDeNaissance, String fonction){
+    public Personne(int id,String nom, String prenom, DateDeNaissance dateDeNaissance, String fonction){
+        this.id=id;
         this.nom=nom;
         this.prenom=prenom;
         this.dateNaissance=dateDeNaissance;
@@ -51,9 +53,9 @@ public class Personne {
     /**
      * Retourne la date de naissance de la personne
      *
-     * @return Date de naissance (Date)
+     * @return Date de naissance (DateDeNaissance)
      */
-    public Date getDateNaissance(){
+    public DateDeNaissance getDateNaissance(){
         return dateNaissance;
     }
 
@@ -71,9 +73,9 @@ public class Personne {
     /**
      * Met à jour la date de naissancce de la personne
      *
-     * @param dateNaissance (Date)
+     * @param dateNaissance (DateDeNaissance)
      */
-    public void setDateNaissance(Date dateNaissance) {
+    public void setDateNaissance(DateDeNaissance dateNaissance) {
         this.dateNaissance = dateNaissance;
     }
 
@@ -108,4 +110,12 @@ public class Personne {
     }
 
 
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 }
