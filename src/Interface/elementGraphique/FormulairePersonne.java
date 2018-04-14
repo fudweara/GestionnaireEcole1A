@@ -6,6 +6,7 @@ import javax.swing.*;
 import javax.swing.text.MaskFormatter;
 import java.awt.*;
 import java.text.ParseException;
+import java.util.Date;
 
 /**
  * Classe qui représente l'interface de Création d'une personne avec ses composants (JPanel,JTextField...)
@@ -93,6 +94,18 @@ public class FormulairePersonne{
 
     public String getFonction(){
         return champFonction.getText();
+    }
+
+    public void setAtributs(String nom, String prenom, Date dateDeNaissance, String fonction){
+
+        champNom.setText(nom);
+        champPrenom.setText(prenom);
+
+
+    System.out.println("TEST"+dateDeNaissance.getTime() );
+        champDateDeNaissance.setValue( dateDeNaissance.getDay() );
+        champFonction.setText(fonction);
+
     }
 
 

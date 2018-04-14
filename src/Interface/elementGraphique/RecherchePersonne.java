@@ -1,6 +1,7 @@
 package Interface.elementGraphique;
 
 import Interface.Fenetre;
+import JDBC.TablePersonne;
 import objetStockage.DateDeNaissance;
 import objetStockage.Personne;
 
@@ -9,11 +10,13 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class RecherchePersonne {
 
     private Fenetre fenetre;
 
+    FormulairePersonne formulairePersonne;
 
     private ArrayList<Personne> listePersonne;
 
@@ -23,12 +26,13 @@ public class RecherchePersonne {
     private JButton boutton;
     private JPanel JPanelRechercheEtBOuton;
 
-    private JPanel[] resulatsRecherche;
-    private JLabel[] texteResulatsRecherche;
+    private ButtonGroup groupeButton;
+    private JRadioButton[] bouttonJradio;
 
-    public RecherchePersonne(Fenetre fenetre){
+    public RecherchePersonne(Fenetre fenetre,  FormulairePersonne formulairePersonne){
 
         this.fenetre=fenetre;
+        this.formulairePersonne=formulairePersonne;
 
         declarationVariables();
         creationInterface();
@@ -44,14 +48,9 @@ public class RecherchePersonne {
         recherchePersonne = new JPanel();
         boutton = new JButton("Ok");
         JPanelRechercheEtBOuton = new JPanel();
-        resulatsRecherche = new JPanel[5];;
-        texteResulatsRecherche = new JLabel[5];;
         champDeRechercheNom = new JTextField();
+        groupeButton = new ButtonGroup();
 
-        for(int i = 0 ; i<5 ; i++){
-            resulatsRecherche[i]=new JPanel();
-            texteResulatsRecherche[i]=new JLabel();
-        }
     }
 
     private void creationInterface(){
@@ -74,27 +73,42 @@ public class RecherchePersonne {
     class ecouteBoutonRechercher implements ActionListener {
         public void actionPerformed(ActionEvent arg0) {
 
+            TablePersonne tablePersonne = new TablePersonne();
+
             System.out.println("Appuie sur boutton validation");
 
-            // FONCTION DE RECUPERATION DE L'ARRAYLIST
+            recherchePersonne.removeAll();
+            creationInterface();
 
-            listePersonne.add( new Personne("A","A",new DateDeNaissance(1,1,1),"A") );
-            listePersonne.add( new Personne("B","B",new DateDeNaissance(2,2,2),"B") );
-            listePersonne.add( new Personne("C","C",new DateDeNaissance(3,3,3),"C") );
-            listePersonne.add( new Personne("D","D",new DateDeNaissance(4,4,4),"D") );
-            listePersonne.add( new Personne("E","E",new DateDeNaissance(5,5,5),"E") );
 
-            Font police = new Font("Arial", Font.BOLD, 30);
+            listePersonne =  tablePersonne.rechercherPersonne( champDeRechercheNom.getText() );
+
+            bouttonJradio = new JRadioButton[listePersonne.size()];
 
             for(int i=0 ; ( i< listePersonne.size() && i < 5 ) ; i++){
-                texteResulatsRecherche[i].setText("LABEL"+i);
-                texteResulatsRecherche[i].setFont(police);
 
-                resulatsRecherche[i].add(texteResulatsRecherche[i],BorderLayout.LINE_START);
-                recherchePersonne.add(resulatsRecherche[i]);
+
+                bouttonJradio[i] = new JRadioButton(listePersonne.get(i).getNom()+" "+listePersonne.get(i).getPrenom());
+                groupeButton.add(bouttonJradio[i]);
+                bouttonJradio[i].setActionCommand( i+"" );
+
+                bouttonJradio[i].addActionListener( new ecouteSelection() );
+
+                recherchePersonne.add( bouttonJradio[i] );
+
             }
             fenetre.updateWIndows();
 
+
+        }
+    }
+
+    class ecouteSelection implements ActionListener {
+        public void actionPerformed(ActionEvent arg0) {
+
+            int persSelect = Integer.parseInt( groupeButton.getSelection().getActionCommand() );
+            System.out.println( persSelect );
+            formulairePersonne.setAtributs( listePersonne.get(persSelect).getNom(), listePersonne.get(persSelect).getPrenom(), listePersonne.get(persSelect).getDateNaissance(), listePersonne.get(persSelect).getFonction());
 
         }
     }

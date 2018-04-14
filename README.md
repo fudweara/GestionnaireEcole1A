@@ -22,4 +22,10 @@ PATCHNOTES :
 <li>Correction d'un bug d'affichage dans le menu Modifier personne</li>
 
 0.0.9 :
-<li>Réorganisation du code et suppression de nombreuses incohérences<li/>
+<li>Réorganisation du code et suppression de nombreuses incohérences</li>
+
+0.0.10 :
+
+<li> Ajout de la lecture de personnes dans la base de données ( ATTENTION : La lecture des dates n'est pas fonctionnelle pour le moment) </li>
+<li> Ajout de recherche de personne</li>
+<li> Ajout de la mise à jour du formulaire de recherche lors de la selection d'une personne avec la recherche</li>

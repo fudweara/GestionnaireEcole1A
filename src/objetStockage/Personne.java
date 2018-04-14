@@ -1,11 +1,16 @@
 package objetStockage;
 
+import java.util.Date;
+
 public class Personne {
 
     private String nom;
     private String prenom;
-    private DateDeNaissance dateNaissance;
+    private Date dateNaissance;
     private String fonction;
+
+    public Personne(){
+    }
 
     /**
      * Constructeur de Personne qui prends pour paramètre toutes ses caractéristiques
@@ -15,7 +20,7 @@ public class Personne {
      * @param dateDeNaissance (DateDeNaissance)
      * @param fonction (String)
      */
-    public Personne(String nom, String prenom, DateDeNaissance dateDeNaissance, String fonction){
+    public Personne(String nom, String prenom, Date dateDeNaissance, String fonction){
         this.nom=nom;
         this.prenom=prenom;
         this.dateNaissance=dateDeNaissance;
@@ -46,9 +51,9 @@ public class Personne {
     /**
      * Retourne la date de naissance de la personne
      *
-     * @return Date de naissance (DateDeNaissance)
+     * @return Date de naissance (Date)
      */
-    public DateDeNaissance getDateNaissance(){
+    public Date getDateNaissance(){
         return dateNaissance;
     }
 
@@ -66,9 +71,9 @@ public class Personne {
     /**
      * Met à jour la date de naissancce de la personne
      *
-     * @param dateNaissance (DateDeNaissance)
+     * @param dateNaissance (Date)
      */
-    public void setDateNaissance(DateDeNaissance dateNaissance) {
+    public void setDateNaissance(Date dateNaissance) {
         this.dateNaissance = dateNaissance;
     }
 
