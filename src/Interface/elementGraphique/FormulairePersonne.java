@@ -6,7 +6,6 @@ import javax.swing.*;
 import javax.swing.text.MaskFormatter;
 import java.awt.*;
 import java.text.ParseException;
-import java.util.Date;
 
 /**
  * Classe qui représente l'interface de Création d'une personne avec ses composants (JPanel,JTextField...)
@@ -16,7 +15,7 @@ public class FormulairePersonne{
     private JPanel formulairePersonne;
     private JTextField champNom;
     private JTextField champPrenom;
-    JFormattedTextField champDateDeNaissance;
+    private JFormattedTextField champDateDeNaissance;
     private JTextField champFonction ;
 
     public FormulairePersonne(){
@@ -88,8 +87,7 @@ public class FormulairePersonne{
     public DateDeNaissance getDateDeNaissance(){
 
         String[] temp =  champDateDeNaissance.getText().split("\\s+");
-        DateDeNaissance dateDeNaissance = new DateDeNaissance( temp[0],temp[1],temp[2]);
-        return dateDeNaissance;
+        return new DateDeNaissance( temp[0],temp[1],temp[2]);
     }
 
     public String getFonction(){

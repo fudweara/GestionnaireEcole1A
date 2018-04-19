@@ -35,6 +35,10 @@ public class FenetreIdentification extends JFrame {
 
     }
 
+
+    /**
+     * Attribution des paramètres de la JFrame
+     */
     private void creationDeLaFenetre(){
 
         this.setTitle("Identification");
@@ -45,6 +49,9 @@ public class FenetreIdentification extends JFrame {
 
     }
 
+    /**
+     * Ajout des éléments graphiques sur la fenetre d'identification
+     */
     private void ajoutDesElementsGraphiques(){
 
         Font police = new Font("Arial", Font.BOLD, 14);

@@ -5,17 +5,17 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-
-public class ConnectionDAO {
-
-    private String URL = "jdbc:oracle:thin:@localhost:1521:XE";
-    private String LOGIN = "GestionnaireESIG";  //exemple BDD1
-    private String PASS = "esigelec123";   //exemple BDD1
+/**
+ * Classe qui permet la connection avec la base de données
+ */
+class ConnectionDAO {
 
     Connection connection = null;
     PreparedStatement ps = null;
 
-
+    /**
+     * Constructeur qui connecte le programme à la base de données
+     */
     public ConnectionDAO(){
 
         System.out.println("-------- Oracle JDBC Connection Test ------");
@@ -35,6 +35,10 @@ public class ConnectionDAO {
 
 
         try {
+
+            String PASS = "esigelec123";
+            String LOGIN = "GestionnaireESIG";
+            String URL = "jdbc:oracle:thin:@localhost:1521:XE";
 
             connection = DriverManager.getConnection(URL, LOGIN, PASS);
 

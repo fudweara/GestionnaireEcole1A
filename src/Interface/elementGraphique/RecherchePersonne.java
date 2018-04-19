@@ -10,6 +10,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+/**
+ * Objet qui permet une recherche de personne grace à son nom
+ */
 public class RecherchePersonne {
 
     private Fenetre fenetre;
@@ -29,6 +32,13 @@ public class RecherchePersonne {
 
     private int idPersonneSelectionne;
 
+
+    /**
+     * Constructeur de la classe recherche de personnes
+     *
+     * @param fenetre (Fenetre)
+     * @param formulairePersonne (FormulairePersonne)
+     */
     public RecherchePersonne(Fenetre fenetre,  FormulairePersonne formulairePersonne){
 
         this.fenetre=fenetre;
@@ -42,8 +52,11 @@ public class RecherchePersonne {
     }
 
 
+    /**
+     * Declaration des variables fait dans le constructur
+     */
     private void declarationVariables(){
-        listePersonne = new ArrayList<Personne>();
+        listePersonne = new ArrayList<>();
 
         recherchePersonne = new JPanel();
         boutton = new JButton("Ok");
@@ -53,6 +66,9 @@ public class RecherchePersonne {
 
     }
 
+    /**
+     * Création de l'interface faite dans la constructeur
+     */
     private void creationInterface(){
 
         recherchePersonne.setPreferredSize(new Dimension(300,300));
@@ -69,7 +85,10 @@ public class RecherchePersonne {
 
     }
 
-
+    /**
+     * Fonction d'écoute pour le bouton rechercher
+     *
+     */
     class ecouteBoutonRechercher implements ActionListener {
         public void actionPerformed(ActionEvent arg0) {
 
@@ -103,6 +122,9 @@ public class RecherchePersonne {
         }
     }
 
+    /**
+     * Fonction d'écoute pour la sélection d'une personne qui est listée après l'avoir recherchée
+     */
     class ecouteSelection implements ActionListener {
         public void actionPerformed(ActionEvent arg0) {
 
@@ -113,11 +135,18 @@ public class RecherchePersonne {
         }
     }
 
-
+    /**
+     * Récupére le JPanel un formulaire de recherche d'une personne
+     * @return JPanel
+     */
     public JPanel getJPanel(){
         return recherchePersonne;
     }
 
+    /**
+     * Récupére l'id de la personne sélectionnée
+     * @return Integer
+     */
     public int getIdPersonneSelectionne(){
         return idPersonneSelectionne;
     }

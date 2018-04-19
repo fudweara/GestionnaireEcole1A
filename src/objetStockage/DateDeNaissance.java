@@ -73,6 +73,4 @@ public class DateDeNaissance {
         this.jour = jour;
     }
 
-
-
 }

@@ -44,3 +44,7 @@ PATCHNOTES :
 <li> Fix de la récupération de la date dans la base de données</li>
 <li> Ajout d'une fonction de mise à jour de personne dans la base de données</li>
 <li> Ajout de la fonction Modifier une personne</li>
+
+0.0.12:
+<li>Ajout des comentaires nécéssaires pour la javadoc</li>
+<li>Ajout d'un message lors de la modification de personnes</li>

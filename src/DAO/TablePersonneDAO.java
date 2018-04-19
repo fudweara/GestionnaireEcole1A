@@ -6,24 +6,29 @@ import objetStockage.Personne;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-
-
-
-
+/**
+ * Classe qui regroupe les méthodes pour gérer des personnes dans la base de données
+ */
 public class TablePersonneDAO extends ConnectionDAO {
 
+    /**
+     * Constructeur qui permet la connection avec la base de données
+     */
     public TablePersonneDAO(){
         super();
     }
 
 
-
-
+    /**
+     * Recherche dans la base de données toutes les personnes qui ont le nom envoyé en paramètre
+     * @param nom (String)
+     * @return ArrayList<Personne>
+     */
     public ArrayList<Personne> rechercherPersonne(String nom){
 
-        ArrayList<Personne> personne = new ArrayList<Personne>();
+        ArrayList<Personne> personne = new ArrayList<>();
 
-        ResultSet rs = null;
+        ResultSet rs;
 
         try {
             ps = connection.prepareStatement("SELECT * FROM personne WHERE NOM_PERSONNE LIKE ?");
@@ -71,9 +76,14 @@ public class TablePersonneDAO extends ConnectionDAO {
         return personne;
     }
 
-    public void miseAJourPersonne(Personne personne){
+    /**
+     * Remplace une personne dans la BDD par la personne mise en paramètre
+     * @param personne (Personnne)
+     * @return Integer
+     */
+    public int miseAJourPersonne(Personne personne){
 
-        ResultSet rs = null;
+        int retour = 0;
 
         try {
             ps = connection.prepareStatement("UPDATE PERSONNE SET NOM_PERSONNE = ?, PRENOM_PERSONNE = ?, DATENAISSANCE = TO_DATE(?,'YYYY-MM-DD'),FONCTION = ? WHERE IDPERSONNE=?");
@@ -84,15 +94,14 @@ public class TablePersonneDAO extends ConnectionDAO {
             ps.setInt(5, personne.getId() );
 
             ps.executeQuery();
+            retour = 1;
 
             System.out.println("Modification effectuée !");
-
 
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Erreur");
         } finally {
-            // fermeture du preparedStatement et de la connexion
             try {
                 if (ps != null)
                     ps.close();
@@ -104,7 +113,7 @@ public class TablePersonneDAO extends ConnectionDAO {
             } catch (Exception ignore) {
             }
         }
-
+        return retour;
 
     }
 

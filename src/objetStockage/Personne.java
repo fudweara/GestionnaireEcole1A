@@ -3,15 +3,12 @@ package objetStockage;
 
 public class Personne {
 
-
     private int id;
     private String nom;
     private String prenom;
     private DateDeNaissance dateNaissance;
     private String fonction;
 
-    public Personne(){
-    }
 
     /**
      * Constructeur de Personne qui prends pour paramètre toutes ses caractéristiques
@@ -110,12 +107,11 @@ public class Personne {
     }
 
 
-
+    /**
+     *
+     * @return ID (Integer)
+     */
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 }

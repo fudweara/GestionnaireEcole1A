@@ -2,7 +2,6 @@ package Interface;
 
 import Interface.Menu.CreationPersonne;
 import Interface.Menu.ModifierPersonne;
-import Interface.elementGraphique.FormulairePersonne;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -17,7 +16,7 @@ import java.awt.event.ActionListener;
  */
 
 
-public class BarreDeNavigation extends JMenuBar{
+class BarreDeNavigation extends JMenuBar{
 
     private JMenuItem ajoutPersonne;
     private JMenuItem modifierPersonne;
@@ -34,6 +33,12 @@ public class BarreDeNavigation extends JMenuBar{
 
     private Fenetre fenetre;
 
+
+
+    /**
+     * Constructeur d'une barre de navigation
+     * @param fenetre (Fenetre)
+     */
     public BarreDeNavigation(Fenetre fenetre){
 
         this.fenetre=fenetre;
@@ -41,6 +46,10 @@ public class BarreDeNavigation extends JMenuBar{
         ecouteDesChoix();
     }
 
+
+    /**
+     * Création des menus de la JMenuBar
+     */
     private void creationDesMenus(){
 
         JMenu gestionPersonne = new JMenu("Gérer les personnes...");
@@ -80,6 +89,10 @@ public class BarreDeNavigation extends JMenuBar{
         add(gestionAcces);
     }
 
+
+    /**
+     * Associations des fonctions d'écoute avec les élements graphiques
+     */
     private void ecouteDesChoix(){
         ajoutPersonne.addActionListener(new boutonAjoutPersonne());
         modifierPersonne.addActionListener(new boutonModifierPersonne());

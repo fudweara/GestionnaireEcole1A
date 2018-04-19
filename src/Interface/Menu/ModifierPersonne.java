@@ -10,19 +10,24 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-
+/**
+ * Classe qui crée et a en attribut le JPanel du menu modifier personne
+ */
 public class ModifierPersonne {
 
-    private Fenetre fenetre;
-    RecherchePersonne recherchePersonne;
-    FormulairePersonne formulairePersonne;
+    private RecherchePersonne recherchePersonne;
+    private FormulairePersonne formulairePersonne;
 
-    JButton bouttonModifier;
-    JPanel panelButtonModifier;
+    private JButton bouttonModifier;
+    private JPanel panelButtonModifier;
 
+    /**
+     * Constructeur du menu modifier personne qui place les élements graphiques et les fonctions d'écoute
+     * @param fenetre (Fenetre)
+     */
     public ModifierPersonne( Fenetre fenetre ){
 
-        this.fenetre=fenetre;
+
         formulairePersonne = new FormulairePersonne();
         recherchePersonne = new RecherchePersonne(fenetre,formulairePersonne);
         bouttonModifier = new JButton("Modifier");
@@ -37,6 +42,9 @@ public class ModifierPersonne {
         fenetre.addJPanel(panelButtonModifier,"");
     }
 
+    /**
+     * Fonction d'écoute du boutton valider
+     */
     class actionButtonValider implements ActionListener{
 
         public void actionPerformed(ActionEvent e) {
@@ -44,7 +52,12 @@ public class ModifierPersonne {
             Personne personneMiseAJour = new Personne ( recherchePersonne.getIdPersonneSelectionne(), formulairePersonne.getNom(), formulairePersonne.getPrenom(),formulairePersonne.getDateDeNaissance(),formulairePersonne.getFonction());
             TablePersonneDAO tablePersonneDAO = new TablePersonneDAO();
 
-            tablePersonneDAO.miseAJourPersonne(personneMiseAJour);
+            if( tablePersonneDAO.miseAJourPersonne(personneMiseAJour) == 1){
+                JOptionPane.showMessageDialog(null, "Modification effectuée !", "Message de confirmation",JOptionPane.INFORMATION_MESSAGE);
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "Tous les champs doivent être complétés et la date correctement entrée", "Erreur",JOptionPane.ERROR_MESSAGE);
+            }
         }
     }
 
