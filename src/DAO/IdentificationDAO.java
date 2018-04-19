@@ -14,7 +14,7 @@ public class IdentificationDAO extends ConnectionDAO {
         String motDePasse = null;
 
         try{
-            ps = connection.prepareStatement("SELECT * FROM IDENTIFICATION WHERE IDENTIFANT LIKE ?");
+            ps = connection.prepareStatement("SELECT * FROM IDENTIFICATION WHERE IDENTIFIANT LIKE ?");
             ps.setString(1, identifiant);
 
             rs = ps.executeQuery();
