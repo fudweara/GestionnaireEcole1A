@@ -1,5 +1,8 @@
 package Interface;
 
+import DAO.IdentificationDAO;
+import objetStockage.MotDePasse;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -90,19 +93,32 @@ public class FenetreIdentification extends JFrame {
     class ecouteBouton implements ActionListener {
         public void actionPerformed(ActionEvent e) {
 
-            if( champIdentifiant.getText().compareTo("admin")==0 && Arrays.equals( "password".toCharArray(), champMDP.getPassword() )){
-                System.out.println("Connection OK");
+            IdentificationDAO identificationDAO = new IdentificationDAO();
 
-                setVisible(false);
-                dispose(); // Destruction JFrame Object
+            /*
+            Pour ajouter avoir un hash pour un nouvel identifiant
 
-                Fenetre fenetre = new Fenetre();
 
+             */
+
+            try {
+                if( MotDePasse.verification(String.valueOf( champMDP.getPassword() ), identificationDAO.recuperationMotDePasse( champIdentifiant.getText()) )) {
+                    System.out.println("Connection OK");
+
+                    setVisible(false);
+                    dispose(); // Destruction JFrame Object
+
+                    Fenetre fenetre = new Fenetre();
+
+                } else{
+                    System.out.println("Erreur combinaison login/MDP");
+                    JOptionPane.showMessageDialog( null, "Combinaison login/MDP incorrecte","Erreur", JOptionPane.WARNING_MESSAGE);
+                }
+
+            } catch (Exception e1) {
+                e1.printStackTrace();
             }
-            else{
-                System.out.println("Erreur combinaison login/MDP");
-                JOptionPane.showMessageDialog( null, "Combinaison login/MDP incorrecte","Erreur", JOptionPane.WARNING_MESSAGE);
-            }
+
         }
     }
 }

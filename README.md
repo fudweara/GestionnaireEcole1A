@@ -48,3 +48,9 @@ PATCHNOTES :
 0.0.12:
 <li>Ajout des comentaires nécéssaires pour la javadoc</li>
 <li>Ajout d'un message lors de la modification de personnes</li>
+
+0.0.13:
+<li>Ajout d'une identification via base de données</li>
+<li>Ajout hashage mot de passe avec SHA512 avec sel</li>
+<li>Ajout de la fonction création de personnes</li>
+<li>Ajout de changement de titre de la fenetre lors de la navigation dans les différents menus du programme</li>

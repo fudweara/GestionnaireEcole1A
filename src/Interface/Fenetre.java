@@ -20,7 +20,7 @@ public class Fenetre extends JFrame{
         this.setLayout(new BorderLayout());
         this.setJMenuBar( barreDeNavigation );
         this.setTitle("Gestionnaire ESIGELEC");
-        this.setSize(900, 700);
+        this.setSize(900, 400);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.setResizable(false);
         this.setLocationRelativeTo(null);

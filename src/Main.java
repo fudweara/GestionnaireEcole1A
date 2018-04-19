@@ -8,7 +8,7 @@ import Interface.FenetreIdentification;
  */
 class Main {
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
 
         FenetreIdentification fenetreIdentification = new FenetreIdentification();
 

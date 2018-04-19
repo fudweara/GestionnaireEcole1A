@@ -19,6 +19,42 @@ public class TablePersonneDAO extends ConnectionDAO {
     }
 
 
+
+    public int ajoutPersonne(Personne personne){
+
+        ResultSet rs;
+        int retour = 0;
+
+        try{
+            ps = connection.prepareStatement("INSERT INTO personne VALUES ( null, ?,?, TO_DATE(?,'YYYY-MM-DD'),?)");
+            ps.setString(1, personne.getNom());
+            ps.setString(2, personne.getPrenom());
+            ps.setString(3, personne.getDateNaissance().getAnnee()+"-"+personne.getDateNaissance().getMois()+"-"+personne.getDateNaissance().getJour());
+            ps.setString(4, personne.getFonction());
+
+            ps.executeUpdate();
+            retour=1;
+
+        }catch (Exception e){
+            e.printStackTrace();
+            System.out.println("Erreur");
+        }finally {
+            // fermeture du preparedStatement et de la connexion
+            try {
+                if (ps != null)
+                    ps.close();
+            } catch (Exception ignore) {
+            }
+            try {
+                if (connection != null)
+                    connection.close();
+            } catch (Exception ignore) {
+            }
+        }
+        return retour;
+    }
+
+
     /**
      * Recherche dans la base de données toutes les personnes qui ont le nom envoyé en paramètre
      * @param nom (String)

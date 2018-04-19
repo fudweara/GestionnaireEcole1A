@@ -27,6 +27,7 @@ public class ModifierPersonne {
      */
     public ModifierPersonne( Fenetre fenetre ){
 
+        fenetre.setTitle("Gestionnaire ESIGELEC - Modifier une personne");
 
         formulairePersonne = new FormulairePersonne();
         recherchePersonne = new RecherchePersonne(fenetre,formulairePersonne);
