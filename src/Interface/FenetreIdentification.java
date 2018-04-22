@@ -117,6 +117,9 @@ public class FenetreIdentification extends JFrame {
 
             } catch (Exception e1) {
                 e1.printStackTrace();
+                System.out.println("Erreur combinaison login/MDP");
+                JOptionPane.showMessageDialog( null, "Combinaison login/MDP incorrecte","Erreur", JOptionPane.WARNING_MESSAGE);
+
             }
 
         }

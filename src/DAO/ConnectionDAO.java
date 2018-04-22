@@ -10,54 +10,44 @@ import java.sql.SQLException;
  */
 class ConnectionDAO {
 
-    Connection connection = null;
-    PreparedStatement ps = null;
+    private static Connection connection;
 
-    /**
-     * Constructeur qui connecte le programme à la base de données
-     */
-    public ConnectionDAO(){
+    /** Constructeur privé */
+    public static Connection getInstance(){
 
-        System.out.println("-------- Oracle JDBC Connection Test ------");
+        if(connection == null){
+            try {
 
-        try {
+                Class.forName("oracle.jdbc.driver.OracleDriver");
+            } catch (ClassNotFoundException e) {
 
-            Class.forName("oracle.jdbc.driver.OracleDriver");
-        } catch (ClassNotFoundException e) {
+                System.out.println(" Oracle JDBC Driver introuvable");
+                e.printStackTrace();
+            }
+            try {
 
-            System.out.println(" Oracle JDBC Driver introuvable");
-            e.printStackTrace();
-            return;
+                String PASS = "esigelec123";
+                String LOGIN = "GestionnaireESIG";
+                String URL = "jdbc:oracle:thin:@localhost:1521:XE";
+
+                connection = DriverManager.getConnection(URL, LOGIN, PASS);
+
+            } catch (SQLException e) {
+
+                System.out.println("Erreur Connection ......");
+                e.printStackTrace();
+
+            }
         }
-
-        System.out.println("Oracle JDBC Driver trouvé!");
-
-
-
-        try {
-
-            String PASS = "esigelec123";
-            String LOGIN = "GestionnaireESIG";
-            String URL = "jdbc:oracle:thin:@localhost:1521:XE";
-
-            connection = DriverManager.getConnection(URL, LOGIN, PASS);
-
-        } catch (SQLException e) {
-
-            System.out.println("Erreur Connection ......");
-            e.printStackTrace();
-            return;
-
-        }
-
-        if (connection != null) {
-            System.out.println("Connection à la base effectuée, modification possible!");
-        }
-        else {
-            System.out.println("Erreur lors de la connection!");
-        }
-
-
+        return connection;
     }
-
 }
+
+/**
+ *
+ try {
+ if (ConnectionDAO.getInstance() != null)
+ ConnectionDAO.getInstance().close();
+ } catch (Exception ignore) {
+ }
+ */

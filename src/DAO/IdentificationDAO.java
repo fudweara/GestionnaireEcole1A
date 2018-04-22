@@ -1,11 +1,14 @@
 package DAO;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-public class IdentificationDAO extends ConnectionDAO {
+public class IdentificationDAO {
+
+    PreparedStatement ps = null;
 
     public IdentificationDAO(){
-        super();
+        ConnectionDAO.getInstance();
     }
 
     public String recuperationMotDePasse(String identifiant){
@@ -14,7 +17,7 @@ public class IdentificationDAO extends ConnectionDAO {
         String motDePasse = null;
 
         try{
-            ps = connection.prepareStatement("SELECT * FROM IDENTIFICATION WHERE IDENTIFIANT LIKE ?");
+            ps = ConnectionDAO.getInstance().prepareStatement("SELECT * FROM IDENTIFICATION WHERE IDENTIFIANT LIKE ?");
             ps.setString(1, identifiant);
 
             rs = ps.executeQuery();
@@ -23,26 +26,17 @@ public class IdentificationDAO extends ConnectionDAO {
                 motDePasse = rs.getString("MOTDEPASSE");
 
             }
-
-
-
         }catch (Exception e) {
             e.printStackTrace();
             System.out.println("Erreur");
-        } finally {
+        }finally {
             // fermeture du preparedStatement et de la connexion
             try {
                 if (ps != null)
                     ps.close();
             } catch (Exception ignore) {
             }
-            try {
-                if (connection != null)
-                    connection.close();
-            } catch (Exception ignore) {
-            }
         }
         return motDePasse;
-
     }
 }

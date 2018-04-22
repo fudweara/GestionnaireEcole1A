@@ -3,19 +3,23 @@ package DAO;
 import objetStockage.DateDeNaissance;
 import objetStockage.Personne;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
 /**
  * Classe qui regroupe les méthodes pour gérer des personnes dans la base de données
  */
-public class TablePersonneDAO extends ConnectionDAO {
+public class TablePersonneDAO {
+
+
+    PreparedStatement ps = null;
 
     /**
      * Constructeur qui permet la connection avec la base de données
      */
     public TablePersonneDAO(){
-        super();
+        ConnectionDAO.getInstance();
     }
 
 
@@ -26,7 +30,7 @@ public class TablePersonneDAO extends ConnectionDAO {
         int retour = 0;
 
         try{
-            ps = connection.prepareStatement("INSERT INTO personne VALUES ( null, ?,?, TO_DATE(?,'YYYY-MM-DD'),?)");
+            ps = ConnectionDAO.getInstance().prepareStatement("INSERT INTO personne VALUES ( null, ?,?, TO_DATE(?,'YYYY-MM-DD'),?)");
             ps.setString(1, personne.getNom());
             ps.setString(2, personne.getPrenom());
             ps.setString(3, personne.getDateNaissance().getAnnee()+"-"+personne.getDateNaissance().getMois()+"-"+personne.getDateNaissance().getJour());
@@ -45,13 +49,37 @@ public class TablePersonneDAO extends ConnectionDAO {
                     ps.close();
             } catch (Exception ignore) {
             }
-            try {
-                if (connection != null)
-                    connection.close();
-            } catch (Exception ignore) {
-            }
         }
         return retour;
+    }
+
+    public int supprimerPersonne(Integer idPersonne) {
+        ResultSet rs;
+        int retour = 0;
+
+        try {
+
+            ps = ConnectionDAO.getInstance().prepareStatement("DELETE FROM personne WHERE IDPERSONNE = ?");
+            ps.setInt(1, idPersonne );
+
+            System.out.println("Personne ajoutée!");
+            ps.executeUpdate();
+            retour = 1;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Erreur");
+        } finally {
+            // fermeture du preparedStatement et de la connexion
+            try {
+                if (ps != null)
+                    ps.close();
+            } catch (Exception ignore) {
+            }
+
+            return retour;
+
+        }
     }
 
 
@@ -65,13 +93,11 @@ public class TablePersonneDAO extends ConnectionDAO {
         ArrayList<Personne> personne = new ArrayList<>();
 
         ResultSet rs;
-
         try {
-            ps = connection.prepareStatement("SELECT * FROM personne WHERE NOM_PERSONNE LIKE ?");
+            ps = ConnectionDAO.getInstance().prepareStatement("SELECT * FROM personne WHERE NOM_PERSONNE LIKE ?");
             ps.setString(1, nom);
 
             rs = ps.executeQuery();
-
 
             String date;
             String[] separation;
@@ -103,13 +129,9 @@ public class TablePersonneDAO extends ConnectionDAO {
                     ps.close();
             } catch (Exception ignore) {
             }
-            try {
-                if (connection != null)
-                    connection.close();
-            } catch (Exception ignore) {
-            }
         }
         return personne;
+
     }
 
     /**
@@ -122,7 +144,7 @@ public class TablePersonneDAO extends ConnectionDAO {
         int retour = 0;
 
         try {
-            ps = connection.prepareStatement("UPDATE PERSONNE SET NOM_PERSONNE = ?, PRENOM_PERSONNE = ?, DATENAISSANCE = TO_DATE(?,'YYYY-MM-DD'),FONCTION = ? WHERE IDPERSONNE=?");
+            ps = ConnectionDAO.getInstance().prepareStatement("UPDATE PERSONNE SET NOM_PERSONNE = ?, PRENOM_PERSONNE = ?, DATENAISSANCE = TO_DATE(?,'YYYY-MM-DD'),FONCTION = ? WHERE IDPERSONNE=?");
             ps.setString(1, personne.getNom());
             ps.setString(2, personne.getPrenom());
             ps.setString(3, personne.getDateNaissance().getAnnee()+"-"+personne.getDateNaissance().getMois()+"-"+personne.getDateNaissance().getJour());
@@ -141,11 +163,6 @@ public class TablePersonneDAO extends ConnectionDAO {
             try {
                 if (ps != null)
                     ps.close();
-            } catch (Exception ignore) {
-            }
-            try {
-                if (connection != null)
-                    connection.close();
             } catch (Exception ignore) {
             }
         }

@@ -1,7 +1,9 @@
 package Interface;
 
+import Interface.Menu.CreationCarteLeo;
 import Interface.Menu.CreationPersonne;
 import Interface.Menu.ModifierPersonne;
+import Interface.Menu.SupprimerPersonne;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -117,7 +119,7 @@ class BarreDeNavigation extends JMenuBar{
         public void actionPerformed(ActionEvent arg0) {
             System.out.println("Affichage écran ajout personne");
 
-            CreationPersonne creationPersonne = new CreationPersonne(fenetre);
+            new CreationPersonne(fenetre);
         }
     }
 
@@ -130,7 +132,7 @@ class BarreDeNavigation extends JMenuBar{
         public void actionPerformed(ActionEvent arg0) {
 
             System.out.println("Modifier personne");
-            ModifierPersonne modifierPersonne = new ModifierPersonne(fenetre);
+            new ModifierPersonne(fenetre);
         }
 
 
@@ -145,6 +147,7 @@ class BarreDeNavigation extends JMenuBar{
 
         public void actionPerformed(ActionEvent arg0) {
             System.out.println("Supprimer personne");
+            new SupprimerPersonne(fenetre);
         }
 
 
@@ -161,6 +164,7 @@ class BarreDeNavigation extends JMenuBar{
 
         public void actionPerformed(ActionEvent arg0) {
             System.out.println("Ajout carte Léo");
+            new CreationCarteLeo( fenetre );
         }
 
     }

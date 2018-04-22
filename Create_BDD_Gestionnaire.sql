@@ -36,24 +36,11 @@ CREATE TABLE Acces
 );
 
 
-CREATE TABLE CarteLeo
-(
-    idBadge INTEGER,
-    numeroBadge   VARCHAR2(50) CONSTRAINT NN_numeroBadge NOT NULL,
-    CONSTRAINT PK_CarteLeo PRIMARY KEY(idBadge)
-);
-CREATE SEQUENCE carteLeo_seq
-  START WITH     1
-  INCREMENT BY   1
-  NOCACHE
-  NOCYCLE;
-
-
 CREATE TABLE Personne
 (
     idPersonne     INTEGER,
-    nom_Personne            VARCHAR2(50) CONSTRAINT NN_nom NOT NULL,
-    prenom_Personne            VARCHAR2(50) CONSTRAINT NN_prenom NOT NULL,
+    nom_Personne            VARCHAR2(50) CONSTRAINT NN_nom_Personne NOT NULL,
+    prenom_Personne            VARCHAR2(50) CONSTRAINT NN_prenom_Personne NOT NULL,
     dateNaissance   DATE CONSTRAINT NN_dateNaissance NOT NULL,
     fonction            VARCHAR2(50) CONSTRAINT NN_fonction NOT NULL,
     CONSTRAINT PK_Personne PRIMARY KEY(idPersonne)
@@ -63,3 +50,11 @@ CREATE SEQUENCE personne_seq
   INCREMENT BY   1
   NOCACHE
   NOCYCLE;
+
+CREATE TABLE CarteLeo
+(
+    idCarte_Personne INTEGER,
+    numeroBadge   VARCHAR2(50) CONSTRAINT NN_numeroBadge NOT NULL,
+    CONSTRAINT PK_CarteLeo PRIMARY KEY(idCarte_Personne),
+    CONSTRAINT FK_idCarte_idPersonne FOREIGN KEY(idCarte_Personne) REFERENCES Personne(idPersonne) ON DELETE CASCADE
+);

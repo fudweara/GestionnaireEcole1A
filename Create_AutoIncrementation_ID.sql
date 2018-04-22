@@ -17,7 +17,7 @@ BEGIN
   FROM dual;
 END;
 
-
+/*
 CREATE OR REPLACE TRIGGER CarteLeo_on_insert
   BEFORE INSERT ON CarteLeo
   FOR EACH ROW
@@ -26,7 +26,7 @@ BEGIN
   INTO :new.idBadge
   FROM dual;
 END;
-
+*/
   
 CREATE OR REPLACE TRIGGER Personne_on_insert
   BEFORE INSERT ON Personne

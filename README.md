@@ -5,14 +5,20 @@ https://github.com/collab-uniba/socialcde4eclipse/wiki/How-to-import-a-GitHub-pr
 
 PROJET QUI UTILISE ORACLE DATABASE 11g Release 2
 
-Pour faire fonctionner le projet :
-<li> 1/Créer la BDD avec Create_BDD_Gestionnaire.sql</li>
-<li> 2/Créer la auto incrémentation des ID avec Create_AutoIncrementation_ID.sql ( On éxécute chaque bloc de création séparément)</li>
-<li> 3/importer le projet dans l'IDE</li>
-<li> 4/Lier la base de données dans l'IDE</li>
-<li> 5/ Ajouter à la structure du projet les dépendences correspondant au driver JDBC (http://www.oracle.com/technetwork/apps-tech/jdbc-112010-090769.html) </li>
-<li> 4/Executer le main dans src/Main.java</li>
 
+Pour faire fonctionner le projet :
+<li> 1/Créer la BDD avec Create_BDD_Gestionnaire.sql et Create_Identifiant.sql</li>
+<li> 2/Créer la auto incrémentation des ID avec Create_AutoIncrementation_ID.sql ( On éxécute chaque bloc de création séparément)</li>
+<li> 3/ Exécuter la commande SQL en commentaire dans Create_Identifiant.sql</li>
+<li> 4/importer le projet dans l'IDE</li>
+<li> 5/Lier la base de données dans l'IDE</li>
+<li> 6/ Ajouter à la structure du projet les dépendences correspondant au driver JDBC (http://www.oracle.com/technetwork/apps-tech/jdbc-112010-090769.html) </li>
+<li> 7/Executer le main dans src/Main.java</li>
+
+Pour se connecter à l'application :
+
+username : admin
+password : esigelec123
 
 PATCHNOTES :
 
@@ -54,3 +60,12 @@ PATCHNOTES :
 <li>Ajout hashage mot de passe avec SHA512 avec sel</li>
 <li>Ajout de la fonction création de personnes</li>
 <li>Ajout de changement de titre de la fenetre lors de la navigation dans les différents menus du programme</li>
+
+0.0.14:
+<li> Modification du script (table personne et carteLeo)</li>
+<li> Ajout de l'interraction avec la table carteLeo ( recherche de la la possession d'une carte par une personne et ajout d'une carte)</li>
+<li> Ajout d'une permière version de "Ajout carte Leo</li>
+<li> Ajout de la fonction supprimer Personne</li>
+<li> Correction d'une erreur qui pouvait se produire lors de la connection</li>
+<li> ConnectionDAO est maintenant un Singleton afin d'optimiser le code</li>
+<li> Suppression de la fermeture systématique de la connection à la base de données à la fin de chaque action dans la BDD</li>

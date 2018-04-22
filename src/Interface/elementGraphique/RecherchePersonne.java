@@ -1,5 +1,6 @@
 package Interface.elementGraphique;
 
+import DAO.TableCarteLeoDAO;
 import Interface.Fenetre;
 import DAO.TablePersonneDAO;
 import objetStockage.Personne;
@@ -31,6 +32,15 @@ public class RecherchePersonne {
     private JRadioButton[] bouttonJradio;
 
     private int idPersonneSelectionne;
+    private boolean personneSelectionne;
+
+    private boolean rechechePersonneAvecCarte;
+
+
+    public RecherchePersonne(boolean personneAvecCarte, Fenetre fenetre){
+        this(fenetre,null);
+        rechechePersonneAvecCarte = personneAvecCarte;
+    }
 
 
     /**
@@ -41,13 +51,16 @@ public class RecherchePersonne {
      */
     public RecherchePersonne(Fenetre fenetre,  FormulairePersonne formulairePersonne){
 
+
+        this.formulairePersonne = formulairePersonne;
         this.fenetre=fenetre;
-        this.formulairePersonne=formulairePersonne;
 
         declarationVariables();
         creationInterface();
 
         boutton.addActionListener(new ecouteBoutonRechercher());
+
+        rechechePersonneAvecCarte = false;
 
     }
 
@@ -64,6 +77,7 @@ public class RecherchePersonne {
         champDeRechercheNom = new JTextField();
         groupeButton = new ButtonGroup();
 
+        personneSelectionne = false;
     }
 
     /**
@@ -93,27 +107,33 @@ public class RecherchePersonne {
         public void actionPerformed(ActionEvent arg0) {
 
             TablePersonneDAO tablePersonneDAO = new TablePersonneDAO();
+            TableCarteLeoDAO tableCarteLeoDAO = new TableCarteLeoDAO();
 
             System.out.println("Appuie sur boutton validation");
 
             recherchePersonne.removeAll();
             creationInterface();
 
-
             listePersonne =  tablePersonneDAO.rechercherPersonne( champDeRechercheNom.getText() );
+
+
 
             bouttonJradio = new JRadioButton[listePersonne.size()];
 
             for(int i=0 ; ( i< listePersonne.size() && i < 5 ) ; i++){
 
+                System.out.println((tableCarteLeoDAO.connaitrePossession(listePersonne.get(i))));
 
-                bouttonJradio[i] = new JRadioButton(listePersonne.get(i).getNom()+" "+listePersonne.get(i).getPrenom());
-                groupeButton.add(bouttonJradio[i]);
-                bouttonJradio[i].setActionCommand( i+"" );
+                if( !rechechePersonneAvecCarte || !(tableCarteLeoDAO.connaitrePossession(listePersonne.get(i))) ) {
+                    bouttonJradio[i] = new JRadioButton(listePersonne.get(i).getNom()+" "+listePersonne.get(i).getPrenom());
+                    groupeButton.add(bouttonJradio[i]);
+                    bouttonJradio[i].setActionCommand( i+"" );
 
-                bouttonJradio[i].addActionListener( new ecouteSelection() );
+                    bouttonJradio[i].addActionListener( new ecouteSelection() );
 
-                recherchePersonne.add( bouttonJradio[i] );
+                    recherchePersonne.add( bouttonJradio[i] );
+                }
+
 
             }
             fenetre.updateWIndows();
@@ -130,8 +150,13 @@ public class RecherchePersonne {
 
             int persSelect = Integer.parseInt( groupeButton.getSelection().getActionCommand() );
 
-            formulairePersonne.setAtributs( listePersonne.get(persSelect).getNom(), listePersonne.get(persSelect).getPrenom(), listePersonne.get(persSelect).getDateNaissance(), listePersonne.get(persSelect).getFonction());
+            personneSelectionne = true;
             idPersonneSelectionne = listePersonne.get(persSelect).getId();
+
+            if (formulairePersonne != null) {
+                formulairePersonne.setAtributs( listePersonne.get(persSelect).getNom(), listePersonne.get(persSelect).getPrenom(), listePersonne.get(persSelect).getDateNaissance(), listePersonne.get(persSelect).getFonction());
+
+            }
         }
     }
 
@@ -150,5 +175,7 @@ public class RecherchePersonne {
     public int getIdPersonneSelectionne(){
         return idPersonneSelectionne;
     }
+
+    public boolean selectionPersonneEffectuee(){return personneSelectionne;}
 
 }
