@@ -80,7 +80,7 @@ public class CreationPersonne {
 
             System.out.println("Appuie sur boutton validation");
 
-            if( tablePersonneDAO.ajoutPersonne( new Personne(0, formulairePersonne.getNom(),formulairePersonne.getPrenom(), formulairePersonne.getDateDeNaissance(), formulairePersonne.getFonction()) ) == 1){
+            if( tablePersonneDAO.ajoutPersonne( new Personne(0, formulairePersonne.getNom(),formulairePersonne.getPrenom(), formulairePersonne.getDateDeNaissance(), formulairePersonne.getFonction()) )){
                 JOptionPane.showMessageDialog(null, "Ajout effectué !", "Message de confirmation",JOptionPane.INFORMATION_MESSAGE);
             }
             else{

@@ -23,11 +23,14 @@ public class TablePersonneDAO {
     }
 
 
+    /**
+     * Ajoute une personne dans la base de données
+     * @param personne (Personne)
+     * @return verificationAjout (boolean)
+     */
+    public boolean ajoutPersonne(Personne personne){
 
-    public int ajoutPersonne(Personne personne){
-
-        ResultSet rs;
-        int retour = 0;
+        boolean retour = false;
 
         try{
             ps = ConnectionDAO.getInstance().prepareStatement("INSERT INTO personne VALUES ( null, ?,?, TO_DATE(?,'YYYY-MM-DD'),?)");
@@ -37,7 +40,7 @@ public class TablePersonneDAO {
             ps.setString(4, personne.getFonction());
 
             ps.executeUpdate();
-            retour=1;
+            retour=true;
 
         }catch (Exception e){
             e.printStackTrace();
@@ -53,9 +56,14 @@ public class TablePersonneDAO {
         return retour;
     }
 
-    public int supprimerPersonne(Integer idPersonne) {
-        ResultSet rs;
-        int retour = 0;
+    /**
+     * Supprime une personne dans la base de données
+     * @param idPersonne (Integer)
+     * @return verificationSupression (boolean)
+     */
+    public boolean supprimerPersonne(Integer idPersonne) {
+
+        boolean retour = false;
 
         try {
 
@@ -64,7 +72,7 @@ public class TablePersonneDAO {
 
             System.out.println("Personne ajoutée!");
             ps.executeUpdate();
-            retour = 1;
+            retour = true;
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -137,11 +145,11 @@ public class TablePersonneDAO {
     /**
      * Remplace une personne dans la BDD par la personne mise en paramètre
      * @param personne (Personnne)
-     * @return Integer
+     * @return verificationAjout
      */
-    public int miseAJourPersonne(Personne personne){
+    public boolean miseAJourPersonne(Personne personne){
 
-        int retour = 0;
+        boolean retour = false;
 
         try {
             ps = ConnectionDAO.getInstance().prepareStatement("UPDATE PERSONNE SET NOM_PERSONNE = ?, PRENOM_PERSONNE = ?, DATENAISSANCE = TO_DATE(?,'YYYY-MM-DD'),FONCTION = ? WHERE IDPERSONNE=?");
@@ -152,7 +160,7 @@ public class TablePersonneDAO {
             ps.setInt(5, personne.getId() );
 
             ps.executeQuery();
-            retour = 1;
+            retour = true;
 
             System.out.println("Modification effectuée !");
 

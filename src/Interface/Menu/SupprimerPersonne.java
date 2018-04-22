@@ -8,6 +8,9 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * Classe qui représente le menu supprimer une personne
+ */
 public class SupprimerPersonne {
 
     private RecherchePersonne recherchePersonne;
@@ -15,11 +18,15 @@ public class SupprimerPersonne {
     private JButton bouttonSupprimer;
     private JPanel panelButtonSupprimer;
 
+    /**
+     * Constructeur de la classe SupprimerPersonne
+     * @param fenetre (Fenetre)
+     */
     public SupprimerPersonne(Fenetre fenetre){
 
         fenetre.setTitle("Gestionnaire ESIGELEC - Supprimer une personne");
 
-        recherchePersonne = new RecherchePersonne(false, fenetre);
+        recherchePersonne = new RecherchePersonne(fenetre,0,null);
 
         fenetre.setNewJPanel( recherchePersonne.getJPanel() );
         bouttonSupprimer = new JButton("Supprimer");
@@ -32,6 +39,9 @@ public class SupprimerPersonne {
 
     }
 
+    /**
+     * Fonction d'écoute pour le bouton Supprimer
+     */
     class actionButtonSupprimer implements ActionListener{
 
         public void actionPerformed(ActionEvent e) {
@@ -39,7 +49,7 @@ public class SupprimerPersonne {
             TablePersonneDAO tablePersonneDAO = new TablePersonneDAO();
 
             if( recherchePersonne.selectionPersonneEffectuee() ){
-                if( tablePersonneDAO.supprimerPersonne( recherchePersonne.getIdPersonneSelectionne() ) == 1 ){
+                if( tablePersonneDAO.supprimerPersonne( recherchePersonne.getIdPersonneSelectionne() ) ){
                     System.out.println("Supression effectuée : ID personne supprimée : "+recherchePersonne.getIdPersonneSelectionne());
                     JOptionPane.showMessageDialog(null, "Suppression effectuée !", "Message de confirmation",JOptionPane.INFORMATION_MESSAGE);
 

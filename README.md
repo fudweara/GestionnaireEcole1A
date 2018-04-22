@@ -69,3 +69,8 @@ PATCHNOTES :
 <li> Correction d'une erreur qui pouvait se produire lors de la connection</li>
 <li> ConnectionDAO est maintenant un Singleton afin d'optimiser le code</li>
 <li> Suppression de la fermeture systématique de la connection à la base de données à la fin de chaque action dans la BDD</li>
+
+0.0.15:
+<li> Modification du constructeur de la recherche de personne</li>
+<li> Ajout de commentaires pour la JAVADOC</li>
+<li> Chnagement du paramètre que réenvoie certaines variables ( int -> Boolean )</li>

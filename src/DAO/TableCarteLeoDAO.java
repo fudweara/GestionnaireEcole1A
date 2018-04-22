@@ -5,12 +5,23 @@ import objetStockage.Personne;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+/**
+ * Classe regroupant toutes les méthodes utiles pour la gestion des cartes Léo dans la base de données
+ */
 public class TableCarteLeoDAO {
 
     PreparedStatement ps = null;
 
+    /**
+     * Constructeur qui fait la connection avec la base de données
+     */
     public TableCarteLeoDAO(){ ConnectionDAO.getInstance(); }
 
+    /**
+     * Permet de savoir si une personne possède une carte Leo ou non
+     * @param personne (Personne)
+     * @return PossessionDuneCarte (Boolean)
+     */
     public boolean connaitrePossession(Personne personne){
         boolean possession = false;
 
@@ -42,6 +53,11 @@ public class TableCarteLeoDAO {
         return possession;
     }
 
+    /**
+     * Ajoute une carte Leo associée à une personne dans la base de données
+     * @param idPersonne (Integer)
+     * @return Verification (Boolean)
+     */
     public boolean ajouter(int idPersonne){
         boolean retour=false;
 

@@ -97,9 +97,7 @@ public class FenetreIdentification extends JFrame {
 
             /*
             Pour ajouter avoir un hash pour un nouvel identifiant
-
-
-             */
+            */
 
             try {
                 if( MotDePasse.verification(String.valueOf( champMDP.getPassword() ), identificationDAO.recuperationMotDePasse( champIdentifiant.getText()) )) {

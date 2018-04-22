@@ -12,7 +12,10 @@ class ConnectionDAO {
 
     private static Connection connection;
 
-    /** Constructeur privé */
+    /**
+     * Constructeur du singleton qui ne recrée pas une connection si elle est déjà existante
+     * @return Connection
+     */
     public static Connection getInstance(){
 
         if(connection == null){

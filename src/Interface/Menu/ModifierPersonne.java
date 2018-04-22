@@ -30,7 +30,7 @@ public class ModifierPersonne {
         fenetre.setTitle("Gestionnaire ESIGELEC - Modifier une personne");
 
         formulairePersonne = new FormulairePersonne();
-        recherchePersonne = new RecherchePersonne(fenetre,formulairePersonne);
+        recherchePersonne = new RecherchePersonne(fenetre,0,formulairePersonne);
         bouttonModifier = new JButton("Modifier");
         panelButtonModifier = new JPanel();
 
@@ -53,7 +53,7 @@ public class ModifierPersonne {
             Personne personneMiseAJour = new Personne ( recherchePersonne.getIdPersonneSelectionne(), formulairePersonne.getNom(), formulairePersonne.getPrenom(),formulairePersonne.getDateDeNaissance(),formulairePersonne.getFonction());
             TablePersonneDAO tablePersonneDAO = new TablePersonneDAO();
 
-            if( tablePersonneDAO.miseAJourPersonne(personneMiseAJour) == 1){
+            if( tablePersonneDAO.miseAJourPersonne(personneMiseAJour) ){
                 JOptionPane.showMessageDialog(null, "Modification effectuée !", "Message de confirmation",JOptionPane.INFORMATION_MESSAGE);
             }
             else{

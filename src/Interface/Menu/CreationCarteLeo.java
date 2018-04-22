@@ -8,6 +8,9 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * Classe qui représente le menu créer une carte Leo
+ */
 public class CreationCarteLeo {
 
     private Fenetre fenetre;
@@ -17,11 +20,15 @@ public class CreationCarteLeo {
     private JButton bouttonAjouterCarte;
     private JPanel panelBouttonAjouterCarte;
 
+    /**
+     * Constructeur de la classe CreationCarteLeo
+     * @param fenetre (Fenetre)
+     */
     public CreationCarteLeo(Fenetre fenetre){
 
         fenetre.setTitle("Gestionnaire ESIGELEC - Ajouter une carte Léo");
 
-        recherchePersonne = new RecherchePersonne(true, fenetre);
+        recherchePersonne = new RecherchePersonne(fenetre, 2, null);
 
         fenetre.setNewJPanel( recherchePersonne.getJPanel() );
         bouttonAjouterCarte = new JButton("Créer");
@@ -34,6 +41,9 @@ public class CreationCarteLeo {
 
     }
 
+    /**
+     * Fonction d'écoute pour le bouton Ajouter
+     */
     class actionBouttonAjouterCarte implements ActionListener{
 
         public void actionPerformed(ActionEvent e) {

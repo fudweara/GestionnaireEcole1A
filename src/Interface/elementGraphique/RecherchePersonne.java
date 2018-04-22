@@ -34,14 +34,13 @@ public class RecherchePersonne {
     private int idPersonneSelectionne;
     private boolean personneSelectionne;
 
-    private boolean rechechePersonneAvecCarte;
-
-
-    public RecherchePersonne(boolean personneAvecCarte, Fenetre fenetre){
-        this(fenetre,null);
-        rechechePersonneAvecCarte = personneAvecCarte;
-    }
-
+    /**
+     * Si /
+     * - 0 : recherche sans prise en compte des cartes
+     * - 1 : affichage des personnes avec une carte
+     * - 2 : affichage des personnes sans carte
+     */
+    private int typeRecherche;
 
     /**
      * Constructeur de la classe recherche de personnes
@@ -49,7 +48,7 @@ public class RecherchePersonne {
      * @param fenetre (Fenetre)
      * @param formulairePersonne (FormulairePersonne)
      */
-    public RecherchePersonne(Fenetre fenetre,  FormulairePersonne formulairePersonne){
+    public RecherchePersonne(Fenetre fenetre,int typeRecherche, FormulairePersonne formulairePersonne){
 
 
         this.formulairePersonne = formulairePersonne;
@@ -60,7 +59,7 @@ public class RecherchePersonne {
 
         boutton.addActionListener(new ecouteBoutonRechercher());
 
-        rechechePersonneAvecCarte = false;
+        this.typeRecherche = typeRecherche;
 
     }
 
@@ -124,7 +123,7 @@ public class RecherchePersonne {
 
                 System.out.println((tableCarteLeoDAO.connaitrePossession(listePersonne.get(i))));
 
-                if( !rechechePersonneAvecCarte || !(tableCarteLeoDAO.connaitrePossession(listePersonne.get(i))) ) {
+                if( typeRecherche == 0 || ( typeRecherche == 2 && !(tableCarteLeoDAO.connaitrePossession(listePersonne.get(i))) ) || ( typeRecherche == 1 && tableCarteLeoDAO.connaitrePossession(listePersonne.get(i)))  )  {
                     bouttonJradio[i] = new JRadioButton(listePersonne.get(i).getNom()+" "+listePersonne.get(i).getPrenom());
                     groupeButton.add(bouttonJradio[i]);
                     bouttonJradio[i].setActionCommand( i+"" );

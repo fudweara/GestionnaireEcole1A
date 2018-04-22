@@ -10,7 +10,7 @@ public class Fenetre extends JFrame{
 
 
     /**
-     * Fenetre de taille 900 par 700  qui possède une barre de navigation
+     * Fenetre de taille 900 par 400  qui possède une barre de navigation
      */
     public Fenetre(){
 
@@ -41,6 +41,9 @@ public class Fenetre extends JFrame{
         this.setVisible(true);
     }
 
+    /**
+     * Met à jour l'affichage
+     */
     public void updateWIndows(){
         this.setContentPane(fenetre);
         this.setVisible(true);

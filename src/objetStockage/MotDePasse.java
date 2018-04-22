@@ -6,6 +6,9 @@ import javax.crypto.spec.PBEKeySpec;
 import java.security.SecureRandom;
 import org.apache.commons.codec.binary.Base64;
 
+/**
+ * Regroupe toutes les méthodes pour gérer les mots de passe de façon sécurisée
+ */
 public class MotDePasse {
 
     private static final int iterations = 20*1000;
@@ -13,13 +16,26 @@ public class MotDePasse {
     private static final int longeurDeCleDemandee = 512;
 
 
-    public static String getSelDeHash(String motDePasse) throws Exception {
+    /**
+     * Retourne le mot de passe hash sous la forme : sel$motDePasseHashed
+     * @param motDePasse (String)
+     * @return Sel (String)
+     * @throws Exception
+     */
+    public static String getMotDePassePourStockage(String motDePasse) throws Exception {
 
         byte[] salt = SecureRandom.getInstance("SHA1PRNG").generateSeed(longeurSel);
 
         return Base64.encodeBase64String(salt) + "$" + hash(motDePasse, salt);
     }
 
+    /**
+     * Vérifie si le mot de passe correspond au mot de passe hash
+     * @param motDePasse (String)
+     * @param hashEnregistre (String)
+     * @return Boolean
+     * @throws Exception
+     */
     public static boolean verification(String motDePasse, String hashEnregistre) throws Exception{
 
         String[] saltAndPass = hashEnregistre.split("\\$");
@@ -30,8 +46,14 @@ public class MotDePasse {
         return hashOfInput.equals(saltAndPass[1]);
     }
 
-    // hash SHA-512
-
+    /**
+     * Hash le mot de passe en SHA-512+sel
+     *
+     * @param motDePasse (String)
+     * @param sel (byte[])
+     * @return hash (String)
+     * @throws Exception
+     */
     private static String hash(String motDePasse, byte[] sel) throws Exception {
 
         if (motDePasse == null || motDePasse.length() == 0){
