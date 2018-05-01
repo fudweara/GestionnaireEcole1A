@@ -102,8 +102,11 @@ public class TablePersonneDAO {
 
         ResultSet rs;
         try {
-            ps = ConnectionDAO.getInstance().prepareStatement("SELECT * FROM personne WHERE NOM_PERSONNE LIKE ?");
+            ps = ConnectionDAO.getInstance().prepareStatement("SELECT * FROM personne WHERE ( ( LOWER(NOM_PERSONNE) LIKE LOWER(?) ) OR ( LOWER(NOM_PERSONNE) LIKE LOWER(?) ) OR ( LOWER(NOM_PERSONNE) LIKE LOWER(?) ) OR ( LOWER(NOM_PERSONNE) LIKE LOWER(?) ) )");
             ps.setString(1, nom);
+            ps.setString(2, "%"+nom+"%");
+            ps.setString(3, nom+"%");
+            ps.setString(4, "%"+nom);
 
             rs = ps.executeQuery();
 

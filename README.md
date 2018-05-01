@@ -74,3 +74,8 @@ PATCHNOTES :
 <li> Modification du constructeur de la recherche de personne</li>
 <li> Ajout de commentaires pour la JAVADOC</li>
 <li> Chnagement du paramètre que réenvoie certaines variables ( int -> Boolean )</li>
+
+0.0.16:
+<li> Ajout de la suppression dans la fonction Carte léo DAO</li>
+<li> Ajout de la fonction supprimer carte Léo</li>
+<li> Amélioration de la recherche de personnes</li>

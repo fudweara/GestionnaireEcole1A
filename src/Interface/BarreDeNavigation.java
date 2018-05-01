@@ -1,9 +1,6 @@
 package Interface;
 
-import Interface.Menu.CreationCarteLeo;
-import Interface.Menu.CreationPersonne;
-import Interface.Menu.ModifierPersonne;
-import Interface.Menu.SupprimerPersonne;
+import Interface.Menu.*;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -177,6 +174,7 @@ class BarreDeNavigation extends JMenuBar{
 
         public void actionPerformed(ActionEvent arg0) {
             System.out.println("Supprimer carte Léo");
+            new SupprimerCarteLeo( fenetre );
         }
 
     }

@@ -14,7 +14,6 @@ import java.awt.event.ActionListener;
 public class CreationCarteLeo {
 
     private Fenetre fenetre;
-
     private RecherchePersonne recherchePersonne;
 
     private JButton bouttonAjouterCarte;
@@ -26,6 +25,7 @@ public class CreationCarteLeo {
      */
     public CreationCarteLeo(Fenetre fenetre){
 
+        this.fenetre = fenetre;
         fenetre.setTitle("Gestionnaire ESIGELEC - Ajouter une carte Léo");
 
         recherchePersonne = new RecherchePersonne(fenetre, 2, null);
@@ -50,7 +50,15 @@ public class CreationCarteLeo {
 
             TableCarteLeoDAO tableCarteLeoDAO = new TableCarteLeoDAO();
             System.out.println("Appuie sur le boutton Créer carte Léo");
-            tableCarteLeoDAO.ajouter( recherchePersonne.getIdPersonneSelectionne());
+
+            if(tableCarteLeoDAO.ajouter( recherchePersonne.getIdPersonneSelectionne())){
+                System.out.println("Carte Leo créee");
+                JOptionPane.showMessageDialog(null, "Carte Léo créee !", "Message de confirmation",JOptionPane.INFORMATION_MESSAGE);
+                new CreationCarteLeo(fenetre);
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "Selectionnez une personne !", "Erreur",JOptionPane.ERROR_MESSAGE);
+            }
 
         }
     }
