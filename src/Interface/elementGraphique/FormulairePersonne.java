@@ -3,9 +3,14 @@ package Interface.elementGraphique;
 import objetStockage.DateDeNaissance;
 
 import javax.swing.*;
-import javax.swing.text.MaskFormatter;
 import java.awt.*;
-import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
+import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
+import net.sourceforge.jdatepicker.impl.UtilDateModel;
+
 
 /**
  * Classe qui représente l'interface de Création d'une personne avec ses composants (JPanel,JTextField...)
@@ -15,8 +20,10 @@ public class FormulairePersonne{
     private JPanel formulairePersonne;
     private JTextField champNom;
     private JTextField champPrenom;
-    private JFormattedTextField champDateDeNaissance;
     private JTextField champFonction ;
+
+    private JDatePickerImpl datePicker;
+    private UtilDateModel model;
 
     /**
      * Constructeur d'un formulaire pour une personne
@@ -37,6 +44,8 @@ public class FormulairePersonne{
 
         configurationAtribut();
 
+
+
         nomJPanel.add(texteNom);
         nomJPanel.add(champNom);
         formulairePersonne.add(nomJPanel);
@@ -46,8 +55,15 @@ public class FormulairePersonne{
         formulairePersonne.add(prenomJPanel);
 
         dateDeNaissanceJPanel.add(textedateDeNaissance);
-        dateDeNaissanceJPanel.add(champDateDeNaissance);
+        //dateDeNaissanceJPanel.add(champDateDeNaissance);
+
+        model=new UtilDateModel();
+        JDatePanelImpl datePanel = new JDatePanelImpl(model);
+        datePicker = new JDatePickerImpl(datePanel);
+        datePicker.setBounds(220,350,120,30);
+        dateDeNaissanceJPanel.add(datePicker);
         formulairePersonne.add(dateDeNaissanceJPanel);
+
 
         fonctionJPanel.add(texteFonction);
         fonctionJPanel.add(champFonction);
@@ -63,18 +79,12 @@ public class FormulairePersonne{
         formulairePersonne = new JPanel();
         champNom = new JTextField("");
         champPrenom = new JTextField("");
-        try{
-            MaskFormatter dateDeNaissance = new MaskFormatter("## ## ####");
-            champDateDeNaissance = new JFormattedTextField(dateDeNaissance);
-        }
-        catch(ParseException e){e.printStackTrace();}
         champFonction = new JTextField("");
 
         formulairePersonne.setLayout(new BoxLayout(formulairePersonne, BoxLayout.PAGE_AXIS));
 
         champNom.setPreferredSize(new Dimension(150, 30));
         champPrenom.setPreferredSize(new Dimension(150, 30));
-        champDateDeNaissance.setPreferredSize(new Dimension(70, 30));
         champFonction.setPreferredSize(new Dimension(150, 30));
     }
 
@@ -91,6 +101,8 @@ public class FormulairePersonne{
      * @return nom (String)
      */
     public String getNom(){
+
+
         return champNom.getText();
     }
 
@@ -108,7 +120,13 @@ public class FormulairePersonne{
      */
     public DateDeNaissance getDateDeNaissance(){
 
-        String[] temp =  champDateDeNaissance.getText().split("\\s+");
+        Date selectedDate = (Date) datePicker.getModel().getValue();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        String date = simpleDateFormat.format(selectedDate);
+
+        String[] temp =  date.split("-");
+
+        System.out.println("Date : "+temp[0]+" "+temp[1]+" "+temp[2]);
         return new DateDeNaissance( temp[0],temp[1],temp[2]);
     }
 
@@ -131,8 +149,11 @@ public class FormulairePersonne{
 
         champNom.setText(nom);
         champPrenom.setText(prenom);
-        champDateDeNaissance.setText( dateDeNaissance.getJour()+""+dateDeNaissance.getMois()+""+dateDeNaissance.getAnnee() );
+        System.out.println(Integer.parseInt( dateDeNaissance.getMois()));
+        model.setDate(Integer.parseInt( dateDeNaissance.getAnnee() ), Integer.parseInt( dateDeNaissance.getMois() )-1, Integer.parseInt( dateDeNaissance.getJour() ));
+        model.setSelected(true);
         champFonction.setText(fonction);
 
     }
+
 }

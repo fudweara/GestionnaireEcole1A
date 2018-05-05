@@ -17,16 +17,14 @@ BEGIN
   FROM dual;
 END;
 
-/*
-CREATE OR REPLACE TRIGGER CarteLeo_on_insert
-  BEFORE INSERT ON CarteLeo
+CREATE OR REPLACE TRIGGER ACCES_on_insert
+  BEFORE INSERT ON Acces
   FOR EACH ROW
 BEGIN
-  SELECT carteLeo_seq.nextval
-  INTO :new.idBadge
+  SELECT acces_seq.nextval
+  INTO :new.idAcces
   FROM dual;
 END;
-*/
   
 CREATE OR REPLACE TRIGGER Personne_on_insert
   BEFORE INSERT ON Personne

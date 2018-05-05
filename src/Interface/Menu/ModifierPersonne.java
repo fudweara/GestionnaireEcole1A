@@ -21,11 +21,15 @@ public class ModifierPersonne {
     private JButton bouttonModifier;
     private JPanel panelButtonModifier;
 
+    Fenetre fenetre;
+
     /**
      * Constructeur du menu modifier personne qui place les élements graphiques et les fonctions d'écoute
      * @param fenetre (Fenetre)
      */
     public ModifierPersonne( Fenetre fenetre ){
+
+        this.fenetre = fenetre;
 
         fenetre.setTitle("Gestionnaire ESIGELEC - Modifier une personne");
 
@@ -55,6 +59,7 @@ public class ModifierPersonne {
 
             if( tablePersonneDAO.miseAJourPersonne(personneMiseAJour) ){
                 JOptionPane.showMessageDialog(null, "Modification effectuée !", "Message de confirmation",JOptionPane.INFORMATION_MESSAGE);
+                new ModifierPersonne(fenetre);
             }
             else{
                 JOptionPane.showMessageDialog(null, "Tous les champs doivent être complétés et la date correctement entrée", "Erreur",JOptionPane.ERROR_MESSAGE);

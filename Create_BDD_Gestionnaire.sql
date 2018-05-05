@@ -13,7 +13,8 @@ CREATE SEQUENCE lieu_seq
   NOCACHE
   NOCYCLE;
 
-  
+
+
 CREATE TABLE TypeAcces
 (
     idTypeAcces     INTEGER,
@@ -26,14 +27,22 @@ CREATE SEQUENCE typeAcces_seq
   NOCACHE
   NOCYCLE;
 
+
 CREATE TABLE Acces
 (
+    idAcces INTEGER,
     idLieu     INTEGER,
+    typeAcces VARCHAR2(50) NOT NULL,
     idTypeAcces INTEGER,
-    CONSTRAINT PK_Acces PRIMARY KEY(idLieu, idTypeAcces),
-    CONSTRAINT FK_idLieu FOREIGN KEY(idLieu) REFERENCES Lieu(idLieu) ON DELETE CASCADE,
+    CONSTRAINT PK_Acces PRIMARY KEY(idAcces),
+    CONSTRAINT FK_idLieu FOREIGN KEY(idLieu) REFERENCES Lieu(idLieu) ON DELETE CASCADE
     CONSTRAINT FK_idTypeAcces FOREIGN KEY(idTypeAcces) REFERENCES TypeAcces(idTypeAcces) ON DELETE CASCADE
 );
+CREATE SEQUENCE acces_seq
+  START WITH     1
+  INCREMENT BY   1
+  NOCACHE
+  NOCYCLE;
 
 
 CREATE TABLE Personne

@@ -42,14 +42,14 @@ PATCHNOTES :
 
 0.0.10 :
 
-<li> Ajout de la lecture de personnes dans la base de données ( ATTENTION : La lecture des dates n'est pas fonctionnelle pour le moment) </li>
-<li> Ajout de recherche de personne</li>
-<li> Ajout de la mise à jour du formulaire de recherche lors de la selection d'une personne avec la recherche</li>
+<li>Ajout de la lecture de personnes dans la base de données ( ATTENTION : La lecture des dates n'est pas fonctionnelle pour le moment) </li>
+<li>Ajout de recherche de personne</li>
+<li>Ajout de la mise à jour du formulaire de recherche lors de la selection d'une personne avec la recherche</li>
 
 0.0.11:
-<li> Fix de la récupération de la date dans la base de données</li>
-<li> Ajout d'une fonction de mise à jour de personne dans la base de données</li>
-<li> Ajout de la fonction Modifier une personne</li>
+<li>Fix de la récupération de la date dans la base de données</li>
+<li>Ajout d'une fonction de mise à jour de personne dans la base de données</li>
+<li>Ajout de la fonction Modifier une personne</li>
 
 0.0.12:
 <li>Ajout des comentaires nécéssaires pour la javadoc</li>
@@ -62,20 +62,31 @@ PATCHNOTES :
 <li>Ajout de changement de titre de la fenetre lors de la navigation dans les différents menus du programme</li>
 
 0.0.14:
-<li> Modification du script (table personne et carteLeo)</li>
-<li> Ajout de l'interraction avec la table carteLeo ( recherche de la la possession d'une carte par une personne et ajout d'une carte)</li>
-<li> Ajout d'une permière version de "Ajout carte Leo</li>
-<li> Ajout de la fonction supprimer Personne</li>
-<li> Correction d'une erreur qui pouvait se produire lors de la connection</li>
-<li> ConnectionDAO est maintenant un Singleton afin d'optimiser le code</li>
-<li> Suppression de la fermeture systématique de la connection à la base de données à la fin de chaque action dans la BDD</li>
+<li>Modification du script (table personne et carteLeo)</li>
+<li>Ajout de l'interraction avec la table carteLeo ( recherche de la la possession d'une carte par une personne et ajout d'une carte)</li>
+<li>Ajout d'une permière version de "Ajout carte Leo</li>
+<li>Ajout de la fonction supprimer Personne</li>
+<li>Correction d'une erreur qui pouvait se produire lors de la connection</li>
+<li>ConnectionDAO est maintenant un Singleton afin d'optimiser le code</li>
+<li>Suppression de la fermeture systématique de la connection à la base de données à la fin de chaque action dans la BDD</li>
 
 0.0.15:
-<li> Modification du constructeur de la recherche de personne</li>
-<li> Ajout de commentaires pour la JAVADOC</li>
-<li> Chnagement du paramètre que réenvoie certaines variables ( int -> Boolean )</li>
+<li>Modification du constructeur de la recherche de personne</li>
+<li>Ajout de commentaires pour la JAVADOC</li>
+<li>Chnagement du paramètre que réenvoie certaines variables ( int -> Boolean )</li>
 
 0.0.16:
-<li> Ajout de la suppression dans la fonction Carte léo DAO</li>
-<li> Ajout de la fonction supprimer carte Léo</li>
-<li> Amélioration de la recherche de personnes</li>
+<li>Ajout de la suppression dans la fonction Carte léo DAO</li>
+<li>Ajout de la fonction supprimer carte Léo</li>
+<li>Amélioration de la recherche de personnes</li>
+
+0.0.17:
+<li>Ajout d'objet pour représenter un horaire et un lieu</li>
+<li>Ajout d'un formulaire adapté à un lieu</li>
+<li>Ajout de la fonction d'ajout d'un lieu dans la base de données</li>
+<li>Ajout d'une première version d'ajouter un lieu ( ne prends pas encore la possibilité de pouvoir ajouter un type d'accès aux lieux )</li>
+
+0.0.18:
+<li>Ajout de la connection avec la BDD d'accès</li>
+<li>Ajout d'une fenetre pour lier lieu et type d'acès (accès)</li>
+<li> Implémentation JDatePickerImpl ( OPEN SOURCE )</li>

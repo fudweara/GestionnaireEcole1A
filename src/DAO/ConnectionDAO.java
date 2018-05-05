@@ -45,12 +45,3 @@ class ConnectionDAO {
         return connection;
     }
 }
-
-/**
- *
- try {
- if (ConnectionDAO.getInstance() != null)
- ConnectionDAO.getInstance().close();
- } catch (Exception ignore) {
- }
- */

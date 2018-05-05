@@ -60,7 +60,7 @@ public class TableCarteLeoDAO {
      * @return Verification (Boolean)
      */
     public boolean ajouter(int idPersonne){
-        boolean retour=false;
+        boolean retour = false;
 
         try {
             ps = ConnectionDAO.getInstance().prepareStatement("INSERT INTO CARTELEO VALUES (?,?)");

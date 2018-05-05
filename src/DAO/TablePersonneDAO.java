@@ -118,6 +118,8 @@ public class TablePersonneDAO {
 
                 date = rs.getString("DATENAISSANCE");
 
+                System.out.println(date);
+
                 separationJour = date.split("\\s+");
                 separation = separationJour[0].split("-");
 

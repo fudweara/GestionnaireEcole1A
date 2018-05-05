@@ -26,6 +26,7 @@ class BarreDeNavigation extends JMenuBar{
 
     private JMenuItem creationLieu;
     private JMenuItem modificationLieu;
+    private JMenuItem creationTypeAcces;
 
     private JMenuItem listeAcces;
     private JMenuItem rechercheAcces;
@@ -65,6 +66,7 @@ class BarreDeNavigation extends JMenuBar{
 
         creationLieu = new JMenuItem("Créer un lieu");
         modificationLieu = new JMenuItem("Modifier un lieu");
+        creationTypeAcces = new JMenuItem("Création type accès");
 
         listeAcces = new JMenuItem("Lister");
         rechercheAcces = new JMenuItem("Rechercher");
@@ -78,6 +80,7 @@ class BarreDeNavigation extends JMenuBar{
 
         gestionLieux.add(creationLieu);
         gestionLieux.add(modificationLieu);
+        gestionLieux.add(creationTypeAcces);
 
         gestionAcces.add(listeAcces);
         gestionAcces.add(rechercheAcces);
@@ -102,6 +105,7 @@ class BarreDeNavigation extends JMenuBar{
 
         creationLieu.addActionListener(new boutonCreationLieu());
         modificationLieu.addActionListener(new boutonModificationLieu());
+        creationTypeAcces.addActionListener(new boutonCreationTypeAcces());
 
         listeAcces.addActionListener(new boutonListeAcces());
         rechercheAcces.addActionListener(new boutonRechercheAcces());
@@ -190,8 +194,8 @@ class BarreDeNavigation extends JMenuBar{
 
         public void actionPerformed(ActionEvent arg0) {
             System.out.println("Création Lieu");
+            new CreationLieu( fenetre);
         }
-
     }
 
 
@@ -202,8 +206,17 @@ class BarreDeNavigation extends JMenuBar{
 
         public void actionPerformed(ActionEvent arg0) {
             System.out.println("Modification Lieu");
+            new ModifierLieu( fenetre );
         }
 
+    }
+
+    class boutonCreationTypeAcces implements ActionListener{
+
+        public void actionPerformed(ActionEvent arg0) {
+            System.out.println("Création type d'accès");
+            new CreationTypeAcces( fenetre );
+        }
     }
 
 
