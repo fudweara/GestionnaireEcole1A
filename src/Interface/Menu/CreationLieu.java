@@ -1,5 +1,6 @@
 package Interface.Menu;
 
+import DAO.TableAccesDAO;
 import Interface.FenetreLierLieuAcces;
 import DAO.TableLieuDAO;
 import Interface.Fenetre;
@@ -68,17 +69,29 @@ public class CreationLieu {
             lieu.setHoraireFermeture( formulaireLieu.getHoraireFermeture() );
             lieu.setNombreAcces( formulaireLieu.getNombreAcces() );
 
-            if ( tableLieuDAO.ajouter( lieu ) ){
+            if ( !tableLieuDAO.presenceDuLieu( lieu ) ){
                 System.out.println("Lieu créee");
-                JOptionPane.showMessageDialog(null, "Lieu crée !", "Message de confirmation",JOptionPane.INFORMATION_MESSAGE);
-                new CreationLieu(fenetre);
+
+                if(formulaireLieu.getNombreAcces()>= fenetreLierLieuAcces.nombreAccesDefini() ){
+
+                    tableLieuDAO.ajouter( lieu );
+
+                    TableAccesDAO tableAccesDAO = new TableAccesDAO();
+                    tableAccesDAO.ajouterListeAcces(tableLieuDAO.getID(lieu), lieu.getListeAcces());
+
+                    JOptionPane.showMessageDialog(null, "Lieu crée !", "Message de confirmation",JOptionPane.INFORMATION_MESSAGE);
+                    new CreationLieu(fenetre);
+
+                }
+                else{
+                    System.out.println("Erreur Ajout accès");
+                    JOptionPane.showMessageDialog(null, "Le nombre d'accès défini est supérieur au nombre d'accès du lieu", "Erreur",JOptionPane.ERROR_MESSAGE);
+
+                }
             }
             else{
-                JOptionPane.showMessageDialog(null, "Erreur lors de l'enregistrement du lieu", "Erreur",JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Nom du lieu déjà présent dans la base de données", "Erreur",JOptionPane.ERROR_MESSAGE);
             }
-
-
-
         }
     }
 
@@ -94,7 +107,6 @@ public class CreationLieu {
             else{
                 fenetreLierLieuAcces = new FenetreLierLieuAcces(lieu);
                 fenetreLierLieuAcces.fenetreVisible();
-
             }
 
         }

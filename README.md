@@ -90,3 +90,6 @@ PATCHNOTES :
 <li>Ajout de la connection avec la BDD d'accès</li>
 <li>Ajout d'une fenetre pour lier lieu et type d'acès (accès)</li>
 <li> Implémentation JDatePickerImpl ( OPEN SOURCE )</li>
+
+0.0.19:
+<li>Ajout d'ajouts</li>

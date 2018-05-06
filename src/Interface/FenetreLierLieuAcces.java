@@ -1,5 +1,7 @@
 package Interface;
 
+import DAO.TableAccesDAO;
+import DAO.TableLieuDAO;
 import DAO.TableTypeAccesDAO;
 import objetStockage.Lieu;
 
@@ -21,6 +23,8 @@ public class FenetreLierLieuAcces extends JFrame implements ListSelectionListene
     private JComboBox listeDeroulanteTypeAcces;
 
     private TableTypeAccesDAO tableTypeAccesDAO;
+    private TableLieuDAO tableLieuDAO;
+    private TableAccesDAO tableAccesDAO;
     private Lieu lieu;
 
     public FenetreLierLieuAcces(Lieu lieu){
@@ -39,11 +43,20 @@ public class FenetreLierLieuAcces extends JFrame implements ListSelectionListene
 
         listeModele = new DefaultListModel();
 
+        tableLieuDAO = new TableLieuDAO();
+        tableAccesDAO = new TableAccesDAO();
+        tableTypeAccesDAO = new TableTypeAccesDAO();
+
+        lieu.setIDLieu( tableLieuDAO.getID( lieu ));
+        lieu.setIDlisteAcces( tableAccesDAO.recupererListeAcces( lieu.getIDLieu()));
+
         for(int i = 0 ; i<lieu.getListeAcces().size() ; i++ ){
-            listeModele.addElement(lieu.getListeAcces().get(i));
+            listeModele.addElement( tableTypeAccesDAO.nomTypeEmplacement( lieu.getListeAcces().get(i) ) );
+
         }
 
         listeAcces = new JList(listeModele);
+
 
         //Creation de la liste et paramètrage.
 
@@ -133,7 +146,7 @@ public class FenetreLierLieuAcces extends JFrame implements ListSelectionListene
 
             listeModele.addElement(nomAjout);
 
-            lieu.ajoutAcces(nomAjout);
+            lieu.ajoutAcces(tableTypeAccesDAO.getID(nomAjout));
 
             int index = listeAcces.getSelectedIndex();
             index++;
@@ -171,6 +184,8 @@ public class FenetreLierLieuAcces extends JFrame implements ListSelectionListene
         }
     }
 
-
+    public int nombreAccesDefini(){
+        return listeAcces.getModel().getSize();
+    }
 
 }

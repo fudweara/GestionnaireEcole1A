@@ -115,8 +115,6 @@ public class RecherchePersonne {
 
             listePersonne =  tablePersonneDAO.rechercherPersonne( champDeRechercheNom.getText() );
 
-
-
             bouttonJradio = new JRadioButton[listePersonne.size()];
 
             for(int i=0 ; ( i< listePersonne.size() && i < 5 ) ; i++){

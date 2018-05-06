@@ -1,6 +1,7 @@
 package Interface.elementGraphique;
 
 import objetStockage.Horaire;
+import objetStockage.Lieu;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
@@ -172,6 +173,20 @@ public class FormulaireLieu {
             }
         }
 
+
+    }
+
+    public void setAtributs(Lieu lieu){
+
+        champEmplacement.setText(lieu.getEmplacement());
+
+        listeDeroulanteHeureOuv.setSelectedItem(Integer.parseInt( lieu.getHoraireOuverture().getHeures() ));
+        listeDeroulanteMinuteOuv.setSelectedItem(Integer.parseInt( lieu.getHoraireOuverture().getMinutes() ));
+
+        listeDeroulanteHeureFerm.setSelectedItem(Integer.parseInt( lieu.getHoraireFermeture().getHeures() ));
+        listeDeroulanteMinuteFerm.setSelectedItem(Integer.parseInt( lieu.getHoraireFermeture().getMinutes() ));
+
+        champNombreAcces.setText( ""+lieu.getNombreAcces() );
 
     }
 }

@@ -4,15 +4,16 @@ import java.util.ArrayList;
 
 public class Lieu {
 
+    private int IDLieu;
     private String emplacement;
     private Horaire horaireOuverture;
     private Horaire horaireFermeture;
     private int nombreAcces;
-    private ArrayList<String> listeAcces;
+    private ArrayList<Integer> IDlisteAcces;
 
     public Lieu() {
 
-        listeAcces = new ArrayList<>();
+        IDlisteAcces = new ArrayList<>();
 
     }
 
@@ -22,7 +23,7 @@ public class Lieu {
         this.horaireFermeture = horaireFermeture;
         this.nombreAcces = nombreAcces;
 
-        listeAcces = new ArrayList<String>();
+        IDlisteAcces = new ArrayList<>();
     }
 
     public String getEmplacement() {
@@ -57,15 +58,27 @@ public class Lieu {
         this.nombreAcces = nombreAcces;
     }
 
-    public ArrayList<String> getListeAcces() {
-        return listeAcces;
+    public ArrayList<Integer> getListeAcces() {
+        return IDlisteAcces;
     }
 
-    public void ajoutAcces(String listeAcces) {
-        this.listeAcces.add(listeAcces);
+    public void ajoutAcces(int listeAcces) {
+        this.IDlisteAcces.add(listeAcces);
     }
 
     public void supprimerAcces(int index){
-        listeAcces.remove(index);
+        IDlisteAcces.remove(index);
+    }
+
+    public void setIDLieu(int ID){
+        IDLieu=ID;
+    }
+
+    public void setIDlisteAcces(ArrayList<Integer> IDlisteAcces) {
+        this.IDlisteAcces = IDlisteAcces;
+    }
+
+    public int getIDLieu(){
+        return IDLieu;
     }
 }

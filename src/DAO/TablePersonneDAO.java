@@ -128,7 +128,6 @@ public class TablePersonneDAO {
                 System.out.print(rs.getString("NOM_PERSONNE")+" "+ rs .getString("PRENOM_PERSONNE")+" "+ rs.getString("FONCTION")+" ");
                 System.out.println( separation[2]+" "+separation[1]+" "+separation[0]+" " );
 
-
             }
 
 

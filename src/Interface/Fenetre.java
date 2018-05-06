@@ -54,15 +54,15 @@ public class Fenetre extends JFrame{
     /**
      * Ajoute un JPanel sur la fenetre sur la même colonnne que les autres pannels
      *
-     * @param jPanel (JPanel)
+     * @param component (Component)
      */
-    public void addJPanel(JPanel jPanel, String typeEmplacement){
+    public void addJPanel(Component component, String typeEmplacement){
 
         if(typeEmplacement.compareTo("")==0){
-            fenetre.add(jPanel);
+            fenetre.add(component);
         }
         else{
-            fenetre.add(jPanel, typeEmplacement);
+            fenetre.add(component, typeEmplacement);
         }
 
         this.setContentPane(fenetre);
