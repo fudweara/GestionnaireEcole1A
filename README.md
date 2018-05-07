@@ -91,5 +91,7 @@ PATCHNOTES :
 <li>Ajout d'une fenetre pour lier lieu et type d'acès (accès)</li>
 <li> Implémentation JDatePickerImpl ( OPEN SOURCE )</li>
 
-0.0.19:
-<li>Ajout d'ajouts</li>
+0.1:
+<li>Ajout du menu permetant de modifier un lieu</li>
+<li>Refonte gestion des interfaces</li>
+<li>Optimisation du code</li>

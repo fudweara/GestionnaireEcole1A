@@ -15,13 +15,10 @@ import java.awt.event.ActionListener;
  */
 public class ModifierPersonne {
 
-    private RecherchePersonne recherchePersonne;
-    private FormulairePersonne formulairePersonne;
+    private final RecherchePersonne recherchePersonne;
+    private final FormulairePersonne formulairePersonne;
 
-    private JButton bouttonModifier;
-    private JPanel panelButtonModifier;
-
-    Fenetre fenetre;
+    private final Fenetre fenetre;
 
     /**
      * Constructeur du menu modifier personne qui place les élements graphiques et les fonctions d'écoute
@@ -29,22 +26,25 @@ public class ModifierPersonne {
      */
     public ModifierPersonne( Fenetre fenetre ){
 
+        JButton bouttonModifier = new JButton("Modifier");
+
         this.fenetre = fenetre;
 
         fenetre.setTitle("Gestionnaire ESIGELEC - Modifier une personne");
 
-        formulairePersonne = new FormulairePersonne();
+        formulairePersonne = new FormulairePersonne(bouttonModifier);
         recherchePersonne = new RecherchePersonne(fenetre,0,formulairePersonne);
-        bouttonModifier = new JButton("Modifier");
-        panelButtonModifier = new JPanel();
 
-        fenetre.setNewJPanel( recherchePersonne.getJPanel() );
-        fenetre.addJPanel(formulairePersonne.getJPanel(),"");
+        // Ajout éléments graphiques
+        fenetre.getFenetre().removeAll();
+        fenetre.getFenetre().setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        fenetre.getFenetre().add( recherchePersonne );
+        fenetre.getFenetre().add(formulairePersonne);
+        fenetre.getFenetre().add(bouttonModifier);
+        fenetre.updateAffichage();
 
-        panelButtonModifier.add(bouttonModifier);
+        // Ajout écoute pour des actions
         bouttonModifier.addActionListener(new actionButtonValider());
-
-        fenetre.addJPanel(panelButtonModifier,"");
     }
 
     /**

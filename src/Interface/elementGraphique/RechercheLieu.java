@@ -12,9 +12,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-public class RechercheLieu implements ListSelectionListener {
-
-    private JPanel rechercheLieu;
+public class RechercheLieu extends JPanel implements ListSelectionListener {
 
     private Fenetre fenetre;
     private FormulaireLieu formulaireLieu;
@@ -36,7 +34,6 @@ public class RechercheLieu implements ListSelectionListener {
         this.formulaireLieu = formulaireLieu;
 
         jlisteLieu = new JList();
-        rechercheLieu = new JPanel();
         boutton = new JButton("Ok");
         JPanelRechercheEtBOuton = new JPanel();
         champDeRechercheNom = new JTextField();
@@ -48,15 +45,15 @@ public class RechercheLieu implements ListSelectionListener {
 
     }
     private void creationInterface(){
-        rechercheLieu.setPreferredSize(new Dimension(300,300));
+        setPreferredSize(new Dimension(300,300));
 
         champDeRechercheNom.setPreferredSize(new Dimension(249, 30));
         champDeRechercheNom.setForeground(Color.BLACK);
-        rechercheLieu.add(champDeRechercheNom,BorderLayout.PAGE_START);
+        add(champDeRechercheNom,BorderLayout.PAGE_START);
 
         JPanelRechercheEtBOuton.setPreferredSize(new Dimension(249, 30));
         JPanelRechercheEtBOuton.add(boutton,BorderLayout.CENTER);
-        rechercheLieu.add(JPanelRechercheEtBOuton,BorderLayout.PAGE_START);
+        add(JPanelRechercheEtBOuton,BorderLayout.PAGE_START);
 
         //Creation de la liste et paramètrage.
 
@@ -67,7 +64,7 @@ public class RechercheLieu implements ListSelectionListener {
         jlisteLieu.setVisibleRowCount(5);
         JScrollPane listScrollPane = new JScrollPane(jlisteLieu);
         listScrollPane.setPreferredSize(new Dimension(300, 240));
-        rechercheLieu.add(listScrollPane, BorderLayout.CENTER);
+        add(listScrollPane, BorderLayout.CENTER);
     }
 
     @Override
@@ -82,7 +79,7 @@ public class RechercheLieu implements ListSelectionListener {
 
             System.out.println("Appuie sur boutton recherche");
 
-            rechercheLieu.removeAll();
+            removeAll();
             creationInterface();
 
             listeLieu = tableLieuDAO.rechercherLieu( champDeRechercheNom.getText() );
@@ -91,12 +88,8 @@ public class RechercheLieu implements ListSelectionListener {
                 listeModele.addElement(listeLieu.get(i).getEmplacement());
             }
 
-            fenetre.updateWIndows();
+            fenetre.updateAffichage();
 
         }
-    }
-
-    public JPanel getJPanel(){
-        return rechercheLieu;
     }
 }

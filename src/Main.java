@@ -10,7 +10,7 @@ class Main {
 
     public static void main(String[] args) {
 
-        FenetreIdentification fenetreIdentification = new FenetreIdentification();
+        new FenetreIdentification();
 
     }
 

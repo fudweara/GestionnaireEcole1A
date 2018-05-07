@@ -3,6 +3,8 @@ package Interface.elementGraphique;
 import objetStockage.DateDeNaissance;
 
 import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import java.awt.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -15,20 +17,22 @@ import net.sourceforge.jdatepicker.impl.UtilDateModel;
 /**
  * Classe qui représente l'interface de Création d'une personne avec ses composants (JPanel,JTextField...)
  */
-public class FormulairePersonne{
+public class FormulairePersonne extends JPanel{
 
-    private JPanel formulairePersonne;
     private JTextField champNom;
     private JTextField champPrenom;
     private JTextField champFonction ;
 
-    private JDatePickerImpl datePicker;
-    private UtilDateModel model;
+    private  JDatePickerImpl datePicker;
+    private  UtilDateModel model;
+
+    private final JButton bouttonCreer;
+
 
     /**
      * Constructeur d'un formulaire pour une personne
      */
-    public FormulairePersonne(){
+    public FormulairePersonne(JButton bouttonCreer){
 
         // Texte devant chaque champ de recherche
         JLabel texteNom = new JLabel("Nom :");
@@ -41,60 +45,62 @@ public class FormulairePersonne{
         JPanel prenomJPanel = new JPanel();
         JPanel dateDeNaissanceJPanel = new JPanel();
         JPanel fonctionJPanel = new JPanel();
+        this.bouttonCreer=bouttonCreer;
 
         configurationAtribut();
 
-
-
+        // Ajout champ + texte pour nom et prenom
         nomJPanel.add(texteNom);
         nomJPanel.add(champNom);
-        formulairePersonne.add(nomJPanel);
+        add(nomJPanel);
 
         prenomJPanel.add(textePrenom);
         prenomJPanel.add(champPrenom);
-        formulairePersonne.add(prenomJPanel);
+        add(prenomJPanel);
 
+        // Ajout du texte et calendrier pour la date de naissance
         dateDeNaissanceJPanel.add(textedateDeNaissance);
-        //dateDeNaissanceJPanel.add(champDateDeNaissance);
-
-        model=new UtilDateModel();
-        JDatePanelImpl datePanel = new JDatePanelImpl(model);
-        datePicker = new JDatePickerImpl(datePanel);
-        datePicker.setBounds(220,350,120,30);
         dateDeNaissanceJPanel.add(datePicker);
-        formulairePersonne.add(dateDeNaissanceJPanel);
+        add(dateDeNaissanceJPanel);
 
-
+        //Ajout champ + texte pour la fonction
         fonctionJPanel.add(texteFonction);
         fonctionJPanel.add(champFonction);
-        formulairePersonne.add(fonctionJPanel);
-
+        add(fonctionJPanel);
     }
+
 
     /**
      * Configure les attributs du formulaire
      */
     private void configurationAtribut(){
 
-        formulairePersonne = new JPanel();
+        setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+        ecouteChampsTexte documentListener = new ecouteChampsTexte();
+        bouttonCreer.setEnabled(false);
+
         champNom = new JTextField("");
-        champPrenom = new JTextField("");
-        champFonction = new JTextField("");
-
-        formulairePersonne.setLayout(new BoxLayout(formulairePersonne, BoxLayout.PAGE_AXIS));
-
         champNom.setPreferredSize(new Dimension(150, 30));
+        champNom.getDocument().addDocumentListener(documentListener);
+
+        champPrenom = new JTextField("");
         champPrenom.setPreferredSize(new Dimension(150, 30));
+        champPrenom.getDocument().addDocumentListener(documentListener);
+
+        model=new UtilDateModel();
+        JDatePanelImpl datePanel = new JDatePanelImpl(model);
+        datePicker = new JDatePickerImpl(datePanel);
+        datePicker.setBounds(220,350,120,30);
+        datePicker.getModel().setDate(2000,1,1);
+        model.setDate(2000,0,1);
+        model.setSelected(true);
+
+
+        champFonction = new JTextField("");
         champFonction.setPreferredSize(new Dimension(150, 30));
+        champFonction.getDocument().addDocumentListener(documentListener);
     }
 
-    /**
-     * Retourne le JPanel contenant un formulaire pour une personne
-     * @return JPanel
-     */
-    public JPanel getJPanel(){
-        return formulairePersonne;
-    }
 
     /**
      * Retourne le nom contenu dans le champ nom
@@ -106,6 +112,7 @@ public class FormulairePersonne{
         return champNom.getText();
     }
 
+
     /**
      * Retourne le prenom contenu dans le champ prenom
      * @return prenom (String)
@@ -113,6 +120,7 @@ public class FormulairePersonne{
     public String getPrenom(){
         return champPrenom.getText();
     }
+
 
     /**
      * Retourne la date de naissance contenue dans le champ date de naissance
@@ -130,6 +138,7 @@ public class FormulairePersonne{
         return new DateDeNaissance( temp[0],temp[1],temp[2]);
     }
 
+
     /**
      * Retourne la fonction contenue dans le champ fonction
      * @return fonction (String)
@@ -137,6 +146,7 @@ public class FormulairePersonne{
     public String getFonction(){
         return champFonction.getText();
     }
+
 
     /**
      * Change le contenu des champs d'entrée de texte
@@ -153,7 +163,34 @@ public class FormulairePersonne{
         model.setDate(Integer.parseInt( dateDeNaissance.getAnnee() ), Integer.parseInt( dateDeNaissance.getMois() )-1, Integer.parseInt( dateDeNaissance.getJour() ));
         model.setSelected(true);
         champFonction.setText(fonction);
-
     }
 
+
+    /**
+     * Activation/Désactivation du boutton valider si les champs sont vides. Activé quand on modifie un champ.
+     */
+    class ecouteChampsTexte implements DocumentListener {
+
+        public void insertUpdate(DocumentEvent e) {
+            activationBouttonDeValidation();
+        }
+
+        public void removeUpdate(DocumentEvent e) {
+            activationBouttonDeValidation();
+        }
+
+        public void changedUpdate(DocumentEvent e) {
+            activationBouttonDeValidation();
+        }
+
+        void activationBouttonDeValidation(){
+
+            if(champPrenom.getText().equals("")  || champNom.getText().equals("") || champFonction.getText().equals("") ){
+                bouttonCreer.setEnabled(false);
+            }
+            else{
+                bouttonCreer.setEnabled(true);
+            }
+        }
+    }
 }

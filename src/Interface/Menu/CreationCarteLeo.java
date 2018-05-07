@@ -5,6 +5,7 @@ import Interface.Fenetre;
 import Interface.elementGraphique.RecherchePersonne;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -13,11 +14,8 @@ import java.awt.event.ActionListener;
  */
 public class CreationCarteLeo {
 
-    private Fenetre fenetre;
-    private RecherchePersonne recherchePersonne;
-
-    private JButton bouttonAjouterCarte;
-    private JPanel panelBouttonAjouterCarte;
+    private final Fenetre fenetre;
+    private final RecherchePersonne recherchePersonne;
 
     /**
      * Constructeur de la classe CreationCarteLeo
@@ -28,17 +26,19 @@ public class CreationCarteLeo {
         this.fenetre = fenetre;
         fenetre.setTitle("Gestionnaire ESIGELEC - Ajouter une carte Léo");
 
+        JButton bouttonAjouterCarte = new JButton("Créer");
         recherchePersonne = new RecherchePersonne(fenetre, 2, null);
 
-        fenetre.setNewJPanel( recherchePersonne.getJPanel() );
-        bouttonAjouterCarte = new JButton("Créer");
-        panelBouttonAjouterCarte = new JPanel();
+        //Ajout composants graphiques
+        fenetre.getFenetre().removeAll();
+        fenetre.getFenetre().setBorder(BorderFactory.createEmptyBorder(15, 100, 15, 100));
+        fenetre.getFenetre().add( recherchePersonne );
+        fenetre.getFenetre().add( Box.createRigidArea(new Dimension(20, 0)));
+        fenetre.getFenetre().add(bouttonAjouterCarte);
+        fenetre.updateAffichage();
 
-        panelBouttonAjouterCarte.add(bouttonAjouterCarte);
+        //Ajout fonction ecoute pour le boutton ajouter
         bouttonAjouterCarte.addActionListener(new actionBouttonAjouterCarte());
-
-        fenetre.addJPanel(panelBouttonAjouterCarte,"");
-
     }
 
     /**

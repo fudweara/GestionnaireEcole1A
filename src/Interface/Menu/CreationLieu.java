@@ -8,53 +8,45 @@ import Interface.elementGraphique.FormulaireLieu;
 import objetStockage.Lieu;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class CreationLieu {
 
-    private Fenetre fenetre;
-    private FormulaireLieu formulaireLieu;
+    private final Fenetre fenetre;
+    private final FormulaireLieu formulaireLieu;
 
-    private JButton bouttonAjouterLieu;
-    private JPanel panelBouttonAjouterLieu;
-
-    private JButton bouttonAjouterAcces;
-    private JPanel panelBouttonAjouterAcces;
-
-    private Lieu lieu;
+    private final Lieu lieu;
 
     private FenetreLierLieuAcces fenetreLierLieuAcces;
 
     public CreationLieu(Fenetre fenetre){
 
+        JButton bouttonAjouterAcces = new JButton("Gestion accès");
+        JButton bouttonAjouterLieu = new JButton("Créer");
+
         lieu = new Lieu();
+        formulaireLieu = new FormulaireLieu(bouttonAjouterLieu);
 
         this.fenetre = fenetre;
         fenetre.setTitle("Gestionnaire ESIGELEC - Ajouter un lieu");
 
-
-
-        bouttonAjouterLieu = new JButton("Créer");
         bouttonAjouterLieu.setEnabled(false);
-        panelBouttonAjouterLieu = new JPanel();
 
-        bouttonAjouterAcces = new JButton("Accès");
-        panelBouttonAjouterAcces = new JPanel();
+        //Ajout composants graphiques
+        fenetre.getFenetre().removeAll();
+        fenetre.getFenetre().setBorder(BorderFactory.createEmptyBorder(15, 100, 15, 100));
+        fenetre.getFenetre().add( formulaireLieu );
+        fenetre.getFenetre().add( Box.createRigidArea(new Dimension(10, 0)));
+        fenetre.getFenetre().add(bouttonAjouterAcces);
+        fenetre.getFenetre().add( Box.createRigidArea(new Dimension(10, 0)));
+        fenetre.getFenetre().add(bouttonAjouterLieu);
+        fenetre.updateAffichage();
 
-        formulaireLieu = new FormulaireLieu(bouttonAjouterLieu);
-        fenetre.setNewJPanel( formulaireLieu.getJPanel() );
-
-        panelBouttonAjouterLieu.add(bouttonAjouterLieu);
+        //Ajout fonctions écoute pour les bouttons
         bouttonAjouterLieu.addActionListener( new actionBouttonAjouterLieu() );
-
-        panelBouttonAjouterAcces.add(bouttonAjouterAcces);
         bouttonAjouterAcces.addActionListener( new actionBouttonAjouterAcces() );
-
-        fenetre.addJPanel(panelBouttonAjouterAcces,"");
-
-        fenetre.addJPanel(panelBouttonAjouterLieu,"");
-
     }
 
     class actionBouttonAjouterLieu implements ActionListener{
@@ -81,12 +73,10 @@ public class CreationLieu {
 
                     JOptionPane.showMessageDialog(null, "Lieu crée !", "Message de confirmation",JOptionPane.INFORMATION_MESSAGE);
                     new CreationLieu(fenetre);
-
                 }
                 else{
                     System.out.println("Erreur Ajout accès");
                     JOptionPane.showMessageDialog(null, "Le nombre d'accès défini est supérieur au nombre d'accès du lieu", "Erreur",JOptionPane.ERROR_MESSAGE);
-
                 }
             }
             else{
@@ -108,7 +98,6 @@ public class CreationLieu {
                 fenetreLierLieuAcces = new FenetreLierLieuAcces(lieu);
                 fenetreLierLieuAcces.fenetreVisible();
             }
-
         }
     }
 }

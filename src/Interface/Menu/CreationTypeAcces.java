@@ -32,8 +32,9 @@ public class CreationTypeAcces {
         conteneur.add(champNomTypeAcces);
         conteneur.add(bouttonAjouterTypeAcces);
 
-        fenetre.setNewJPanel(conteneur);
-
+        fenetre.getFenetre().removeAll();
+        fenetre.getFenetre().add(conteneur);
+        fenetre.updateAffichage();
     }
 
     class actionBouttonAjouterTypeAcces implements ActionListener{

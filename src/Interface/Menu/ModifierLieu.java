@@ -7,6 +7,7 @@ import Interface.elementGraphique.RechercheLieu;
 import objetStockage.Lieu;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -18,6 +19,9 @@ public class ModifierLieu {
 
     private JButton bouttonAcces;
     private JButton bouttonModifier;
+
+    private JPanel conteneurFormulaireEtBouttons;
+    private JPanel conteneurBouttons;
 
     private FenetreLierLieuAcces fenetreLierLieuAcces;
 
@@ -32,16 +36,29 @@ public class ModifierLieu {
 
         formulaireLieu = new FormulaireLieu(bouttonModifier);
         rechercheLieu = new RechercheLieu(fenetre,formulaireLieu);
+        conteneurFormulaireEtBouttons = new JPanel();
+        conteneurBouttons = new JPanel();
 
-        fenetre.setNewJPanel( rechercheLieu.getJPanel());
-        fenetre.addJPanel( formulaireLieu.getJPanel(),"" );
+        // Ajout composants graphiques
+        conteneurBouttons.setLayout(new BoxLayout(conteneurBouttons, BoxLayout.LINE_AXIS));
+        conteneurBouttons.add(bouttonAcces);
+        conteneurBouttons.add( Box.createRigidArea(new Dimension(20, 0)));
+        conteneurBouttons.add(bouttonModifier);
 
+        conteneurFormulaireEtBouttons.setLayout(new BoxLayout(conteneurFormulaireEtBouttons, BoxLayout.PAGE_AXIS));
+        conteneurFormulaireEtBouttons.add(formulaireLieu);
+        conteneurFormulaireEtBouttons.add( Box.createRigidArea(new Dimension(0, 30)));
+        conteneurFormulaireEtBouttons.add(conteneurBouttons);
+
+        fenetre.getFenetre().removeAll();
+        fenetre.getFenetre().setBorder(BorderFactory.createEmptyBorder(5, 0, 5, 0));
+        fenetre.getFenetre().add( rechercheLieu );
+        fenetre.getFenetre().add( conteneurFormulaireEtBouttons );
+        fenetre.updateAffichage();
+
+        //Ajout fonction d'écoute pour les bouttons
         bouttonAcces.addActionListener( new ecouteBouttonAcces() );
         bouttonModifier.addActionListener( new ecouteBouttonValider() );
-        fenetre.addJPanel( bouttonAcces,"" );
-        fenetre.addJPanel( bouttonModifier,"" );
-
-
     }
 
     class ecouteBouttonAcces implements ActionListener{

@@ -10,20 +10,14 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+
 /**
  * Classe qui crée et a en attribut le JPanel du menu création personne personne
  */
 public class CreationPersonne {
 
-    private Fenetre fenetre;
-
-    private JLabel texteCreerUnePersonne;
-    private JPanel JPanelTexteCreerUnePersonne;
-    private JPanel espaceVide;
-    private FormulairePersonne formulairePersonne;
-    private JButton validerCreation;
-    private JPanel JPanelValiderCreation;
-    private Font police;
+    private final FormulairePersonne formulairePersonne;
+    private final Fenetre fenetre;
 
     /**
      * Constructeur du menu création fenetre
@@ -31,48 +25,29 @@ public class CreationPersonne {
      */
     public CreationPersonne( Fenetre fenetre ){
 
-        this.fenetre=fenetre;
         fenetre.setTitle("Gestionnaire ESIGELEC - Créer une personne");
+        this.fenetre = fenetre;
 
-        police = new Font("Arial", Font.BOLD, 30);
-        formulairePersonne = new FormulairePersonne();
-        texteCreerUnePersonne = new JLabel("Création d'une personne");
-        JPanelTexteCreerUnePersonne =new JPanel();
-        espaceVide = new JPanel();
-        validerCreation = new JButton("Valider");
-        JPanelValiderCreation = new JPanel();
+        JButton bouttonValiderCreation = new JButton("Valider");
+        formulairePersonne = new FormulairePersonne(bouttonValiderCreation);
 
+        //Ajout éléments graphiques
+        fenetre.getFenetre().removeAll();
+        fenetre.getFenetre().setBorder(BorderFactory.createEmptyBorder(50, 50, 20, 50));
+        fenetre.getFenetre().add( formulairePersonne);
+        fenetre.getFenetre().add( Box.createRigidArea(new Dimension(20, 0)));
+        fenetre.getFenetre().add(bouttonValiderCreation);
+        fenetre.updateAffichage();
 
-        ajoutComposantsGraphiques();
-
-        validerCreation.addActionListener(new ecouteValiderCreation());
-
+        //Ajout listener
+        bouttonValiderCreation.addActionListener(new ecouteValiderCreation());
     }
 
-    /**
-     * Ajout des éléments graphiques sur la fenetre pour la création de personne
-     */
-    private void ajoutComposantsGraphiques(){
-
-        texteCreerUnePersonne.setFont(police);
-
-        JPanelTexteCreerUnePersonne.add(texteCreerUnePersonne);
-
-        fenetre.setNewJPanel( espaceVide);
-
-        fenetre.addJPanel( formulairePersonne.getJPanel(), BorderLayout.CENTER);
-
-        JPanelValiderCreation.add(validerCreation);
-        fenetre.addJPanel(JPanelValiderCreation,BorderLayout.SOUTH);
-
-
-    }
 
     /**
      * Fonction d'écoute pour le boutton valider
      */
     class ecouteValiderCreation implements ActionListener{
-
 
         public void actionPerformed(ActionEvent arg0) {
 
@@ -82,6 +57,7 @@ public class CreationPersonne {
 
             if( tablePersonneDAO.ajoutPersonne( new Personne(0, formulairePersonne.getNom(),formulairePersonne.getPrenom(), formulairePersonne.getDateDeNaissance(), formulairePersonne.getFonction()) )){
                 JOptionPane.showMessageDialog(null, "Ajout effectué !", "Message de confirmation",JOptionPane.INFORMATION_MESSAGE);
+                new CreationLieu(fenetre);
             }
             else{
                 JOptionPane.showMessageDialog(null, "Tous les champs doivent être complétés et la date correctement entrée", "Erreur",JOptionPane.ERROR_MESSAGE);

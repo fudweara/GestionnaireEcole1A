@@ -8,9 +8,8 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import java.awt.*;
 
-public class FormulaireLieu {
+public class FormulaireLieu extends JPanel{
 
-    private JPanel formulaireLieu;
     private JTextField champEmplacement;
     private JTextField champNombreAcces;
 
@@ -42,32 +41,28 @@ public class FormulaireLieu {
 
         emplacementJPanel.add(texteEmplacement);
         emplacementJPanel.add(champEmplacement);
-        formulaireLieu.add(emplacementJPanel);
+        add(emplacementJPanel);
 
         horaireOuvertureJPanel.add(texteHoraireOuverture);
 
         horaireOuvertureJPanel.add(listeDeroulanteHeureOuv);
         horaireOuvertureJPanel.add(listeDeroulanteMinuteOuv);
-        formulaireLieu.add(horaireOuvertureJPanel);
+        add(horaireOuvertureJPanel);
 
         horaireFermetureJPanel.add(texteHoraireFermeture);
 
         horaireFermetureJPanel.add(listeDeroulanteHeureFerm);
         horaireFermetureJPanel.add(listeDeroulanteMinuteFerm);
-        formulaireLieu.add(horaireFermetureJPanel);
+        add(horaireFermetureJPanel);
 
         nombreAccesJPanel.add(texteNombreAcces);
         nombreAccesJPanel.add(champNombreAcces);
-        formulaireLieu.add(nombreAccesJPanel);
-
-
-
+        add(nombreAccesJPanel);
     }
 
     private void configurationAttribut(){
 
         actionChampTexte documentListener = new actionChampTexte();
-        formulaireLieu = new JPanel();
         champEmplacement = new JTextField("");
         champEmplacement.getDocument().addDocumentListener(documentListener);
 
@@ -94,15 +89,11 @@ public class FormulaireLieu {
         champNombreAcces = new JTextField("");
         champNombreAcces.getDocument().addDocumentListener(documentListener);
 
-        formulaireLieu.setLayout(new BoxLayout(formulaireLieu, BoxLayout.PAGE_AXIS));
+        setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 
         champEmplacement.setPreferredSize(new Dimension(150, 30));
         champNombreAcces.setPreferredSize(new Dimension(50, 30));
 
-    }
-
-    public JPanel getJPanel() {
-        return formulaireLieu;
     }
 
     public String getEmplacement() {
@@ -172,8 +163,6 @@ public class FormulaireLieu {
                 bouttonValidation.setEnabled(true);
             }
         }
-
-
     }
 
     public void setAtributs(Lieu lieu){

@@ -14,15 +14,13 @@ import java.util.ArrayList;
 /**
  * Objet qui permet une recherche de personne grace à son nom
  */
-public class RecherchePersonne {
+public class RecherchePersonne extends JPanel{
 
     private Fenetre fenetre;
 
     private FormulairePersonne formulairePersonne;
 
     private ArrayList<Personne> listePersonne;
-
-    private JPanel recherchePersonne = new JPanel();
 
     private JTextField champDeRechercheNom;
     private JButton boutton;
@@ -50,53 +48,41 @@ public class RecherchePersonne {
      */
     public RecherchePersonne(Fenetre fenetre,int typeRecherche, FormulairePersonne formulairePersonne){
 
-
+        //Declaration des variables
         this.formulairePersonne = formulairePersonne;
         this.fenetre=fenetre;
-
-        declarationVariables();
-        creationInterface();
-
-        boutton.addActionListener(new ecouteBoutonRechercher());
-
         this.typeRecherche = typeRecherche;
 
-    }
-
-
-    /**
-     * Declaration des variables fait dans le constructur
-     */
-    private void declarationVariables(){
         listePersonne = new ArrayList<>();
-
-        recherchePersonne = new JPanel();
         boutton = new JButton("Ok");
         JPanelRechercheEtBOuton = new JPanel();
         champDeRechercheNom = new JTextField();
         groupeButton = new ButtonGroup();
-
         personneSelectionne = false;
+
+        creationInterface();
+
+        boutton.addActionListener(new ecouteBoutonRechercher());
     }
+
 
     /**
      * Création de l'interface faite dans la constructeur
      */
     private void creationInterface(){
-
-        recherchePersonne.setPreferredSize(new Dimension(300,300));
-        recherchePersonne.setBackground(Color.GRAY);
+        setPreferredSize(new Dimension(300,300));
+       setBackground(Color.GRAY);
 
         champDeRechercheNom.setPreferredSize(new Dimension(249, 30));
         champDeRechercheNom.setForeground(Color.BLACK);
-        recherchePersonne.add(champDeRechercheNom,BorderLayout.PAGE_START);
+        add(champDeRechercheNom,BorderLayout.PAGE_START);
 
         JPanelRechercheEtBOuton.setPreferredSize(new Dimension(249, 30));
         JPanelRechercheEtBOuton.add(boutton,BorderLayout.CENTER);
         JPanelRechercheEtBOuton.setBackground(Color.GRAY);
-        recherchePersonne.add(JPanelRechercheEtBOuton,BorderLayout.PAGE_START);
-
+        add(JPanelRechercheEtBOuton,BorderLayout.PAGE_START);
     }
+
 
     /**
      * Fonction d'écoute pour le bouton rechercher
@@ -110,7 +96,7 @@ public class RecherchePersonne {
 
             System.out.println("Appuie sur boutton validation");
 
-            recherchePersonne.removeAll();
+            removeAll();
             creationInterface();
 
             listePersonne =  tablePersonneDAO.rechercherPersonne( champDeRechercheNom.getText() );
@@ -128,14 +114,10 @@ public class RecherchePersonne {
 
                     bouttonJradio[i].addActionListener( new ecouteSelection() );
 
-                    recherchePersonne.add( bouttonJradio[i] );
+                    add( bouttonJradio[i] );
                 }
-
-
             }
-            fenetre.updateWIndows();
-
-
+            fenetre.updateAffichage();
         }
     }
 
@@ -157,13 +139,6 @@ public class RecherchePersonne {
         }
     }
 
-    /**
-     * Récupére le JPanel un formulaire de recherche d'une personne
-     * @return JPanel
-     */
-    public JPanel getJPanel(){
-        return recherchePersonne;
-    }
 
     /**
      * Récupére l'id de la personne sélectionnée

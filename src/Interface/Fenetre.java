@@ -3,71 +3,45 @@ package Interface;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Objet qui représente la  fenetre du programme
+ */
 public class Fenetre extends JFrame{
 
     private final JPanel fenetre;
-    private BarreDeNavigation barreDeNavigation;
 
 
     /**
-     * Fenetre de taille 900 par 400  qui possède une barre de navigation
+     * Fenetre de taille 700 par 400  qui possède une barre de navigation
      */
     public Fenetre(){
 
         fenetre = new JPanel();
-        barreDeNavigation = new BarreDeNavigation(this);
-
-        this.setLayout(new BorderLayout());
-        this.setJMenuBar( barreDeNavigation );
-        this.setTitle("Gestionnaire ESIGELEC");
-        this.setSize(900, 400);
-        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        this.setResizable(false);
-        this.setLocationRelativeTo(null);
-        this.setContentPane(fenetre);
-        this.setVisible(true);
+        BarreDeNavigation barreDeNavigation = new BarreDeNavigation(this);
+        setJMenuBar(barreDeNavigation);
+        setTitle("Gestionnaire ESIGELEC");
+        setSize(700, 400);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
+        setLocationRelativeTo(null);
+        setContentPane(fenetre);
+        setVisible(true);
     }
 
-    /**
-     * Supprime l'ancien JPanel affiché et le remplace par le JPanel en paramètre
-     * @param container (JPanel)
-     */
-    public void setNewJPanel(Component container){
-
-        fenetre.removeAll();
-        fenetre.add(container, BorderLayout.CENTER);
-
-        this.setContentPane(fenetre);
-        this.setVisible(true);
-    }
 
     /**
      * Met à jour l'affichage
      */
-    public void updateWIndows(){
+    public void updateAffichage(){
         this.setContentPane(fenetre);
         this.setVisible(true);
     }
-
-
 
     /**
-     * Ajoute un JPanel sur la fenetre sur la même colonnne que les autres pannels
-     *
-     * @param component (Component)
+     * Recupère le JPanel qui est contenu dans la fenetre
+     * @return fenetre (JPanel)
      */
-    public void addJPanel(Component component, String typeEmplacement){
-
-        if(typeEmplacement.compareTo("")==0){
-            fenetre.add(component);
-        }
-        else{
-            fenetre.add(component, typeEmplacement);
-        }
-
-        this.setContentPane(fenetre);
-        this.setVisible(true);
-
+    public JPanel getFenetre() {
+        return fenetre;
     }
-
 }

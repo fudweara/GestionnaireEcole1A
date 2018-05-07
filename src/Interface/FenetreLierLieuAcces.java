@@ -14,17 +14,17 @@ import javax.swing.event.*;
 
 public class FenetreLierLieuAcces extends JFrame implements ListSelectionListener{
 
-    private JPanel panel;
-    private JList listeAcces;
-    private DefaultListModel listeModele;
+    private final JPanel panel;
+    private final JList listeAcces;
+    private final DefaultListModel listeModele;
 
-    private JButton buttonSupprimerSelection;
-    private JButton bouttonAjouter;
-    private JComboBox listeDeroulanteTypeAcces;
+    private final JButton buttonSupprimerSelection;
+    private final JButton bouttonAjouter;
+    private final JComboBox listeDeroulanteTypeAcces;
 
     private TableTypeAccesDAO tableTypeAccesDAO;
-    private TableLieuDAO tableLieuDAO;
-    private TableAccesDAO tableAccesDAO;
+    private final TableLieuDAO tableLieuDAO;
+    private final TableAccesDAO tableAccesDAO;
     private Lieu lieu;
 
     public FenetreLierLieuAcces(Lieu lieu){

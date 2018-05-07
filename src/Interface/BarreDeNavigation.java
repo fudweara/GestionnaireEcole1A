@@ -6,6 +6,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+
 /**
  * Barre de navigation avec menus :
  *  - Gérer les personnes : Ajouter, Supprimer, Modifier
@@ -13,8 +14,6 @@ import java.awt.event.ActionListener;
  *  - Gérer les lieux : Créer, Modifier
  *  - Recherche Lieu : Listage, Recherche
  */
-
-
 class BarreDeNavigation extends JMenuBar{
 
     private JMenuItem ajoutPersonne;
@@ -31,8 +30,7 @@ class BarreDeNavigation extends JMenuBar{
     private JMenuItem listeAcces;
     private JMenuItem rechercheAcces;
 
-    private Fenetre fenetre;
-
+    private final Fenetre fenetre;
 
 
     /**
@@ -112,6 +110,7 @@ class BarreDeNavigation extends JMenuBar{
 
     }
 
+
     /**
      *  Ecoute du bouton Ajout Personne : si il y a appuie, affiche l'écran menu Ajout personne dans la fenetre
      */
@@ -155,9 +154,6 @@ class BarreDeNavigation extends JMenuBar{
     }
 
 
-
-
-
     /**
      *  Ecoute du bouton Ajout carteLéo : si il y a appuie, affiche l'écran menu Ajout carteLéo dans la fenetre
      */
@@ -184,9 +180,6 @@ class BarreDeNavigation extends JMenuBar{
     }
 
 
-
-
-
     /**
      *  Ecoute du bouton Creation Lieu : si il y a appuie, affiche l'écran menu Creation Lieu dans la fenetre
      */
@@ -211,6 +204,10 @@ class BarreDeNavigation extends JMenuBar{
 
     }
 
+
+    /**
+     * Ecoute du bouton Creation Type Acces : il y a appuie, affiche l'écran menu Creation Type Acces dans la fenetre
+     */
     class boutonCreationTypeAcces implements ActionListener{
 
         public void actionPerformed(ActionEvent arg0) {
@@ -218,9 +215,6 @@ class BarreDeNavigation extends JMenuBar{
             new CreationTypeAcces( fenetre );
         }
     }
-
-
-
 
 
     /**
@@ -245,6 +239,4 @@ class BarreDeNavigation extends JMenuBar{
         }
 
     }
-
-
 }
