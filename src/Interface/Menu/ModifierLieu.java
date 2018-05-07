@@ -1,5 +1,7 @@
 package Interface.Menu;
 
+import DAO.TableAccesDAO;
+import DAO.TableLieuDAO;
 import Interface.Fenetre;
 import Interface.FenetreLierLieuAcces;
 import Interface.elementGraphique.FormulaireLieu;
@@ -25,9 +27,16 @@ public class ModifierLieu {
 
     private FenetreLierLieuAcces fenetreLierLieuAcces;
 
+    private Lieu lieu;
+
+    TableAccesDAO tableAccesDAO = new TableAccesDAO();
+
     public ModifierLieu(Fenetre fenetre){
 
         this.fenetre=fenetre;
+
+        lieu = new Lieu();
+        lieu.setIDLieu(-1);
 
         fenetre.setTitle("Gestionnaire ESIGELEC - Modifier un lieu");
 
@@ -67,14 +76,23 @@ public class ModifierLieu {
         public void actionPerformed(ActionEvent e) {
 
             if(formulaireLieu.getNombreAcces()== 0){
-                JOptionPane.showMessageDialog(null, "Entrer un nombre d'accès", "Erreur",JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Entrez un nombre d'accès!", "Erreur",JOptionPane.ERROR_MESSAGE);
             }
             else{
-                fenetreLierLieuAcces = new FenetreLierLieuAcces( new Lieu(formulaireLieu.getEmplacement(), formulaireLieu.getHoraireOuverture(), formulaireLieu.getHoraireFermeture(), formulaireLieu.getNombreAcces()) );
+
+                lieu.setNombreAcces( formulaireLieu.getNombreAcces() );
+
+                // Si l'id du lieu sélectionné a changé alors on recherche les accès
+                if( lieu.getIDLieu() != rechercheLieu.lieuSelectionne().getIDLieu() ){
+                    lieu.setIDLieu( rechercheLieu.lieuSelectionne().getIDLieu() );
+                    lieu.setIDlisteAcces( tableAccesDAO.recupererListeAcces( lieu.getIDLieu() ));
+                }
+
+
+                fenetreLierLieuAcces = new FenetreLierLieuAcces( lieu );
+
                 fenetreLierLieuAcces.fenetreVisible();
             }
-
-
         }
     }
 
@@ -82,6 +100,36 @@ public class ModifierLieu {
 
         @Override
         public void actionPerformed(ActionEvent e) {
+
+            TableLieuDAO tableLieuDAO = new TableLieuDAO();
+
+            // Si l'id du lieu sélectionné a changé alors on recherche les accès
+            if( lieu.getIDLieu() != rechercheLieu.lieuSelectionne().getIDLieu() ){
+                lieu.setIDLieu( rechercheLieu.lieuSelectionne().getIDLieu() );
+                lieu.setIDlisteAcces( tableAccesDAO.recupererListeAcces( lieu.getIDLieu() ));
+            }
+
+            lieu.setEmplacement( formulaireLieu.getEmplacement() );
+            lieu.setHoraireOuverture( formulaireLieu.getHoraireOuverture() );
+            lieu.setHoraireFermeture( formulaireLieu.getHoraireFermeture() );
+            lieu.setNombreAcces( formulaireLieu.getNombreAcces() );
+
+
+            if(formulaireLieu.getNombreAcces()>= lieu.getListeAcces().size() ){
+
+                tableLieuDAO.modifier(lieu);
+
+                TableAccesDAO tableAccesDAO = new TableAccesDAO();
+                tableAccesDAO.supprimer( lieu.getIDLieu() );
+                tableAccesDAO.ajouter(lieu.getIDLieu(), lieu.getListeAcces());
+
+                JOptionPane.showMessageDialog(null, "Lieu modifié !", "Message de confirmation",JOptionPane.INFORMATION_MESSAGE);
+                new ModifierLieu(fenetre);
+            }
+            else{
+                System.out.println("Erreur Ajout accès");
+                JOptionPane.showMessageDialog(null, "Le nombre d'accès défini est supérieur au nombre d'accès du lieu", "Erreur",JOptionPane.ERROR_MESSAGE);
+            }
 
         }
     }

@@ -10,7 +10,7 @@ public class TableAccesDAO {
 
     public TableAccesDAO(){ ConnectionDAO.getInstance(); }
 
-    public boolean ajouterListeAcces(int idLieu, ArrayList<Integer> listeIdTypeAcces ){
+    public boolean ajouter(int idLieu, ArrayList<Integer> listeIdTypeAcces ){
         boolean retour = false;
 
         try {
@@ -38,6 +38,33 @@ public class TableAccesDAO {
         return retour;
     }
 
+    public boolean supprimer(int idLieu){
+        boolean retour = false;
+
+        try {
+
+            ps = ConnectionDAO.getInstance().prepareStatement("DELETE FROM acces WHERE IDLIEU = ?");
+            ps.setInt(1, idLieu );
+
+            System.out.println("Accès supprimé(s)!");
+            ps.executeUpdate();
+            retour = true;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Erreur");
+        } finally {
+            // fermeture du preparedStatement et de la connexion
+            try {
+                if (ps != null)
+                    ps.close();
+            } catch (Exception ignore) {
+            }
+        }
+
+        return retour;
+    }
+
     public ArrayList<Integer> recupererListeAcces (int IDlieu){
         ArrayList<Integer> listeAcces = new ArrayList<>();
 
@@ -45,6 +72,8 @@ public class TableAccesDAO {
         try {
             ps = ConnectionDAO.getInstance().prepareStatement("SELECT * FROM ACCES WHERE (  IDLIEU = ?)");
             ps.setInt(1, IDlieu);
+
+            System.out.println("Accès ajouté(s)!");
 
             rs = ps.executeQuery();
 

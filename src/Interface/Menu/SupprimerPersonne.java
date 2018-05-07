@@ -51,7 +51,7 @@ public class SupprimerPersonne {
             TablePersonneDAO tablePersonneDAO = new TablePersonneDAO();
 
             if( recherchePersonne.selectionPersonneEffectuee() ){
-                if( tablePersonneDAO.supprimerPersonne( recherchePersonne.getIdPersonneSelectionne() ) ){
+                if( tablePersonneDAO.supprimer( recherchePersonne.getIdPersonneSelectionne() ) ){
                     System.out.println("Supression effectuée : ID personne supprimée : "+recherchePersonne.getIdPersonneSelectionne());
                     JOptionPane.showMessageDialog(null, "Suppression effectuée !", "Message de confirmation",JOptionPane.INFORMATION_MESSAGE);
                     new SupprimerPersonne(fenetre);

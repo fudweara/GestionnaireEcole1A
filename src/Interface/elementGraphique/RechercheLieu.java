@@ -19,7 +19,6 @@ public class RechercheLieu extends JPanel implements ListSelectionListener {
 
     private JTextField champDeRechercheNom;
     private JButton boutton;
-    private JPanel JPanelRechercheEtBOuton;
 
     private JList jlisteLieu;
     private DefaultListModel listeModele;
@@ -35,7 +34,6 @@ public class RechercheLieu extends JPanel implements ListSelectionListener {
 
         jlisteLieu = new JList();
         boutton = new JButton("Ok");
-        JPanelRechercheEtBOuton = new JPanel();
         champDeRechercheNom = new JTextField();
         listeLieu = new ArrayList<>();
 
@@ -45,18 +43,14 @@ public class RechercheLieu extends JPanel implements ListSelectionListener {
 
     }
     private void creationInterface(){
+
         setPreferredSize(new Dimension(300,300));
 
+        // On dimensionne la barre de recherche
         champDeRechercheNom.setPreferredSize(new Dimension(249, 30));
         champDeRechercheNom.setForeground(Color.BLACK);
-        add(champDeRechercheNom,BorderLayout.PAGE_START);
-
-        JPanelRechercheEtBOuton.setPreferredSize(new Dimension(249, 30));
-        JPanelRechercheEtBOuton.add(boutton,BorderLayout.CENTER);
-        add(JPanelRechercheEtBOuton,BorderLayout.PAGE_START);
 
         //Creation de la liste et paramètrage.
-
         listeModele = new DefaultListModel();
         jlisteLieu = new JList(listeModele);
         jlisteLieu.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -64,6 +58,11 @@ public class RechercheLieu extends JPanel implements ListSelectionListener {
         jlisteLieu.setVisibleRowCount(5);
         JScrollPane listScrollPane = new JScrollPane(jlisteLieu);
         listScrollPane.setPreferredSize(new Dimension(300, 240));
+
+
+        //Ajout des éléments à la JFrame
+        add(champDeRechercheNom,BorderLayout.PAGE_START);
+        add(boutton,BorderLayout.PAGE_START);
         add(listScrollPane, BorderLayout.CENTER);
     }
 
@@ -71,7 +70,6 @@ public class RechercheLieu extends JPanel implements ListSelectionListener {
     public void valueChanged(ListSelectionEvent e) {
 
         formulaireLieu.setAtributs(tableLieuDAO.getLieu( jlisteLieu.getSelectedValue().toString()));
-
     }
 
     class actionBoutton implements ActionListener {
@@ -89,7 +87,10 @@ public class RechercheLieu extends JPanel implements ListSelectionListener {
             }
 
             fenetre.updateAffichage();
-
         }
+    }
+
+    public Lieu lieuSelectionne(){
+        return listeLieu.get( jlisteLieu.getSelectedIndex() );
     }
 }

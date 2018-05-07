@@ -28,7 +28,7 @@ public class TablePersonneDAO {
      * @param personne (Personne)
      * @return verificationAjout (boolean)
      */
-    public boolean ajoutPersonne(Personne personne){
+    public boolean ajout(Personne personne){
 
         boolean retour = false;
 
@@ -61,7 +61,7 @@ public class TablePersonneDAO {
      * @param idPersonne (Integer)
      * @return verificationSupression (boolean)
      */
-    public boolean supprimerPersonne(Integer idPersonne) {
+    public boolean supprimer(Integer idPersonne) {
 
         boolean retour = false;
 
@@ -70,7 +70,7 @@ public class TablePersonneDAO {
             ps = ConnectionDAO.getInstance().prepareStatement("DELETE FROM personne WHERE IDPERSONNE = ?");
             ps.setInt(1, idPersonne );
 
-            System.out.println("Personne ajoutée!");
+            System.out.println("Personne supprimée!");
             ps.executeUpdate();
             retour = true;
 
@@ -84,10 +84,8 @@ public class TablePersonneDAO {
                     ps.close();
             } catch (Exception ignore) {
             }
-
-            return retour;
-
         }
+        return retour;
     }
 
 
@@ -96,7 +94,7 @@ public class TablePersonneDAO {
      * @param nom (String)
      * @return ArrayList<Personne>
      */
-    public ArrayList<Personne> rechercherPersonne(String nom){
+    public ArrayList<Personne> rechercher(String nom){
 
         ArrayList<Personne> personne = new ArrayList<>();
 
@@ -151,7 +149,7 @@ public class TablePersonneDAO {
      * @param personne (Personnne)
      * @return verificationAjout
      */
-    public boolean miseAJourPersonne(Personne personne){
+    public boolean modifier(Personne personne){
 
         boolean retour = false;
 

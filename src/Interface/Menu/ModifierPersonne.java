@@ -57,7 +57,7 @@ public class ModifierPersonne {
             Personne personneMiseAJour = new Personne ( recherchePersonne.getIdPersonneSelectionne(), formulairePersonne.getNom(), formulairePersonne.getPrenom(),formulairePersonne.getDateDeNaissance(),formulairePersonne.getFonction());
             TablePersonneDAO tablePersonneDAO = new TablePersonneDAO();
 
-            if( tablePersonneDAO.miseAJourPersonne(personneMiseAJour) ){
+            if( tablePersonneDAO.modifier(personneMiseAJour) ){
                 JOptionPane.showMessageDialog(null, "Modification effectuée !", "Message de confirmation",JOptionPane.INFORMATION_MESSAGE);
                 new ModifierPersonne(fenetre);
             }

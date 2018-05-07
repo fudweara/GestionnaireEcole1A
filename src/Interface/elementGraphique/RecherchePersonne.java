@@ -99,7 +99,7 @@ public class RecherchePersonne extends JPanel{
             removeAll();
             creationInterface();
 
-            listePersonne =  tablePersonneDAO.rechercherPersonne( champDeRechercheNom.getText() );
+            listePersonne =  tablePersonneDAO.rechercher( champDeRechercheNom.getText() );
 
             bouttonJradio = new JRadioButton[listePersonne.size()];
 

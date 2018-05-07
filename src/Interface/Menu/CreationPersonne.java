@@ -55,7 +55,7 @@ public class CreationPersonne {
 
             System.out.println("Appuie sur boutton validation");
 
-            if( tablePersonneDAO.ajoutPersonne( new Personne(0, formulairePersonne.getNom(),formulairePersonne.getPrenom(), formulairePersonne.getDateDeNaissance(), formulairePersonne.getFonction()) )){
+            if( tablePersonneDAO.ajout( new Personne(0, formulairePersonne.getNom(),formulairePersonne.getPrenom(), formulairePersonne.getDateDeNaissance(), formulairePersonne.getFonction()) )){
                 JOptionPane.showMessageDialog(null, "Ajout effectué !", "Message de confirmation",JOptionPane.INFORMATION_MESSAGE);
                 new CreationLieu(fenetre);
             }

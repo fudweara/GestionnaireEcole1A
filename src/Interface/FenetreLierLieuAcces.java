@@ -23,7 +23,6 @@ public class FenetreLierLieuAcces extends JFrame implements ListSelectionListene
     private final JComboBox listeDeroulanteTypeAcces;
 
     private TableTypeAccesDAO tableTypeAccesDAO;
-    private final TableLieuDAO tableLieuDAO;
     private final TableAccesDAO tableAccesDAO;
     private Lieu lieu;
 
@@ -32,58 +31,55 @@ public class FenetreLierLieuAcces extends JFrame implements ListSelectionListene
         this.lieu = new Lieu();
         this.lieu=lieu;
 
-        this.setTitle("Définir les accès du lieu");
-        this.setSize(400, 300);
-        this.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
-        this.setResizable(false);
-        this.setLocationRelativeTo(null);
 
-        panel = new JPanel( new BorderLayout() );
+        //Paramètres de la fenetre
+        setTitle("Définir les accès du lieu");
+        setSize(400, 300);
+        setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
+        setResizable(false);
+        setLocationRelativeTo(null);
 
 
-        listeModele = new DefaultListModel();
-
-        tableLieuDAO = new TableLieuDAO();
+        // Connexion DAO
         tableAccesDAO = new TableAccesDAO();
         tableTypeAccesDAO = new TableTypeAccesDAO();
 
-        lieu.setIDLieu( tableLieuDAO.getID( lieu ));
-        lieu.setIDlisteAcces( tableAccesDAO.recupererListeAcces( lieu.getIDLieu()));
+        panel = new JPanel( new BorderLayout() );
+        listeModele = new DefaultListModel();
 
+
+        // On met les accès du lieu (si il y en a) dans la liste
         for(int i = 0 ; i<lieu.getListeAcces().size() ; i++ ){
             listeModele.addElement( tableTypeAccesDAO.nomTypeEmplacement( lieu.getListeAcces().get(i) ) );
-
         }
-
         listeAcces = new JList(listeModele);
 
 
         //Creation de la liste et paramètrage.
-
         listeAcces.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         listeAcces.setSelectedIndex(0);
         listeAcces.addListSelectionListener(this);
         listeAcces.setVisibleRowCount(5);
         JScrollPane listScrollPane = new JScrollPane(listeAcces);
 
+
+        // Création du boutton Ajouter
         bouttonAjouter = new JButton("Ajouter");
-        EcouteBouttonAjouter ecouteBouttonAjouter = new EcouteBouttonAjouter();
-        bouttonAjouter.setActionCommand("Ajouter");
-        bouttonAjouter.addActionListener(ecouteBouttonAjouter);
         if(lieu.getListeAcces().size() == lieu.getNombreAcces() && lieu.getListeAcces().size() != 0 ){
             bouttonAjouter.setEnabled(false);
         }
 
+
+        // Création du boutton Supprimer
         buttonSupprimerSelection = new JButton("Supprimer sélection");
-        buttonSupprimerSelection.setActionCommand("Supprimer sélection");
-        buttonSupprimerSelection.addActionListener(new actionBouttonSupprimer());
         if(lieu.getListeAcces().size() == 0){
             buttonSupprimerSelection.setEnabled(false);
         }
 
+
+        // Ajout de la liste qui contient les type d'accès que l'on peut ajouter
         listeDeroulanteTypeAcces  = new JComboBox();
         listeDeroulanteTypeAcces.setPreferredSize(new Dimension(100, 20));
-        tableTypeAccesDAO = new TableTypeAccesDAO();
         ArrayList<String> nomType = tableTypeAccesDAO.recupereToutlesTypes();
         for(int i=0 ; i<nomType.size() ; i++){
             listeDeroulanteTypeAcces.addItem(nomType.get(i));
@@ -100,15 +96,20 @@ public class FenetreLierLieuAcces extends JFrame implements ListSelectionListene
         bouttonPanel.add(Box.createHorizontalStrut(7));
         bouttonPanel.add(listeDeroulanteTypeAcces);
         bouttonPanel.add(bouttonAjouter);
-
         bouttonPanel.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
 
+
+        // Ajout des conposants  sur le panel qui est affiché dans la JFrame
         panel.add(listScrollPane, BorderLayout.CENTER);
         panel.add(bouttonPanel, BorderLayout.PAGE_END);
 
-        this.setContentPane(panel);
-        this.setVisible(false);
 
+        // Fonctions d'écoute
+        bouttonAjouter.addActionListener(new EcouteBouttonAjouter());
+        buttonSupprimerSelection.addActionListener(new actionBouttonSupprimer());
+
+        setContentPane(panel);
+        setVisible(false);
     }
 
     class actionBouttonSupprimer implements ActionListener {
@@ -156,10 +157,7 @@ public class FenetreLierLieuAcces extends JFrame implements ListSelectionListene
             if( listeAcces.getModel().getSize() >=lieu.getNombreAcces()){
                 bouttonAjouter.setEnabled(false);
             }
-
         }
-
-
     }
 
     public void valueChanged(ListSelectionEvent e) {
@@ -176,8 +174,8 @@ public class FenetreLierLieuAcces extends JFrame implements ListSelectionListene
     }
 
     public void fenetreVisible(){
-        this.setContentPane(panel);
-        this.setVisible(true);
+        setContentPane(panel);
+        setVisible(true);
 
         if(listeAcces.getModel().getSize()>=lieu.getNombreAcces()){
             bouttonAjouter.setEnabled(false);
@@ -187,5 +185,4 @@ public class FenetreLierLieuAcces extends JFrame implements ListSelectionListene
     public int nombreAccesDefini(){
         return listeAcces.getModel().getSize();
     }
-
 }

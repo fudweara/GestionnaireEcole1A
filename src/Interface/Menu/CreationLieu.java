@@ -28,6 +28,7 @@ public class CreationLieu {
 
         lieu = new Lieu();
         formulaireLieu = new FormulaireLieu(bouttonAjouterLieu);
+        fenetreLierLieuAcces = new FenetreLierLieuAcces(lieu);
 
         this.fenetre = fenetre;
         fenetre.setTitle("Gestionnaire ESIGELEC - Ajouter un lieu");
@@ -69,7 +70,7 @@ public class CreationLieu {
                     tableLieuDAO.ajouter( lieu );
 
                     TableAccesDAO tableAccesDAO = new TableAccesDAO();
-                    tableAccesDAO.ajouterListeAcces(tableLieuDAO.getID(lieu), lieu.getListeAcces());
+                    tableAccesDAO.ajouter(tableLieuDAO.getID(lieu), lieu.getListeAcces());
 
                     JOptionPane.showMessageDialog(null, "Lieu crée !", "Message de confirmation",JOptionPane.INFORMATION_MESSAGE);
                     new CreationLieu(fenetre);
@@ -95,7 +96,6 @@ public class CreationLieu {
                 JOptionPane.showMessageDialog(null, "Entrer un nombre d'accès", "Erreur",JOptionPane.ERROR_MESSAGE);
             }
             else{
-                fenetreLierLieuAcces = new FenetreLierLieuAcces(lieu);
                 fenetreLierLieuAcces.fenetreVisible();
             }
         }

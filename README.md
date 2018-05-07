@@ -95,3 +95,6 @@ PATCHNOTES :
 <li>Ajout du menu permetant de modifier un lieu</li>
 <li>Refonte gestion des interfaces</li>
 <li>Optimisation du code</li>
+
+0.2:
+<li> Ajout de la gestion totale des accès ( lors de l'ajout ou la modification de lieux )</li>

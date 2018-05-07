@@ -32,7 +32,6 @@ CREATE TABLE Acces
 (
     idAcces INTEGER,
     idLieu     INTEGER,
-    typeAcces VARCHAR2(50) NOT NULL,
     idTypeAcces INTEGER,
     CONSTRAINT PK_Acces PRIMARY KEY(idAcces),
     CONSTRAINT FK_idLieu FOREIGN KEY(idLieu) REFERENCES Lieu(idLieu) ON DELETE CASCADE

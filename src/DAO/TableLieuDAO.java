@@ -43,6 +43,42 @@ public class TableLieuDAO {
         return retour;
     }
 
+    public boolean modifier(Lieu lieu){
+        boolean retour = false;
+
+        try {
+            ps = ConnectionDAO.getInstance().prepareStatement("UPDATE LIEU SET EMPLACEMENT_LIEU = ?, HORAIRE_OUVERTURE = TO_DATE(?,'HH24-MI'), HORAIRE_FERMETURE = TO_DATE(?,'HH24-MI'),NB_ACCES = ? WHERE IDLIEU=?");
+            ps.setString(1, lieu.getEmplacement());
+            ps.setString(2, lieu.getHoraireOuverture().getHeures()+"-"+lieu.getHoraireOuverture().getMinutes());
+            ps.setString(3, lieu.getHoraireFermeture().getHeures()+"-"+lieu.getHoraireFermeture().getMinutes() );
+            ps.setInt(4, lieu.getNombreAcces());
+            ps.setInt(5, lieu.getIDLieu() );
+
+            System.out.println("----");
+            System.out.println("Lieu modifié : ");
+            System.out.println("Emplacement : "+ lieu.getEmplacement() );
+            System.out.println("Heure ouverture : "+lieu.getHoraireOuverture().getHeures()+"-"+lieu.getHoraireOuverture().getMinutes() );
+            System.out.println("Heure fermeture : "+lieu.getHoraireFermeture().getHeures()+"-"+lieu.getHoraireFermeture().getMinutes() );
+            System.out.println("Nombre accès : "+lieu.getNombreAcces());
+            System.out.println("ID : "+lieu.getIDLieu());
+            ps.executeQuery();
+            retour = true;
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Erreur");
+        } finally {
+            try {
+                if (ps != null)
+                    ps.close();
+            } catch (Exception ignore) {
+            }
+        }
+
+        return retour;
+    }
+
     public int getID(Lieu lieu){
         int id=0;
         ResultSet rs;
@@ -130,7 +166,7 @@ public class TableLieuDAO {
                 separation1HeureFermeture = heure.split("\\s+");
                 separation1HeureFermeture = separation1HeureFermeture[1].split(":");
 
-                listeLieu.add( new Lieu(rs.getString("EMPLACEMENT_LIEU"), new Horaire(separationHeureOuverture[0],separationHeureOuverture[1]), new Horaire(separation1HeureFermeture[0],separation1HeureFermeture[1]),rs.getInt("NB_ACCES")) );
+                listeLieu.add( new Lieu(rs.getInt("IDLIEU"), rs.getString("EMPLACEMENT_LIEU"), new Horaire(separationHeureOuverture[0],separationHeureOuverture[1]), new Horaire(separation1HeureFermeture[0],separation1HeureFermeture[1]),rs.getInt("NB_ACCES")) );
             }
 
 

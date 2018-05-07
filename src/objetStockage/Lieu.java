@@ -17,6 +17,11 @@ public class Lieu {
 
     }
 
+    public Lieu(int IDLieu, String emplacement, Horaire horaireOuverture, Horaire horaireFermeture, int nombreAcces){
+        this(emplacement,horaireOuverture, horaireFermeture, nombreAcces);
+        this.IDLieu=IDLieu;
+    }
+
     public Lieu(String emplacement, Horaire horaireOuverture, Horaire horaireFermeture, int nombreAcces) {
         this.emplacement = emplacement;
         this.horaireOuverture = horaireOuverture;
