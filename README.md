@@ -98,3 +98,4 @@ PATCHNOTES :
 
 0.2:
 <li> Ajout de la gestion totale des accès ( lors de l'ajout ou la modification de lieux )</li>
+<li> Correction de problèmes qui pouvaient se poser lors de la modification de lieu</li>

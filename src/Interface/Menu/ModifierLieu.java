@@ -103,6 +103,7 @@ public class ModifierLieu {
 
             TableLieuDAO tableLieuDAO = new TableLieuDAO();
 
+
             // Si l'id du lieu sélectionné a changé alors on recherche les accès
             if( lieu.getIDLieu() != rechercheLieu.lieuSelectionne().getIDLieu() ){
                 lieu.setIDLieu( rechercheLieu.lieuSelectionne().getIDLieu() );
@@ -114,23 +115,27 @@ public class ModifierLieu {
             lieu.setHoraireFermeture( formulaireLieu.getHoraireFermeture() );
             lieu.setNombreAcces( formulaireLieu.getNombreAcces() );
 
+            if(lieu.getIDLieu() == -1){
+                JOptionPane.showMessageDialog(null, "Selectionnez un lieu à modifier dans la recherche!", "Erreur",JOptionPane.ERROR_MESSAGE);
 
-            if(formulaireLieu.getNombreAcces()>= lieu.getListeAcces().size() ){
-
-                tableLieuDAO.modifier(lieu);
-
-                TableAccesDAO tableAccesDAO = new TableAccesDAO();
-                tableAccesDAO.supprimer( lieu.getIDLieu() );
-                tableAccesDAO.ajouter(lieu.getIDLieu(), lieu.getListeAcces());
-
-                JOptionPane.showMessageDialog(null, "Lieu modifié !", "Message de confirmation",JOptionPane.INFORMATION_MESSAGE);
-                new ModifierLieu(fenetre);
             }
             else{
-                System.out.println("Erreur Ajout accès");
-                JOptionPane.showMessageDialog(null, "Le nombre d'accès défini est supérieur au nombre d'accès du lieu", "Erreur",JOptionPane.ERROR_MESSAGE);
-            }
+                if(formulaireLieu.getNombreAcces()>= lieu.getListeAcces().size() ){
 
+                    tableLieuDAO.modifier(lieu);
+
+                    TableAccesDAO tableAccesDAO = new TableAccesDAO();
+                    tableAccesDAO.supprimer( lieu.getIDLieu() );
+                    tableAccesDAO.ajouter(lieu.getIDLieu(), lieu.getListeAcces());
+
+                    JOptionPane.showMessageDialog(null, "Lieu modifié !", "Message de confirmation",JOptionPane.INFORMATION_MESSAGE);
+                    new ModifierLieu(fenetre);
+                }
+                else{
+                    System.out.println("Erreur Ajout accès");
+                    JOptionPane.showMessageDialog(null, "Le nombre d'accès défini est supérieur au nombre d'accès du lieu", "Erreur",JOptionPane.ERROR_MESSAGE);
+                }
+            }
         }
     }
 }

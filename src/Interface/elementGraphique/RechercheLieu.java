@@ -37,6 +37,7 @@ public class RechercheLieu extends JPanel implements ListSelectionListener {
         champDeRechercheNom = new JTextField();
         listeLieu = new ArrayList<>();
 
+
         creationInterface();
 
         boutton.addActionListener(new actionBoutton() );
@@ -45,6 +46,8 @@ public class RechercheLieu extends JPanel implements ListSelectionListener {
     private void creationInterface(){
 
         setPreferredSize(new Dimension(300,300));
+        setBackground(Color.lightGray);
+
 
         // On dimensionne la barre de recherche
         champDeRechercheNom.setPreferredSize(new Dimension(249, 30));
@@ -57,7 +60,7 @@ public class RechercheLieu extends JPanel implements ListSelectionListener {
         jlisteLieu.addListSelectionListener(this);
         jlisteLieu.setVisibleRowCount(5);
         JScrollPane listScrollPane = new JScrollPane(jlisteLieu);
-        listScrollPane.setPreferredSize(new Dimension(300, 240));
+        listScrollPane.setPreferredSize(new Dimension(300, 230));
 
 
         //Ajout des éléments à la JFrame
@@ -91,6 +94,13 @@ public class RechercheLieu extends JPanel implements ListSelectionListener {
     }
 
     public Lieu lieuSelectionne(){
-        return listeLieu.get( jlisteLieu.getSelectedIndex() );
+
+        if ( jlisteLieu.getSelectedValue() == null ){
+            return new Lieu(-1,null,null,null,0);
+        }
+        else{
+            return listeLieu.get( jlisteLieu.getSelectedIndex() );
+        }
+
     }
 }

@@ -37,7 +37,7 @@ public class CreationLieu {
 
         //Ajout composants graphiques
         fenetre.getFenetre().removeAll();
-        fenetre.getFenetre().setBorder(BorderFactory.createEmptyBorder(15, 100, 15, 100));
+        fenetre.getFenetre().setBorder(BorderFactory.createEmptyBorder(65, 100, 100, 65));
         fenetre.getFenetre().add( formulaireLieu );
         fenetre.getFenetre().add( Box.createRigidArea(new Dimension(10, 0)));
         fenetre.getFenetre().add(bouttonAjouterAcces);
