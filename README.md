@@ -99,3 +99,8 @@ PATCHNOTES :
 0.2:
 <li> Ajout de la gestion totale des accès ( lors de l'ajout ou la modification de lieux )</li>
 <li> Correction de problèmes qui pouvaient se poser lors de la modification de lieu</li>
+
+0.3:
+<li> Changement de l'interface pour la recherche de personnes</li>
+<li>Optimisation du code</li>
+<li> Ajout de la JAVADOC</li>

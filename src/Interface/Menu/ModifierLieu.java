@@ -3,7 +3,7 @@ package Interface.Menu;
 import DAO.TableAccesDAO;
 import DAO.TableLieuDAO;
 import Interface.Fenetre;
-import Interface.FenetreLierLieuAcces;
+import Interface.FenetreGestionAcces;
 import Interface.elementGraphique.FormulaireLieu;
 import Interface.elementGraphique.RechercheLieu;
 import objetStockage.Lieu;
@@ -13,24 +13,26 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+
+/**
+ * Classe qui représente le menu modifier un lieu
+ */
 public class ModifierLieu {
 
-    private Fenetre fenetre;
-    private RechercheLieu rechercheLieu;
-    private FormulaireLieu formulaireLieu;
+    private final Fenetre fenetre;
+    private final RechercheLieu rechercheLieu;
+    private final FormulaireLieu formulaireLieu;
 
-    private JButton bouttonAcces;
-    private JButton bouttonModifier;
+    private final Lieu lieu;
 
-    private JPanel conteneurFormulaireEtBouttons;
-    private JPanel conteneurBouttons;
+    private final TableAccesDAO tableAccesDAO = new TableAccesDAO();
 
-    private FenetreLierLieuAcces fenetreLierLieuAcces;
 
-    private Lieu lieu;
-
-    TableAccesDAO tableAccesDAO = new TableAccesDAO();
-
+    /**
+     * Constructeur pour le menu pour modifier un lieu
+     *
+     * @param fenetre Fenetre qui contient le JPanel pour le menu modifier un lieu
+     */
     public ModifierLieu(Fenetre fenetre){
 
         this.fenetre=fenetre;
@@ -40,20 +42,24 @@ public class ModifierLieu {
 
         fenetre.setTitle("Gestionnaire ESIGELEC - Modifier un lieu");
 
-        bouttonAcces = new JButton("Gestion Acces");
-        bouttonModifier = new JButton("Valider");
+        System.out.println(" ");
+        System.out.println("Affichage du menu modifier un lieu");
+
+        JButton bouttonAcces = new JButton("Gestion Acces");
+        JButton bouttonModifier = new JButton("Valider");
 
         formulaireLieu = new FormulaireLieu(bouttonModifier);
         rechercheLieu = new RechercheLieu(fenetre,formulaireLieu);
-        conteneurFormulaireEtBouttons = new JPanel();
-        conteneurBouttons = new JPanel();
+
 
         // Ajout composants graphiques
+        JPanel conteneurBouttons = new JPanel();
         conteneurBouttons.setLayout(new BoxLayout(conteneurBouttons, BoxLayout.LINE_AXIS));
         conteneurBouttons.add(bouttonAcces);
         conteneurBouttons.add( Box.createRigidArea(new Dimension(20, 0)));
         conteneurBouttons.add(bouttonModifier);
 
+        JPanel conteneurFormulaireEtBouttons = new JPanel();
         conteneurFormulaireEtBouttons.setLayout(new BoxLayout(conteneurFormulaireEtBouttons, BoxLayout.PAGE_AXIS));
         conteneurFormulaireEtBouttons.add(formulaireLieu);
         conteneurFormulaireEtBouttons.add( Box.createRigidArea(new Dimension(0, 30)));
@@ -62,17 +68,26 @@ public class ModifierLieu {
         fenetre.getFenetre().removeAll();
         fenetre.getFenetre().setBorder(BorderFactory.createEmptyBorder(5, 0, 5, 0));
         fenetre.getFenetre().add( rechercheLieu );
-        fenetre.getFenetre().add( conteneurFormulaireEtBouttons );
+        fenetre.getFenetre().add(conteneurFormulaireEtBouttons);
         fenetre.updateAffichage();
 
         //Ajout fonction d'écoute pour les bouttons
-        bouttonAcces.addActionListener( new ecouteBouttonAcces() );
+        bouttonAcces.addActionListener( new ecouteBouttonGestionAcces() );
         bouttonModifier.addActionListener( new ecouteBouttonValider() );
     }
 
-    class ecouteBouttonAcces implements ActionListener{
 
-        @Override
+    /**
+     * Ecoute du boutton Gestion Acces
+     */
+    class ecouteBouttonGestionAcces implements ActionListener{
+
+
+        /**
+         * Affiche la fenetre pour ajouter un accès si un lieu est selectionné et que le nombre d'accès entré est valide
+         *
+         * @param e Evenement
+         */
         public void actionPerformed(ActionEvent e) {
 
             if(formulaireLieu.getNombreAcces()== 0){
@@ -89,16 +104,24 @@ public class ModifierLieu {
                 }
 
 
-                fenetreLierLieuAcces = new FenetreLierLieuAcces( lieu );
+                FenetreGestionAcces fenetreGestionAcces = new FenetreGestionAcces(lieu);
 
-                fenetreLierLieuAcces.fenetreVisible();
+                fenetreGestionAcces.fenetreVisible();
             }
         }
     }
 
+
+    /**
+     * Ecoute du boutton Valider
+     */
     class ecouteBouttonValider implements ActionListener{
 
-        @Override
+        /**
+         * Ajoute dans la base de données la modification du lieu + ces accès lors de l'appuie sur le boutton valider
+         *
+         * @param e Evenement
+         */
         public void actionPerformed(ActionEvent e) {
 
             TableLieuDAO tableLieuDAO = new TableLieuDAO();
@@ -122,14 +145,16 @@ public class ModifierLieu {
             else{
                 if(formulaireLieu.getNombreAcces()>= lieu.getListeAcces().size() ){
 
-                    tableLieuDAO.modifier(lieu);
-
                     TableAccesDAO tableAccesDAO = new TableAccesDAO();
-                    tableAccesDAO.supprimer( lieu.getIDLieu() );
-                    tableAccesDAO.ajouter(lieu.getIDLieu(), lieu.getListeAcces());
 
-                    JOptionPane.showMessageDialog(null, "Lieu modifié !", "Message de confirmation",JOptionPane.INFORMATION_MESSAGE);
-                    new ModifierLieu(fenetre);
+                    if(tableLieuDAO.modifier(lieu) && tableAccesDAO.supprimer( lieu.getIDLieu() ) && tableAccesDAO.ajouter(tableLieuDAO.getID(lieu), lieu.getListeAcces())){
+                        JOptionPane.showMessageDialog(null, "Lieu modifié !", "Message de confirmation",JOptionPane.INFORMATION_MESSAGE);
+                        new ModifierLieu(fenetre);
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(null, "Erreur avec la base de données", "Erreur",JOptionPane.ERROR_MESSAGE);
+                    }
+
                 }
                 else{
                     System.out.println("Erreur Ajout accès");

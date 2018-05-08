@@ -8,7 +8,8 @@ import java.sql.ResultSet;
  */
 public class IdentificationDAO {
 
-    PreparedStatement ps = null;
+    private PreparedStatement ps = null;
+
 
     /**
      * Constructeur de l'idnetification qui prends la connection
@@ -17,14 +18,16 @@ public class IdentificationDAO {
         ConnectionDAO.getInstance();
     }
 
+
     /**
-     * Methode qui permet de récupérer le mot de passe dans la base de données grâce à l'idnetifiant
-     * @param identifiant (Chaine de caractères)
-     * @return motDePasse (Chaine de caractères)
+     * Permet de récupérer le mot de passe dans la base de données grâce à l'identifiant
+     *
+     * @param identifiant identifiant pour lequel on veut récupérer le mot de passe
+     * @return le mot de passe de l'identifiant sous la forme 'sel$hash'
      */
     public String recuperationMotDePasse(String identifiant){
 
-        ResultSet rs = null;
+        ResultSet rs;
         String motDePasse = null;
 
         try{
@@ -33,10 +36,9 @@ public class IdentificationDAO {
 
             rs = ps.executeQuery();
 
-            if(rs.next()){
+            if(rs.next())
                 motDePasse = rs.getString("MOTDEPASSE");
 
-            }
         }catch (Exception e) {
             e.printStackTrace();
             System.out.println("Erreur");

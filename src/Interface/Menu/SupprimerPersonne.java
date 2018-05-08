@@ -9,6 +9,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+
 /**
  * Classe qui représente le menu supprimer une personne
  */
@@ -17,15 +18,20 @@ public class SupprimerPersonne {
     private final RecherchePersonne recherchePersonne;
     private final Fenetre fenetre;
 
+
     /**
      * Constructeur de la classe SupprimerPersonne
-     * @param fenetre (Fenetre)
+     *
+     * @param fenetre Fenetre qui va contenir le JPanel pour le menu pour supprimer une personne
      */
     public SupprimerPersonne(Fenetre fenetre){
         JButton bouttonSupprimer = new JButton("Supprimer");
 
         this.fenetre = fenetre;
         fenetre.setTitle("Gestionnaire ESIGELEC - Supprimer une personne");
+
+        System.out.println(" ");
+        System.out.println("Affichage du menu supprimer une personne");
 
         recherchePersonne = new RecherchePersonne(fenetre,0,null);
 
@@ -35,9 +41,9 @@ public class SupprimerPersonne {
         fenetre.getFenetre().add( recherchePersonne );
         fenetre.getFenetre().add( Box.createRigidArea(new Dimension(20, 0)));
         fenetre.add(bouttonSupprimer);
-        bouttonSupprimer.addActionListener(new actionButtonSupprimer());
-
         fenetre.updateAffichage();
+
+        bouttonSupprimer.addActionListener(new actionButtonSupprimer());
     }
 
 
@@ -46,6 +52,12 @@ public class SupprimerPersonne {
      */
     class actionButtonSupprimer implements ActionListener{
 
+
+        /**
+         * Supprime la personne selectionné dans la recherche de personne de la base de données lors de l'appuie sur le boutton Supprimer
+         *
+         * @param e Evenement
+         */
         public void actionPerformed(ActionEvent e) {
 
             TablePersonneDAO tablePersonneDAO = new TablePersonneDAO();

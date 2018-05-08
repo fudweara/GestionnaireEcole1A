@@ -37,7 +37,7 @@ class BarreDeNavigation extends JMenuBar{
      * Constructeur d'une barre de navigation
      * @param fenetre (Fenetre)
      */
-    public BarreDeNavigation(Fenetre fenetre){
+    BarreDeNavigation(Fenetre fenetre){
 
         this.fenetre=fenetre;
         creationDesMenus();
@@ -116,9 +116,11 @@ class BarreDeNavigation extends JMenuBar{
      */
     class boutonAjoutPersonne implements ActionListener {
 
+        /**
+         * Affiche le menu Créer une  personne
+         * @param arg0 Evenement à faire
+         */
         public void actionPerformed(ActionEvent arg0) {
-            System.out.println("Affichage écran ajout personne");
-
             new CreationPersonne(fenetre);
         }
     }
@@ -129,9 +131,11 @@ class BarreDeNavigation extends JMenuBar{
      */
     class boutonModifierPersonne implements ActionListener{
 
+        /**
+         * Affiche le menu Modifier une personne
+         * @param arg0 Evenement à faire
+         */
         public void actionPerformed(ActionEvent arg0) {
-
-            System.out.println("Modifier personne");
             new ModifierPersonne(fenetre);
         }
 
@@ -145,8 +149,11 @@ class BarreDeNavigation extends JMenuBar{
      */
     class boutonSupprimerPersonne implements ActionListener{
 
+        /**
+         * Affiche le menu Supprimer une personne
+         * @param arg0 Evenement à faire
+         */
         public void actionPerformed(ActionEvent arg0) {
-            System.out.println("Supprimer personne");
             new SupprimerPersonne(fenetre);
         }
 
@@ -159,8 +166,11 @@ class BarreDeNavigation extends JMenuBar{
      */
     class boutonsAjoutCarteLeo implements ActionListener{
 
+        /**
+         * Affiche le menu Ajouter une carte Léo
+         * @param arg0 Evenement à faire
+         */
         public void actionPerformed(ActionEvent arg0) {
-            System.out.println("Ajout carte Léo");
             new CreationCarteLeo( fenetre );
         }
 
@@ -172,8 +182,11 @@ class BarreDeNavigation extends JMenuBar{
      */
     class boutonSupprimerCarteLeo implements ActionListener{
 
+        /**
+         * Affiche le menu Supprimer une carte Léo
+         * @param arg0 Evenement à faire
+         */
         public void actionPerformed(ActionEvent arg0) {
-            System.out.println("Supprimer carte Léo");
             new SupprimerCarteLeo( fenetre );
         }
 
@@ -185,8 +198,11 @@ class BarreDeNavigation extends JMenuBar{
      */
     class boutonCreationLieu implements ActionListener{
 
+        /**
+         * Affiche le menu Créer un lieu
+         * @param arg0 Evenement à faire
+         */
         public void actionPerformed(ActionEvent arg0) {
-            System.out.println("Création Lieu");
             new CreationLieu( fenetre);
         }
     }
@@ -197,8 +213,11 @@ class BarreDeNavigation extends JMenuBar{
      */
     class boutonModificationLieu implements ActionListener{
 
+        /**
+         * Affiche le menu Modifier un lieu
+         * @param arg0 Evenement à faire
+         */
         public void actionPerformed(ActionEvent arg0) {
-            System.out.println("Modification Lieu");
             new ModifierLieu( fenetre );
         }
 
@@ -210,8 +229,12 @@ class BarreDeNavigation extends JMenuBar{
      */
     class boutonCreationTypeAcces implements ActionListener{
 
+
+        /**
+         * Affiche le menu Créer un type d'accès
+         * @param arg0 Evenement à faire
+         */
         public void actionPerformed(ActionEvent arg0) {
-            System.out.println("Création type d'accès");
             new CreationTypeAcces( fenetre );
         }
     }
@@ -222,6 +245,10 @@ class BarreDeNavigation extends JMenuBar{
      */
     class boutonListeAcces implements ActionListener{
 
+        /**
+         * Affiche le menu XXXXXXXXXX
+         * @param arg0 Evenement à faire
+         */
         public void actionPerformed(ActionEvent arg0) {
             System.out.println("Liste accès");
         }
@@ -234,6 +261,10 @@ class BarreDeNavigation extends JMenuBar{
      */
     class boutonRechercheAcces implements ActionListener{
 
+        /**
+         * Affiche le menu XXXXXXXXXXXXXX
+         * @param arg0 Evenement à faire
+         */
         public void actionPerformed(ActionEvent arg0) {
             System.out.println("Recherche accès");
         }

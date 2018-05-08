@@ -1,32 +1,36 @@
 package Interface;
 
-import DAO.TableAccesDAO;
-import DAO.TableLieuDAO;
 import DAO.TableTypeAccesDAO;
 import objetStockage.Lieu;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.event.*;
 
-
-public class FenetreLierLieuAcces extends JFrame implements ListSelectionListener{
+/**
+ * Feetre pour l'ajout d'accès qui sont liés à des lieux
+ */
+public class FenetreGestionAcces extends JFrame implements ListSelectionListener{
 
     private final JPanel panel;
-    private final JList listeAcces;
-    private final DefaultListModel listeModele;
+    private final JList<String> listeAcces;
+    private final DefaultListModel<String> listeModele;
 
     private final JButton buttonSupprimerSelection;
     private final JButton bouttonAjouter;
-    private final JComboBox listeDeroulanteTypeAcces;
+    private final JComboBox<String> listeDeroulanteTypeAcces;
 
-    private TableTypeAccesDAO tableTypeAccesDAO;
-    private final TableAccesDAO tableAccesDAO;
+    private final TableTypeAccesDAO tableTypeAccesDAO;
     private Lieu lieu;
 
-    public FenetreLierLieuAcces(Lieu lieu){
+
+    /**
+     * Constructeur pour la fenetre pour gérer les accés
+     *
+     * @param lieu Lieu associé aux accès
+     */
+    public FenetreGestionAcces(Lieu lieu){
 
         this.lieu = new Lieu();
         this.lieu=lieu;
@@ -41,18 +45,17 @@ public class FenetreLierLieuAcces extends JFrame implements ListSelectionListene
 
 
         // Connexion DAO
-        tableAccesDAO = new TableAccesDAO();
         tableTypeAccesDAO = new TableTypeAccesDAO();
 
         panel = new JPanel( new BorderLayout() );
-        listeModele = new DefaultListModel();
+        listeModele = new DefaultListModel<>();
 
 
         // On met les accès du lieu (si il y en a) dans la liste
         for(int i = 0 ; i<lieu.getListeAcces().size() ; i++ ){
-            listeModele.addElement( tableTypeAccesDAO.nomTypeEmplacement( lieu.getListeAcces().get(i) ) );
+            listeModele.addElement( tableTypeAccesDAO.nomTypeAcces( lieu.getListeAcces().get(i) ) );
         }
-        listeAcces = new JList(listeModele);
+        listeAcces = new JList<>(listeModele);
 
 
         //Creation de la liste et paramètrage.
@@ -78,11 +81,11 @@ public class FenetreLierLieuAcces extends JFrame implements ListSelectionListene
 
 
         // Ajout de la liste qui contient les type d'accès que l'on peut ajouter
-        listeDeroulanteTypeAcces  = new JComboBox();
+        listeDeroulanteTypeAcces  = new JComboBox<>();
         listeDeroulanteTypeAcces.setPreferredSize(new Dimension(100, 20));
-        ArrayList<String> nomType = tableTypeAccesDAO.recupereToutlesTypes();
-        for(int i=0 ; i<nomType.size() ; i++){
-            listeDeroulanteTypeAcces.addItem(nomType.get(i));
+
+        for (String aNomType : tableTypeAccesDAO.recupereToutlesTypes()) {
+            listeDeroulanteTypeAcces.addItem(aNomType);
         }
 
 
@@ -112,7 +115,17 @@ public class FenetreLierLieuAcces extends JFrame implements ListSelectionListene
         setVisible(false);
     }
 
+
+    /**
+     * Ecoute boutton supprimer
+     */
     class actionBouttonSupprimer implements ActionListener {
+
+        /**
+         * Supprime l'accès selectionné dans la liste et désactive le boutton supprimer s'il n'y a plus d'accès dans la liste
+         *
+         * @param e Evenement
+         */
         public void actionPerformed(ActionEvent e) {
 
             int index = listeAcces.getSelectedIndex();
@@ -140,8 +153,17 @@ public class FenetreLierLieuAcces extends JFrame implements ListSelectionListene
         }
     }
 
+
+    /**
+     * Ecoute boutton Ajouter
+     */
     class EcouteBouttonAjouter implements ActionListener {
 
+        /**
+         * Ajoute l'accès selectionné dans la liste déroulante dans la liste et désative le boutton Ajouter si le nombre d'accès est égale au nombre d'accès défini
+         *
+         * @param e Evenement
+         */
         public void actionPerformed(ActionEvent e) {
             String nomAjout = (String) listeDeroulanteTypeAcces.getSelectedItem();
 
@@ -160,6 +182,11 @@ public class FenetreLierLieuAcces extends JFrame implements ListSelectionListene
         }
     }
 
+
+    /**
+     * Desactive le boutton supprimer si il n'y a plus d'élements dans la liste lors de qu'il y un changement dans la liste. Il peut également le réactiver
+     * @param e Evenement
+     */
     public void valueChanged(ListSelectionEvent e) {
         if ( !e.getValueIsAdjusting() ) {
 
@@ -173,6 +200,10 @@ public class FenetreLierLieuAcces extends JFrame implements ListSelectionListene
         }
     }
 
+
+    /**
+     * Met la fenetre gestion Acces visible
+     */
     public void fenetreVisible(){
         setContentPane(panel);
         setVisible(true);
@@ -182,6 +213,12 @@ public class FenetreLierLieuAcces extends JFrame implements ListSelectionListene
         }
     }
 
+
+    /**
+     * Retourne le nombre d'accès qui a été selectionné dans le fenetre
+     *
+     * @return Nombre d'accès définis
+     */
     public int nombreAccesDefini(){
         return listeAcces.getModel().getSize();
     }

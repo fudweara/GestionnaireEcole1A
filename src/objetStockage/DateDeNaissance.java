@@ -1,10 +1,15 @@
 package objetStockage;
 
+
+/**
+ * Date de naissance qui possède une année, un mois et un jour
+ */
 public class DateDeNaissance {
 
-    private String annee;
-    private String mois;
-    private String jour;
+    private final String annee;
+    private final String mois;
+    private final String jour;
+
 
     /**
      * Constructeur d'une date de naissance qui prends en paramètre ses caractéristiques
@@ -23,7 +28,7 @@ public class DateDeNaissance {
     /**
      *  Retourne l'année de naissance
      *
-     * @return annnee (String)
+     * @return Année de naissance
      */
     public String getAnnee() {
         return annee;
@@ -31,17 +36,8 @@ public class DateDeNaissance {
 
 
     /**
-     *  Met à jour l'année de naissance
-     * @param annee (String)
-     */
-    public void setAnnee(String annee) {
-        this.annee = annee;
-    }
-
-
-    /**
      * Retourne le mois de naissance
-     * @return mois (String)
+     * @return Mois de naissance
      */
     public String getMois() {
         return mois;
@@ -49,28 +45,11 @@ public class DateDeNaissance {
 
 
     /**
-     * Met à jour le mois de naissance
-     * @param mois (String)
-     */
-    public void setMois(String mois) {
-        this.mois = mois;
-    }
-
-
-    /**
      *  Retourne le jour de naissance
-     * @return jour (String)
+     * @return Jour de naissance
      */
     public String getJour() {
         return jour;
-    }
-
-    /**
-     * Met à jour le jour de naissance
-     * @param jour (String)
-     */
-    public void setJour(String jour) {
-        this.jour = jour;
     }
 
 }

@@ -12,6 +12,7 @@ import java.util.Date;
 import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
 import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
 import net.sourceforge.jdatepicker.impl.UtilDateModel;
+import objetStockage.Personne;
 
 
 /**
@@ -52,20 +53,25 @@ public class FormulairePersonne extends JPanel{
         // Ajout champ + texte pour nom et prenom
         nomJPanel.add(texteNom);
         nomJPanel.add(champNom);
-        add(nomJPanel);
+
 
         prenomJPanel.add(textePrenom);
         prenomJPanel.add(champPrenom);
-        add(prenomJPanel);
+
 
         // Ajout du texte et calendrier pour la date de naissance
         dateDeNaissanceJPanel.add(textedateDeNaissance);
         dateDeNaissanceJPanel.add(datePicker);
-        add(dateDeNaissanceJPanel);
+
 
         //Ajout champ + texte pour la fonction
         fonctionJPanel.add(texteFonction);
         fonctionJPanel.add(champFonction);
+
+        //Ajout des JPanel au formulaire
+        add(nomJPanel);
+        add(prenomJPanel);
+        add(dateDeNaissanceJPanel);
         add(fonctionJPanel);
     }
 
@@ -104,7 +110,8 @@ public class FormulairePersonne extends JPanel{
 
     /**
      * Retourne le nom contenu dans le champ nom
-     * @return nom (String)
+     *
+     * @return Nom rempli dans le formualire
      */
     public String getNom(){
 
@@ -115,7 +122,8 @@ public class FormulairePersonne extends JPanel{
 
     /**
      * Retourne le prenom contenu dans le champ prenom
-     * @return prenom (String)
+     *
+     * @return Prenom rempli dans le formulaire
      */
     public String getPrenom(){
         return champPrenom.getText();
@@ -124,7 +132,8 @@ public class FormulairePersonne extends JPanel{
 
     /**
      * Retourne la date de naissance contenue dans le champ date de naissance
-     * @return dateDeNaissance (DateDeNaissance)
+     *
+     * @return Date de naissance remplie dans le formulaire
      */
     public DateDeNaissance getDateDeNaissance(){
 
@@ -141,7 +150,8 @@ public class FormulairePersonne extends JPanel{
 
     /**
      * Retourne la fonction contenue dans le champ fonction
-     * @return fonction (String)
+     *
+     * @return Fonction remplie dans le formulaire
      */
     public String getFonction(){
         return champFonction.getText();
@@ -149,20 +159,17 @@ public class FormulairePersonne extends JPanel{
 
 
     /**
-     * Change le contenu des champs d'entrée de texte
-     * @param nom (String)
-     * @param prenom (String)
-     * @param dateDeNaissance (DateDeNaissance)
-     * @param fonction (String)
+     * Affiche des attributs de la personne dans les champs du formulaire
+     *
+     * @param personne Personne dont on veut afficher les attributs dans les champs
      */
-    public void setAtributs(String nom, String prenom, DateDeNaissance dateDeNaissance, String fonction){
+    void setAtributs(Personne personne){
 
-        champNom.setText(nom);
-        champPrenom.setText(prenom);
-        System.out.println(Integer.parseInt( dateDeNaissance.getMois()));
-        model.setDate(Integer.parseInt( dateDeNaissance.getAnnee() ), Integer.parseInt( dateDeNaissance.getMois() )-1, Integer.parseInt( dateDeNaissance.getJour() ));
+        champNom.setText( personne.getNom() );
+        champPrenom.setText( personne.getPrenom() );
+        model.setDate(Integer.parseInt( personne.getDateNaissance().getAnnee() ), Integer.parseInt( personne.getDateNaissance().getMois() )-1, Integer.parseInt( personne.getDateNaissance().getJour() ));
         model.setSelected(true);
-        champFonction.setText(fonction);
+        champFonction.setText(personne.getFonction() );
     }
 
 
@@ -171,18 +178,27 @@ public class FormulairePersonne extends JPanel{
      */
     class ecouteChampsTexte implements DocumentListener {
 
+
+        @Override
         public void insertUpdate(DocumentEvent e) {
             activationBouttonDeValidation();
         }
 
+
+        @Override
         public void removeUpdate(DocumentEvent e) {
             activationBouttonDeValidation();
         }
 
+        @Override
         public void changedUpdate(DocumentEvent e) {
             activationBouttonDeValidation();
         }
 
+
+        /**
+         * Désactive/Active le boutton si il les champs de texte sont vide ou non
+         */
         void activationBouttonDeValidation(){
 
             if(champPrenom.getText().equals("")  || champNom.getText().equals("") || champFonction.getText().equals("") ){

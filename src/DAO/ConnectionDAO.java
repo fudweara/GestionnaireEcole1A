@@ -2,8 +2,8 @@ package DAO;
 
 import java.sql.DriverManager;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
+
 
 /**
  * Classe qui permet la connection avec la base de données
@@ -12,11 +12,12 @@ class ConnectionDAO {
 
     private static Connection connection;
 
+
     /**
      * Constructeur du singleton qui ne recrée pas une connection si elle est déjà existante
-     * @return Connection
+     * @return Connection à la base de données
      */
-    public static Connection getInstance(){
+    static Connection getInstance(){
 
         if(connection == null){
             try {
@@ -39,7 +40,6 @@ class ConnectionDAO {
 
                 System.out.println("Erreur Connection ......");
                 e.printStackTrace();
-
             }
         }
         return connection;

@@ -13,7 +13,8 @@ import java.util.ArrayList;
 public class TablePersonneDAO {
 
 
-    PreparedStatement ps = null;
+    private PreparedStatement ps = null;
+
 
     /**
      * Constructeur qui permet la connection avec la base de données
@@ -25,8 +26,9 @@ public class TablePersonneDAO {
 
     /**
      * Ajoute une personne dans la base de données
-     * @param personne (Personne)
-     * @return verificationAjout (boolean)
+     *
+     * @param personne Personne à ajouter dans la base de données
+     * @return Vérification sur l'ajout dans la base de données ( ok ou non )
      */
     public boolean ajout(Personne personne){
 
@@ -41,6 +43,8 @@ public class TablePersonneDAO {
 
             ps.executeUpdate();
             retour=true;
+            System.out.println("-----");
+            System.out.println("Personne ajoutée : "+personne.getNom()+""+personne.getPrenom()+""+personne.getDateNaissance().getAnnee()+"-"+personne.getDateNaissance().getMois()+"-"+personne.getDateNaissance().getJour()+""+personne.getFonction());
 
         }catch (Exception e){
             e.printStackTrace();
@@ -53,26 +57,29 @@ public class TablePersonneDAO {
             } catch (Exception ignore) {
             }
         }
+
         return retour;
     }
 
+
     /**
      * Supprime une personne dans la base de données
-     * @param idPersonne (Integer)
-     * @return verificationSupression (boolean)
+     *
+     * @param idPersonne ID de la personne à suppimer
+     * @return Vérification sur la suppression de la personne dans la base de données
      */
     public boolean supprimer(Integer idPersonne) {
 
         boolean retour = false;
 
         try {
-
             ps = ConnectionDAO.getInstance().prepareStatement("DELETE FROM personne WHERE IDPERSONNE = ?");
             ps.setInt(1, idPersonne );
 
-            System.out.println("Personne supprimée!");
             ps.executeUpdate();
             retour = true;
+            System.out.println("-----");
+            System.out.println("Personne supprimé avec IDpersonne : "+idPersonne);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -85,14 +92,16 @@ public class TablePersonneDAO {
             } catch (Exception ignore) {
             }
         }
+
         return retour;
     }
 
 
     /**
-     * Recherche dans la base de données toutes les personnes qui ont le nom envoyé en paramètre
-     * @param nom (String)
-     * @return ArrayList<Personne>
+     * Recherche dans la base de données toutes les personnes qui ont le nom donné en paramètre
+     *
+     * @param nom Nom de la personne à rechercher
+     * @return Liste des personnes qui possède le nom donné
      */
     public ArrayList<Personne> rechercher(String nom){
 
@@ -123,11 +132,11 @@ public class TablePersonneDAO {
 
                 personne.add( new Personne(rs.getInt("IDPERSONNE"), rs.getString("NOM_PERSONNE"), rs .getString("PRENOM_PERSONNE"), new DateDeNaissance( separation[2], separation[1], separation[0]) , rs.getString("FONCTION")));
 
+                System.out.println("-----");
+                System.out.println("Personnne trouvée :");
                 System.out.print(rs.getString("NOM_PERSONNE")+" "+ rs .getString("PRENOM_PERSONNE")+" "+ rs.getString("FONCTION")+" ");
                 System.out.println( separation[2]+" "+separation[1]+" "+separation[0]+" " );
-
             }
-
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -140,14 +149,15 @@ public class TablePersonneDAO {
             } catch (Exception ignore) {
             }
         }
-        return personne;
 
+        return personne;
     }
+
 
     /**
      * Remplace une personne dans la BDD par la personne mise en paramètre
-     * @param personne (Personnne)
-     * @return verificationAjout
+     * @param personne Personne à modifier
+     * @return Vérication sur la modification de la personne dans la base de données
      */
     public boolean modifier(Personne personne){
 
@@ -163,8 +173,7 @@ public class TablePersonneDAO {
 
             ps.executeQuery();
             retour = true;
-
-            System.out.println("Modification effectuée !");
+            System.out.println("Modification effectuée sur IDpersonne : "+personne.getId());
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -176,8 +185,7 @@ public class TablePersonneDAO {
             } catch (Exception ignore) {
             }
         }
+
         return retour;
-
     }
-
 }

@@ -10,6 +10,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+
 /**
  * Classe qui crée et a en attribut le JPanel du menu modifier personne
  */
@@ -20,9 +21,11 @@ public class ModifierPersonne {
 
     private final Fenetre fenetre;
 
+
     /**
      * Constructeur du menu modifier personne qui place les élements graphiques et les fonctions d'écoute
-     * @param fenetre (Fenetre)
+     *
+     * @param fenetre Fenetre qui contenir le JPanel pour le menu pour modifier une personne
      */
     public ModifierPersonne( Fenetre fenetre ){
 
@@ -31,6 +34,9 @@ public class ModifierPersonne {
         this.fenetre = fenetre;
 
         fenetre.setTitle("Gestionnaire ESIGELEC - Modifier une personne");
+
+        System.out.println(" ");
+        System.out.println("Affichage du menu modifier une personne");
 
         formulairePersonne = new FormulairePersonne(bouttonModifier);
         recherchePersonne = new RecherchePersonne(fenetre,0,formulairePersonne);
@@ -47,11 +53,18 @@ public class ModifierPersonne {
         bouttonModifier.addActionListener(new actionButtonValider());
     }
 
+
     /**
      * Fonction d'écoute du boutton valider
      */
     class actionButtonValider implements ActionListener{
 
+
+        /**
+         * Modifie la personne dans la base de données lors de l'appuie sur le boutton valider
+         *
+         * @param e Evenement
+         */
         public void actionPerformed(ActionEvent e) {
 
             Personne personneMiseAJour = new Personne ( recherchePersonne.getIdPersonneSelectionne(), formulairePersonne.getNom(), formulairePersonne.getPrenom(),formulairePersonne.getDateDeNaissance(),formulairePersonne.getFonction());

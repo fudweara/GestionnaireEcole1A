@@ -103,7 +103,7 @@ public class FenetreIdentification extends JFrame {
 
 
     /**
-     * Fonction d'écoute pour le champ de texte "mot de pass' : Si on appuie sur entrée en étant dans celui-ci on déclanche le boutton connexion
+     * Fonction d'écoute pour le champ de texte "mot de passe' : Si on appuie sur entrée en étant dans celui-ci on déclanche le boutton connexion
      */
     class ecouteChampMDP implements KeyListener {
 
@@ -112,7 +112,11 @@ public class FenetreIdentification extends JFrame {
 
         }
 
-        @Override
+        /**
+         * Lors de l'appuie sur une touche, si c'est entrée alors on active le boutton Connexion
+         *
+         * @param e Evenement
+         */
         public void keyPressed(KeyEvent e) {
 
             int keyCode = e.getKeyCode();
@@ -131,11 +135,17 @@ public class FenetreIdentification extends JFrame {
 
 
     /**
-     * Fonction d'écoute du bouton valider qui va vérifier si il y a appuie sur le bouton 'valider' :
-     *  - identifiant/MDP ok : ouverture fenetre du gestionnaire
-     *  - identifiant/MDP incorrecte : message d'erreur et l'affichage de kla fenetre d'authentification continue
+     * Fonction d'écoute du bouton valider
      */
     class ecouteBouton implements ActionListener {
+
+        /**
+         * Vérifie si il y a appuie sur le bouton 'valider' :
+         * - identifiant/MDP ok : ouverture fenetre du gestionnaire
+         * - identifiant/MDP incorrecte : message d'erreur et l'affichage de la fenetre d'authentification continue
+         *
+         * @param e Evenement
+         */
         public void actionPerformed(ActionEvent e) {
 
             IdentificationDAO identificationDAO = new IdentificationDAO();
@@ -164,8 +174,6 @@ public class FenetreIdentification extends JFrame {
                     e1.printStackTrace();
                 }
             }
-
-
         }
     }
 }

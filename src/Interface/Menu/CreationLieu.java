@@ -1,7 +1,7 @@
 package Interface.Menu;
 
 import DAO.TableAccesDAO;
-import Interface.FenetreLierLieuAcces;
+import Interface.FenetreGestionAcces;
 import DAO.TableLieuDAO;
 import Interface.Fenetre;
 import Interface.elementGraphique.FormulaireLieu;
@@ -12,6 +12,10 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+
+/**
+ * Classe pour le menu Création de lieux
+ */
 public class CreationLieu {
 
     private final Fenetre fenetre;
@@ -19,8 +23,14 @@ public class CreationLieu {
 
     private final Lieu lieu;
 
-    private FenetreLierLieuAcces fenetreLierLieuAcces;
+    private final FenetreGestionAcces fenetreGestionAcces;
 
+
+    /**
+     * Constructeur pour le menu de création de lieux
+     *
+     * @param fenetre Fenetre qui contient le panel de création de lieux
+     */
     public CreationLieu(Fenetre fenetre){
 
         JButton bouttonAjouterAcces = new JButton("Gestion accès");
@@ -28,10 +38,13 @@ public class CreationLieu {
 
         lieu = new Lieu();
         formulaireLieu = new FormulaireLieu(bouttonAjouterLieu);
-        fenetreLierLieuAcces = new FenetreLierLieuAcces(lieu);
+        fenetreGestionAcces = new FenetreGestionAcces(lieu);
 
         this.fenetre = fenetre;
         fenetre.setTitle("Gestionnaire ESIGELEC - Ajouter un lieu");
+
+        System.out.println(" ");
+        System.out.println("Affichage du menu Création de Lieu");
 
         bouttonAjouterLieu.setEnabled(false);
 
@@ -46,12 +59,22 @@ public class CreationLieu {
         fenetre.updateAffichage();
 
         //Ajout fonctions écoute pour les bouttons
-        bouttonAjouterLieu.addActionListener( new actionBouttonAjouterLieu() );
-        bouttonAjouterAcces.addActionListener( new actionBouttonAjouterAcces() );
+        bouttonAjouterLieu.addActionListener( new actionBouttonAjouter() );
+        bouttonAjouterAcces.addActionListener( new actionBouttonGestionAcces() );
     }
 
-    class actionBouttonAjouterLieu implements ActionListener{
 
+    /**
+     * Ecoute du bouton Ajouter lieu
+     */
+    class actionBouttonAjouter implements ActionListener{
+
+
+        /**
+         * Lors de l'appuie sur le boutton Ajouter, ajoute le lieu qui est dans les champs du formulaire
+         *
+         * @param e Evenement
+         */
         public void actionPerformed(ActionEvent e) {
 
             TableLieuDAO tableLieuDAO = new TableLieuDAO();
@@ -65,15 +88,19 @@ public class CreationLieu {
             if ( !tableLieuDAO.presenceDuLieu( lieu ) ){
                 System.out.println("Lieu créee");
 
-                if(formulaireLieu.getNombreAcces()>= fenetreLierLieuAcces.nombreAccesDefini() ){
-
-                    tableLieuDAO.ajouter( lieu );
+                if(formulaireLieu.getNombreAcces()>= fenetreGestionAcces.nombreAccesDefini() ){
 
                     TableAccesDAO tableAccesDAO = new TableAccesDAO();
-                    tableAccesDAO.ajouter(tableLieuDAO.getID(lieu), lieu.getListeAcces());
 
-                    JOptionPane.showMessageDialog(null, "Lieu crée !", "Message de confirmation",JOptionPane.INFORMATION_MESSAGE);
-                    new CreationLieu(fenetre);
+                    if( tableLieuDAO.ajouter( lieu ) && tableAccesDAO.ajouter(tableLieuDAO.getID(lieu), lieu.getListeAcces())){
+                        JOptionPane.showMessageDialog(null, "Lieu crée !", "Message de confirmation",JOptionPane.INFORMATION_MESSAGE);
+                        new CreationLieu(fenetre);
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(null, "Erreur avec la base de données", "Erreur",JOptionPane.ERROR_MESSAGE);
+                    }
+
+
                 }
                 else{
                     System.out.println("Erreur Ajout accès");
@@ -86,8 +113,17 @@ public class CreationLieu {
         }
     }
 
-    class actionBouttonAjouterAcces implements ActionListener{
 
+    /**
+     * Ecoute du boutton GestionAcces
+     */
+    class actionBouttonGestionAcces implements ActionListener{
+
+        /**
+         * Affiche le la fenetre pour ajouter un accès si un nombre d'accès valide est entré dans le formulaire
+         *
+         * @param e Evenement
+         */
         public void actionPerformed(ActionEvent e) {
 
             lieu.setNombreAcces(formulaireLieu.getNombreAcces());
@@ -96,7 +132,7 @@ public class CreationLieu {
                 JOptionPane.showMessageDialog(null, "Entrer un nombre d'accès", "Erreur",JOptionPane.ERROR_MESSAGE);
             }
             else{
-                fenetreLierLieuAcces.fenetreVisible();
+                fenetreGestionAcces.fenetreVisible();
             }
         }
     }

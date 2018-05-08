@@ -4,24 +4,27 @@ import objetStockage.Personne;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.Random;
+
 
 /**
  * Classe regroupant toutes les méthodes utiles pour la gestion des cartes Léo dans la base de données
  */
 public class TableCarteLeoDAO {
 
-    PreparedStatement ps = null;
+    private PreparedStatement ps = null;
+
 
     /**
      * Constructeur qui fait la connection avec la base de données
      */
     public TableCarteLeoDAO(){ ConnectionDAO.getInstance(); }
 
+
     /**
      * Permet de savoir si une personne possède une carte Leo ou non
-     * @param personne (Personne)
-     * @return PossessionDuneCarte (Boolean)
+     *
+     * @param personne Personne pour laquel on veut connaitre si elle possède une carte
+     * @return Possession de la carte ( oui ou non )
      */
     public boolean connaitrePossession(Personne personne){
         boolean possession = false;
@@ -34,10 +37,8 @@ public class TableCarteLeoDAO {
 
             rs = ps.executeQuery();
 
-            while( rs.next() ){
+            while( rs.next() )
                 possession = true;
-            }
-
 
 
         } catch (Exception e) {
@@ -51,24 +52,30 @@ public class TableCarteLeoDAO {
             } catch (Exception ignore) {
             }
         }
+
         return possession;
     }
 
+
     /**
      * Ajoute une carte Leo associée à une personne dans la base de données
-     * @param idPersonne (Integer)
-     * @return Verification (Boolean)
+     *
+     * @param idPersonne ID de la personne à ajouter
+     * @return Retour sur l'ajout de la personne ( ok ou non )
      */
-    public boolean ajouter(int idPersonne){
+    public boolean ajouter(int idPersonne, String numeroDeBadge){
+
         boolean retour = false;
 
         try {
             ps = ConnectionDAO.getInstance().prepareStatement("INSERT INTO CARTELEO VALUES (?,?)");
             ps.setInt(1, idPersonne);
-            ps.setString(2,generationNumeroBadge() );
+            ps.setString(2,numeroDeBadge);
 
             ps.executeQuery();
             retour = true;
+            System.out.println("-----");
+            System.out.println("Badge ajouté :  IDpersonne : "+idPersonne+" IDbadge : "+numeroDeBadge);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -81,16 +88,19 @@ public class TableCarteLeoDAO {
             } catch (Exception ignore) {
             }
         }
+
         return retour;
     }
+
 
     /**
      * Supprime une carte Léo de la base de données
      *
-     * @param idPersonne (Integer)
-     * @return verificationDeLaction (Boolean)
+     * @param idPersonne ID de la personne à supprimer
+     * @return Retour sur la suppression de la personne ( ok ou non )
      */
     public boolean supprimer(int idPersonne){
+
         boolean retour = false;
 
         try {
@@ -98,7 +108,8 @@ public class TableCarteLeoDAO {
             ps = ConnectionDAO.getInstance().prepareStatement("DELETE FROM carteleo WHERE idcarte_personne = ?");
             ps.setInt(1, idPersonne );
 
-            System.out.println("Personne ajoutée!");
+            System.out.println("-----");
+            System.out.println("Carte pour la IDpersonne "+idPersonne+" supprimé");
 
             ps.executeUpdate();
             retour = true;
@@ -119,19 +130,46 @@ public class TableCarteLeoDAO {
         return retour;
     }
 
-    /**
-     * Génére un numero de badge qui n'est pas présent dans la base de données
-     * @return
-     */
-    private String generationNumeroBadge(){
-        Random rand = new Random();
-        String numeroBadge = "";
 
-        for(int i =0;i<20;i++){
-            char c = (char)(rand.nextInt(26)+97);
-            numeroBadge += c;
+    /**
+     * Connaitre si le numéro de badge est déjà présent dans la base de données
+     *
+     * @param numeroBadge Numero de badge à tester
+     * @return Présente du badge dans la base de données ( oui ou non )
+     */
+    public boolean presenceNumeroBadge( String numeroBadge){
+
+        boolean possession = true;
+        ResultSet rs;
+
+        try {
+            ps = ConnectionDAO.getInstance().prepareStatement("SELECT COUNT(IDCARTE_PERSONNE) FROM carteleo WHERE NUMEROBADGE = ?");
+            ps.setString(1, numeroBadge);
+
+            rs = ps.executeQuery();
+
+            rs.next();
+            System.out.println("-----");
+            if( rs.getInt( "COUNT(IDCARTE_PERSONNE)") == 0 ){
+                possession = false;
+                System.out.println("Numéro non présent ");
+            }
+            else{
+                System.out.println("Numéro présent");
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Erreur");
+        } finally {
+            // fermeture du preparedStatement et de la connexion
+            try {
+                if (ps != null)
+                    ps.close();
+            } catch (Exception ignore) {
+            }
         }
 
-        return numeroBadge;
+        return possession;
     }
 }

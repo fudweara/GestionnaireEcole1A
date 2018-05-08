@@ -4,15 +4,30 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
+
+/**
+ * Classe regroupant les fonctions pour la gestion des type d'accès dans la base de données
+ */
 public class TableTypeAccesDAO {
 
-    PreparedStatement ps = null;
+    private PreparedStatement ps = null;
 
+
+    /**
+     * Constructeur qui fait la connexion avec la base de données
+     */
     public TableTypeAccesDAO() {
         ConnectionDAO.getInstance();
     }
 
-    public boolean ajout(String typeAcces){
+
+    /**
+     * Ajoute un type d'accès dans la base de données
+     *
+     * @param typeAcces Nom du type d'accès à ajouter
+     * @return Vérification sur l'ajout du type d'accès dans la base de données
+     */
+    public boolean ajouter(String typeAcces){
 
         boolean retour = false;
 
@@ -22,6 +37,8 @@ public class TableTypeAccesDAO {
 
             ps.executeUpdate();
             retour=true;
+            System.out.println("-----");
+            System.out.println("Type d'accès ajouté : "+typeAcces);
 
         }catch (Exception e){
             e.printStackTrace();
@@ -34,21 +51,33 @@ public class TableTypeAccesDAO {
             } catch (Exception ignore) {
             }
         }
+
         return retour;
     }
 
-    public ArrayList<String> recupereToutlesTypes(){
-        ArrayList<String> typesAcces = new ArrayList<>();
 
+    /**
+     * Retourne tous les types d'accès
+     *
+     * @return Liste de chaine de caractères de tous les accès
+     */
+    public ArrayList<String> recupereToutlesTypes(){
+
+        ArrayList<String> typesAcces = new ArrayList<>();
         ResultSet rs;
+
         try {
             ps = ConnectionDAO.getInstance().prepareStatement("SELECT * FROM TYPEACCES");
 
             rs = ps.executeQuery();
+
+            System.out.println("-----");
+            System.out.println("Tous les types d'accès :");
             while (rs.next() ){
                 typesAcces.add( rs.getString("NOM_TYPEACCES") );
+                System.out.print( rs.getString("NOM_TYPEACCES") );
             }
-
+            System.out.println(" ");
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -62,10 +91,16 @@ public class TableTypeAccesDAO {
             }
         }
 
-
         return typesAcces;
     }
 
+
+    /**
+     * Récupére l'ID d'un type accès pour lequel on a le nom
+     *
+     * @param nomTypeAcces Nom du type d'accès pour lequel on veut connaitre l'ID
+     * @return ID du type d'accès
+     */
     public int getID(String nomTypeAcces){
 
         int id=0;
@@ -92,10 +127,18 @@ public class TableTypeAccesDAO {
             } catch (Exception ignore) {
             }
         }
+
         return id;
     }
 
-    public String nomTypeEmplacement(int ID){
+
+    /**
+     * Retourne le nom du type d'accès pour lequel on a l'ID
+     *
+     * @param ID ID pour lequel on veut connaitre le nom du type d'accès
+     * @return Nom du type d'accès
+     */
+    public String nomTypeAcces(int ID){
 
         String nom = "";
         ResultSet rs;

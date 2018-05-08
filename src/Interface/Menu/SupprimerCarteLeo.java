@@ -9,21 +9,30 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+
 /**
  * Classe qu représente le menu pour supprimer une carte Léo
  */
-
 public class SupprimerCarteLeo {
 
     private final RecherchePersonne recherchePersonne;
     private final Fenetre fenetre;
 
+
+    /**
+     * Constructeur pour le menu pour supprimer une carte Léo
+     *
+     * @param fenetre Fenetre qui va contenir le JPanel du menu pour supprimer une carte Léo
+     */
     public SupprimerCarteLeo(Fenetre fenetre){
 
         JButton bouttonSupprimerCarte = new JButton("Supprimer");
 
         this.fenetre = fenetre;
         fenetre.setTitle("Gestionnaire ESIGELEC - Supprimer une carte Léo");
+
+        System.out.println(" ");
+        System.out.println("Affichage du menu supprimer une carte Léo");
 
         recherchePersonne = new RecherchePersonne(fenetre, 1, null);
 
@@ -36,11 +45,21 @@ public class SupprimerCarteLeo {
         fenetre.updateAffichage();
 
         //Ajout fonction ecoute pour le boutton
-        bouttonSupprimerCarte.addActionListener(new actionBouttonSupprimerCarte());
+        bouttonSupprimerCarte.addActionListener(new actionBouttonSupprimer());
     }
 
-    class actionBouttonSupprimerCarte implements ActionListener{
 
+    /**
+     * Fonction d'écoute pour le boutton Supprimer
+     */
+    class actionBouttonSupprimer implements ActionListener{
+
+
+        /**
+         * Supprime la carte léo pour la personne selectionnés dans la recherche lors de l'appuie sur le boutton Supprimer
+         *
+         * @param e Evenement
+         */
         public void actionPerformed(ActionEvent e) {
             System.out.println("Appuie sur boutton supprimer");
 
@@ -54,10 +73,7 @@ public class SupprimerCarteLeo {
             else{
                 System.out.println("Selectionnez une personne");
                 JOptionPane.showMessageDialog(null, "Selectionnez une personne", "Erreur",JOptionPane.ERROR_MESSAGE);
-
             }
-
         }
     }
-
 }

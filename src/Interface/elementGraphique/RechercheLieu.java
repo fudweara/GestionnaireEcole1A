@@ -4,102 +4,92 @@ import DAO.TableLieuDAO;
 import Interface.Fenetre;
 import objetStockage.Lieu;
 
-import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-public class RechercheLieu extends JPanel implements ListSelectionListener {
 
-    private Fenetre fenetre;
-    private FormulaireLieu formulaireLieu;
+/**
+ * Recherche d'un lieu qui hérite de la classe recherche
+ */
+public class RechercheLieu extends Recherche {
 
-    private JTextField champDeRechercheNom;
-    private JButton boutton;
-
-    private JList jlisteLieu;
-    private DefaultListModel listeModele;
+    private final FormulaireLieu formulaireLieu;
 
     private ArrayList<Lieu> listeLieu;
 
-    private TableLieuDAO tableLieuDAO = new TableLieuDAO();
+    private final TableLieuDAO tableLieuDAO = new TableLieuDAO();
 
 
+    /**
+     * Constructeur pour la recherche d'un lieu
+     *
+     * @param fenetre Fenetre qui va contenir le champ de recherche
+     * @param formulaireLieu Formulaire qui va être mis à jour lors de la selection d'un lieu
+     */
     public RechercheLieu(Fenetre fenetre, FormulaireLieu formulaireLieu){
-        this.fenetre = fenetre;
+
+        super(fenetre);
+
         this.formulaireLieu = formulaireLieu;
 
-        jlisteLieu = new JList();
-        boutton = new JButton("Ok");
-        champDeRechercheNom = new JTextField();
         listeLieu = new ArrayList<>();
-
+        bouttonRechercher.addActionListener(new actionBouttonRechercher() );
 
         creationInterface();
-
-        boutton.addActionListener(new actionBoutton() );
-
-    }
-    private void creationInterface(){
-
-        setPreferredSize(new Dimension(300,300));
-        setBackground(Color.lightGray);
-
-
-        // On dimensionne la barre de recherche
-        champDeRechercheNom.setPreferredSize(new Dimension(249, 30));
-        champDeRechercheNom.setForeground(Color.BLACK);
-
-        //Creation de la liste et paramètrage.
-        listeModele = new DefaultListModel();
-        jlisteLieu = new JList(listeModele);
-        jlisteLieu.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        jlisteLieu.addListSelectionListener(this);
-        jlisteLieu.setVisibleRowCount(5);
-        JScrollPane listScrollPane = new JScrollPane(jlisteLieu);
-        listScrollPane.setPreferredSize(new Dimension(300, 230));
-
-
-        //Ajout des éléments à la JFrame
-        add(champDeRechercheNom,BorderLayout.PAGE_START);
-        add(boutton,BorderLayout.PAGE_START);
-        add(listScrollPane, BorderLayout.CENTER);
     }
 
-    @Override
+    /**
+     * Lors de la selection d'un lieu, met ses attributs dans le formulaire
+     *
+     * @param e Evenement
+     */
     public void valueChanged(ListSelectionEvent e) {
 
-        formulaireLieu.setAtributs(tableLieuDAO.getLieu( jlisteLieu.getSelectedValue().toString()));
+        formulaireLieu.setAtributs(tableLieuDAO.getLieu(jListe.getSelectedValue()));
     }
 
-    class actionBoutton implements ActionListener {
-        public void actionPerformed(ActionEvent arg0) {
 
-            System.out.println("Appuie sur boutton recherche");
+    /**
+     * Classe pour les actions du boutton rechercher
+     */
+    class actionBouttonRechercher implements ActionListener {
+
+
+        /**
+         * Met à jour les résultats de recherche lors de l'appuie sur le boutton valider
+         *
+         * @param arg0 Action Evenement
+         */
+        public void actionPerformed(ActionEvent arg0) {
 
             removeAll();
             creationInterface();
 
-            listeLieu = tableLieuDAO.rechercherLieu( champDeRechercheNom.getText() );
+            listeLieu = tableLieuDAO.rechercherLieu( champDeRecherche.getText() );
 
-            for(int i=0 ; i< listeLieu.size() ; i++){
-                listeModele.addElement(listeLieu.get(i).getEmplacement());
+            for (Lieu aListeLieu : listeLieu) {
+                listeModele.addElement(aListeLieu.getEmplacement());
             }
 
             fenetre.updateAffichage();
         }
     }
 
+
+    /**
+     * Retourne le lieu selectionné dans la liste
+     *
+     * @return Lieu selectionné dans la liste
+     */
     public Lieu lieuSelectionne(){
 
-        if ( jlisteLieu.getSelectedValue() == null ){
+        if ( jListe.getSelectedValue() == null ){
             return new Lieu(-1,null,null,null,0);
         }
         else{
-            return listeLieu.get( jlisteLieu.getSelectedIndex() );
+            return listeLieu.get( jListe.getSelectedIndex() );
         }
 
     }

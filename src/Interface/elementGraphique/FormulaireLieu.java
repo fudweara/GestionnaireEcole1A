@@ -7,20 +7,30 @@ import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import java.awt.*;
+import java.util.Objects;
 
+/**
+ * Permet de rechercher un lieu grace à son nom dans la base de données
+ */
 public class FormulaireLieu extends JPanel{
 
     private JTextField champEmplacement;
     private JTextField champNombreAcces;
 
-    private JComboBox listeDeroulanteHeureOuv;
-    private JComboBox listeDeroulanteHeureFerm;
+    private JComboBox<Integer> listeDeroulanteHeureOuv;
+    private JComboBox<Integer> listeDeroulanteHeureFerm;
 
-    private JComboBox listeDeroulanteMinuteOuv;
-    private JComboBox listeDeroulanteMinuteFerm;
+    private JComboBox<Integer> listeDeroulanteMinuteOuv;
+    private JComboBox<Integer> listeDeroulanteMinuteFerm;
 
-    private JButton bouttonValidation;
+    private final JButton bouttonValidation;
 
+
+    /**
+     * Constructeur qui crée l'interface et configure les attributs
+     *
+     * @param bouttonValidation Boutton qui va être activé/desactiver si les champs sont remplis ou non
+     */
     public FormulaireLieu(JButton bouttonValidation){
 
         this.bouttonValidation = bouttonValidation;
@@ -31,7 +41,7 @@ public class FormulaireLieu extends JPanel{
         JLabel texteHoraireFermeture = new JLabel("Horaire fermeture :");
         JLabel texteNombreAcces = new JLabel("Nombre accès :");
 
-        // Vont stocker Texte + champ de recherche
+        // Vont stocker Texte + champ à remplir
         JPanel emplacementJPanel = new JPanel();
         JPanel horaireOuvertureJPanel = new JPanel();
         JPanel horaireFermetureJPanel = new JPanel();
@@ -39,38 +49,43 @@ public class FormulaireLieu extends JPanel{
 
         configurationAttribut();
 
+        //Ajout dans chaque JPanel texte puis le/les champ(s) à remplir
         emplacementJPanel.add(texteEmplacement);
         emplacementJPanel.add(champEmplacement);
-        add(emplacementJPanel);
 
         horaireOuvertureJPanel.add(texteHoraireOuverture);
-
         horaireOuvertureJPanel.add(listeDeroulanteHeureOuv);
         horaireOuvertureJPanel.add(listeDeroulanteMinuteOuv);
-        add(horaireOuvertureJPanel);
 
         horaireFermetureJPanel.add(texteHoraireFermeture);
-
         horaireFermetureJPanel.add(listeDeroulanteHeureFerm);
         horaireFermetureJPanel.add(listeDeroulanteMinuteFerm);
-        add(horaireFermetureJPanel);
 
         nombreAccesJPanel.add(texteNombreAcces);
         nombreAccesJPanel.add(champNombreAcces);
+
+        //Ajoute les JPanel au formulaire
+        add(emplacementJPanel);
+        add(horaireOuvertureJPanel);
+        add(horaireFermetureJPanel);
         add(nombreAccesJPanel);
     }
 
+
+    /**
+     * Configure les éléments qui composent le formulaire
+     */
     private void configurationAttribut(){
 
         actionChampTexte documentListener = new actionChampTexte();
         champEmplacement = new JTextField("");
         champEmplacement.getDocument().addDocumentListener(documentListener);
 
-        listeDeroulanteHeureOuv = new JComboBox();
-        listeDeroulanteHeureFerm = new JComboBox();
+        listeDeroulanteHeureOuv = new JComboBox<>();
+        listeDeroulanteHeureFerm = new JComboBox<>();
 
-        listeDeroulanteMinuteOuv = new JComboBox();
-        listeDeroulanteMinuteFerm = new JComboBox();
+        listeDeroulanteMinuteOuv = new JComboBox<>();
+        listeDeroulanteMinuteFerm = new JComboBox<>();
 
         listeDeroulanteHeureOuv.setPreferredSize(new Dimension(50, 20));
         listeDeroulanteHeureFerm.setPreferredSize(new Dimension(50, 20));
@@ -96,33 +111,42 @@ public class FormulaireLieu extends JPanel{
 
     }
 
+
+    /**
+     * Retourne l'emplacement entré dans le formulaire
+     *
+     * @return Emplacement du lieu
+     */
     public String getEmplacement() {
         return champEmplacement.getText();
     }
 
-    public void setChampEmplacement(String Emplacement) {
-        champEmplacement.setText(Emplacement);
-    }
 
+    /**
+     * Retourne l'horaire d'ouverture qui est entré dans le formulaire
+     *
+     * @return Horaire pour l'ouverture
+     */
     public Horaire getHoraireOuverture() {
-        return new Horaire(listeDeroulanteHeureOuv.getSelectedItem().toString() ,listeDeroulanteMinuteOuv.getSelectedItem().toString());
+        return new Horaire(Objects.requireNonNull(listeDeroulanteHeureOuv.getSelectedItem()).toString() ,Objects.requireNonNull(listeDeroulanteMinuteOuv.getSelectedItem()).toString());
     }
 
-    public void setChampHoraireOuverture(Horaire horaire) {
-        listeDeroulanteHeureOuv.setSelectedIndex( Integer.parseInt( horaire.getHeures() ));
-        listeDeroulanteMinuteOuv.setSelectedIndex( Integer.parseInt( horaire.getMinutes() )/5);
 
-    }
-
+    /**
+     * Retourne l'horaire la fermeture qui est entré dans le formulaire
+     *
+     * @return Horaire pour la fermture
+     */
     public Horaire getHoraireFermeture() {
-        return new Horaire( listeDeroulanteHeureFerm.getSelectedItem().toString(),listeDeroulanteMinuteFerm.getSelectedItem().toString() );
+        return new Horaire( Objects.requireNonNull(listeDeroulanteHeureFerm.getSelectedItem()).toString(),Objects.requireNonNull(listeDeroulanteMinuteFerm.getSelectedItem()).toString() );
     }
 
-    public void setChampHoraireFermeture(Horaire horaire) {
-        listeDeroulanteHeureFerm.setSelectedIndex( Integer.parseInt( horaire.getHeures() ));
-        listeDeroulanteMinuteFerm.setSelectedIndex( Integer.parseInt( horaire.getMinutes() )/5);
-    }
 
+    /**
+     * Retourne le nombre d'accès entré dans le formulaire
+     *
+     * @return Nombre d'accès
+     */
     public int getNombreAcces() {
 
         System.out.println("Tentative de récupération du nombre accès : "+champNombreAcces.getText());
@@ -135,26 +159,35 @@ public class FormulaireLieu extends JPanel{
 
     }
 
-    public void setChampNombreAcces(String nombreAcces) {
-        champNombreAcces.setText(nombreAcces);
-    }
 
-
+    /**
+     * Classe pour l'écoute des champs de texte
+     */
     class actionChampTexte implements DocumentListener {
 
+
+        @Override
         public void insertUpdate(DocumentEvent e) {
             activationBouttonDeValidation();
         }
 
+
+        @Override
         public void removeUpdate(DocumentEvent e) {
             activationBouttonDeValidation();
         }
 
+
+        @Override
         public void changedUpdate(DocumentEvent e) {
             activationBouttonDeValidation();
         }
 
-        public void activationBouttonDeValidation(){
+
+        /**
+         *Désactive/Active le boutton si il les champs de texte sont vide ou non
+         */
+        void activationBouttonDeValidation(){
 
             if(champEmplacement.getText().equals("")  || champNombreAcces.getText().equals("") ){
                 bouttonValidation.setEnabled(false);
@@ -165,7 +198,13 @@ public class FormulaireLieu extends JPanel{
         }
     }
 
-    public void setAtributs(Lieu lieu){
+
+    /**
+     * Remplis les champs du fonmulaire par les paramètres du lieu
+     *
+     * @param lieu Lieu pour lequel on veut mettre les paramètres dans les champs
+     */
+    void setAtributs(Lieu lieu){
 
         champEmplacement.setText(lieu.getEmplacement());
 

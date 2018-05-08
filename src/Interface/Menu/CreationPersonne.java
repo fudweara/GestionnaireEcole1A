@@ -19,14 +19,19 @@ public class CreationPersonne {
     private final FormulairePersonne formulairePersonne;
     private final Fenetre fenetre;
 
+
     /**
      * Constructeur du menu création fenetre
-     * @param fenetre (Fenetre
+     *
+     * @param fenetre Fenetre qui va contenir le JPanel du menu pour créer une personne
      */
     public CreationPersonne( Fenetre fenetre ){
 
         fenetre.setTitle("Gestionnaire ESIGELEC - Créer une personne");
         this.fenetre = fenetre;
+
+        System.out.println(" ");
+        System.out.println("Affichage du menu création de personnes");
 
         JButton bouttonValiderCreation = new JButton("Valider");
         formulairePersonne = new FormulairePersonne(bouttonValiderCreation);
@@ -49,6 +54,12 @@ public class CreationPersonne {
      */
     class ecouteValiderCreation implements ActionListener{
 
+
+        /**
+         * Ajoute la personne entré dans le formulaire lors de l'appuie sur le boutton
+         *
+         * @param arg0 Action Evenement
+         */
         public void actionPerformed(ActionEvent arg0) {
 
             TablePersonneDAO tablePersonneDAO = new TablePersonneDAO();
@@ -57,12 +68,11 @@ public class CreationPersonne {
 
             if( tablePersonneDAO.ajout( new Personne(0, formulairePersonne.getNom(),formulairePersonne.getPrenom(), formulairePersonne.getDateDeNaissance(), formulairePersonne.getFonction()) )){
                 JOptionPane.showMessageDialog(null, "Ajout effectué !", "Message de confirmation",JOptionPane.INFORMATION_MESSAGE);
-                new CreationLieu(fenetre);
+                new CreationPersonne(fenetre);
             }
             else{
                 JOptionPane.showMessageDialog(null, "Tous les champs doivent être complétés et la date correctement entrée", "Erreur",JOptionPane.ERROR_MESSAGE);
             }
-
         }
     }
 }

@@ -1,7 +1,6 @@
 package Interface;
 
 import javax.swing.*;
-import java.awt.*;
 
 /**
  * Objet qui représente la  fenetre du programme
@@ -39,7 +38,8 @@ public class Fenetre extends JFrame{
 
     /**
      * Recupère le JPanel qui est contenu dans la fenetre
-     * @return fenetre (JPanel)
+     *
+     * @return fenetre Fenetre du programme
      */
     public JPanel getFenetre() {
         return fenetre;

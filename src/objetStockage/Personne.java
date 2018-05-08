@@ -1,22 +1,25 @@
 package objetStockage;
 
 
+/**
+ * Personne qui possède un ID, un nom, un prénom, une date de naissance et une fonction
+ */
 public class Personne {
 
-    private int id;
-    private String nom;
-    private String prenom;
-    private DateDeNaissance dateNaissance;
-    private String fonction;
+    private final int id;
+    private final String nom;
+    private final String prenom;
+    private final DateDeNaissance dateNaissance;
+    private final String fonction;
 
 
     /**
      * Constructeur de Personne qui prends pour paramètre toutes ses caractéristiques
      *
-     * @param nom (String)
-     * @param prenom (String)
-     * @param dateDeNaissance (DateDeNaissance)
-     * @param fonction (String)
+     * @param nom Nom de la personne
+     * @param prenom Prénom de personne
+     * @param dateDeNaissance Date de naissance de la personne
+     * @param fonction Fonction de la personne
      */
     public Personne(int id,String nom, String prenom, DateDeNaissance dateDeNaissance, String fonction){
         this.id=id;
@@ -30,7 +33,7 @@ public class Personne {
     /**
      * Retourne le nom de la Personne
      *
-     * @return Nom (String)
+     * @return Nom
      */
     public String getNom(){
         return nom;
@@ -40,7 +43,7 @@ public class Personne {
     /**
      *  Retourne le prénom de la personne
      *
-     * @return Prenom (String)
+     * @return Prenom
      */
     public String getPrenom(){
         return prenom;
@@ -50,7 +53,7 @@ public class Personne {
     /**
      * Retourne la date de naissance de la personne
      *
-     * @return Date de naissance (DateDeNaissance)
+     * @return Date de naissance
      */
     public DateDeNaissance getDateNaissance(){
         return dateNaissance;
@@ -60,7 +63,7 @@ public class Personne {
     /**
      * Retourne la date de naissance de la personne
      *
-     * @return Fonction (String)
+     * @return Fonction
      */
     public String getFonction(){
         return fonction;
@@ -68,48 +71,8 @@ public class Personne {
 
 
     /**
-     * Met à jour la date de naissancce de la personne
-     *
-     * @param dateNaissance (DateDeNaissance)
-     */
-    public void setDateNaissance(DateDeNaissance dateNaissance) {
-        this.dateNaissance = dateNaissance;
-    }
-
-
-    /**
-     * Met  à jour la fonction de la personne
-     *
-     * @param fonction (String)
-     */
-    public void setFonction(String fonction) {
-        this.fonction = fonction;
-    }
-
-
-    /**
-     * Met à jour le nom de la personne
-     *
-     * @param nom (String)
-     */
-    public void setNom(String nom) {
-        this.nom = nom;
-    }
-
-
-    /**
-     * Met à jour le prenom de la personne
-     *
-     * @param prenom (String)
-     */
-    public void setPrenom(String prenom) {
-        this.prenom = prenom;
-    }
-
-
-    /**
-     *
-     * @return ID (Integer)
+     * Retourne l'ID de la personne
+     * @return ID
      */
     public int getId() {
         return id;
