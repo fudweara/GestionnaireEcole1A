@@ -23,7 +23,7 @@ public class FormulaireLieu extends JPanel{
     private JComboBox<Integer> listeDeroulanteMinuteOuv;
     private JComboBox<Integer> listeDeroulanteMinuteFerm;
 
-    private final JButton bouttonValidation;
+    private final JButton boutonValidation;
 
 
     /**
@@ -33,7 +33,7 @@ public class FormulaireLieu extends JPanel{
      */
     public FormulaireLieu(JButton bouttonValidation){
 
-        this.bouttonValidation = bouttonValidation;
+        this.boutonValidation = bouttonValidation;
 
         // Texte devant chaque champ de recherche
         JLabel texteEmplacement = new JLabel("Emplacement :");
@@ -168,32 +168,32 @@ public class FormulaireLieu extends JPanel{
 
         @Override
         public void insertUpdate(DocumentEvent e) {
-            activationBouttonDeValidation();
+            activationBoutonDeValidation();
         }
 
 
         @Override
         public void removeUpdate(DocumentEvent e) {
-            activationBouttonDeValidation();
+            activationBoutonDeValidation();
         }
 
 
         @Override
         public void changedUpdate(DocumentEvent e) {
-            activationBouttonDeValidation();
+            activationBoutonDeValidation();
         }
 
 
         /**
-         *Désactive/Active le boutton si il les champs de texte sont vide ou non
+         *Désactive/Active le bouton si il les champs de texte sont vide ou non
          */
-        void activationBouttonDeValidation(){
+        void activationBoutonDeValidation(){
 
             if(champEmplacement.getText().equals("")  || champNombreAcces.getText().equals("") ){
-                bouttonValidation.setEnabled(false);
+                boutonValidation.setEnabled(false);
             }
             else{
-                bouttonValidation.setEnabled(true);
+                boutonValidation.setEnabled(true);
             }
         }
     }

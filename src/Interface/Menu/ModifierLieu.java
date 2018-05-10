@@ -72,15 +72,15 @@ public class ModifierLieu {
         fenetre.updateAffichage();
 
         //Ajout fonction d'écoute pour les bouttons
-        bouttonAcces.addActionListener( new ecouteBouttonGestionAcces() );
-        bouttonModifier.addActionListener( new ecouteBouttonValider() );
+        bouttonAcces.addActionListener( new ecouteBoutonGestionAcces() );
+        bouttonModifier.addActionListener( new ecouteBoutonValider() );
     }
 
 
     /**
-     * Ecoute du boutton Gestion Acces
+     * Ecoute du bouton Gestion Acces
      */
-    class ecouteBouttonGestionAcces implements ActionListener{
+    class ecouteBoutonGestionAcces implements ActionListener{
 
 
         /**
@@ -113,9 +113,9 @@ public class ModifierLieu {
 
 
     /**
-     * Ecoute du boutton Valider
+     * Ecoute du bouton Valider
      */
-    class ecouteBouttonValider implements ActionListener{
+    class ecouteBoutonValider implements ActionListener{
 
         /**
          * Ajoute dans la base de données la modification du lieu + ces accès lors de l'appuie sur le boutton valider

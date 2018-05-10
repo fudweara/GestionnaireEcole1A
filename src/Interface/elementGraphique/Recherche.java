@@ -15,7 +15,7 @@ class Recherche extends JPanel implements ListSelectionListener {
     final Fenetre fenetre;
 
     final JTextField champDeRecherche;
-    final JButton bouttonRechercher;
+    final JButton boutonRechercher;
 
     JList<String> jListe;
     DefaultListModel<String> listeModele;
@@ -30,7 +30,7 @@ class Recherche extends JPanel implements ListSelectionListener {
 
         this.fenetre = fenetre;
 
-        bouttonRechercher = new JButton("Rechercher");
+        boutonRechercher = new JButton("Rechercher");
         champDeRecherche = new JTextField();
     }
 
@@ -60,7 +60,7 @@ class Recherche extends JPanel implements ListSelectionListener {
 
         //Ajout des éléments à la JFrame
         add(champDeRecherche,BorderLayout.PAGE_START);
-        add(bouttonRechercher,BorderLayout.PAGE_START);
+        add(boutonRechercher,BorderLayout.PAGE_START);
         add(listScrollPane, BorderLayout.CENTER);
     }
 

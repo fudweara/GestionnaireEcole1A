@@ -22,7 +22,7 @@ public class FenetreIdentification extends JFrame {
     private final JPasswordField champMDP;
 
     private final JButton bouton;
-    private final JPanel panelBoutton;
+    private final JPanel panelBouton;
 
 
     /**
@@ -35,7 +35,7 @@ public class FenetreIdentification extends JFrame {
         fenetre = new JPanel();
         conteneurChampsARemplir = new JPanel();
         champIdentifiant = new JTextField("");
-        panelBoutton = new JPanel();
+        panelBouton = new JPanel();
 
         creationDeLaFenetre();
         ajoutDesElementsGraphiques();
@@ -92,13 +92,13 @@ public class FenetreIdentification extends JFrame {
         conteneurChampsARemplir.add(Box.createRigidArea(new Dimension(0, 30)));
 
         // Configuration du panel contenant le boutton qui se situe en bas de la fenetre
-        panelBoutton.setLayout(new BorderLayout() );
-        panelBoutton.setBorder(BorderFactory.createEmptyBorder(0, 60, 40, 60));
-        panelBoutton.add(bouton,BorderLayout.CENTER);
+        panelBouton.setLayout(new BorderLayout() );
+        panelBouton.setBorder(BorderFactory.createEmptyBorder(0, 60, 40, 60));
+        panelBouton.add(bouton,BorderLayout.CENTER);
 
         // Ajout des JPanel à la Fenetre
         fenetre.add(conteneurChampsARemplir,BorderLayout.CENTER);
-        fenetre.add(panelBoutton, BorderLayout.PAGE_END);
+        fenetre.add(panelBouton, BorderLayout.PAGE_END);
     }
 
 

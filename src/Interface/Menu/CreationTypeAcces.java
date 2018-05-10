@@ -7,6 +7,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 
 /**
@@ -25,33 +26,53 @@ public class CreationTypeAcces {
      */
     public CreationTypeAcces(Fenetre fenetre){
 
+        fenetre.setTitle("Gestionnaire ESIGELEC - Créer un type d'accès");
         this.fenetre = fenetre;
+
         System.out.println(" ");
         System.out.println("Affichage du menu création de type d'accès");
 
-
-        JButton bouttonAjouterTypeAcces = new JButton("Ajouter");
+        JButton boutonAjouterTypeAcces = new JButton("Ajouter");
 
         champNomTypeAcces = new JTextField("");
         champNomTypeAcces.setPreferredSize(new Dimension(150,50));
 
+        //Creation de la liste et paramètrage.
+        JPanel panelListe = new JPanel();
+        panelListe.setPreferredSize(new Dimension(300,300));
+        DefaultListModel<String> listeModele = new DefaultListModel<>();
+        JList<String> jListe = new JList<>(listeModele);
+        jListe.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        jListe.setVisibleRowCount(5);
+        JScrollPane listScrollPane = new JScrollPane(jListe);
+        listScrollPane.setPreferredSize(new Dimension(200, 230));
+
+        TableTypeAccesDAO tableTypeAccesDAO = new TableTypeAccesDAO();
+        ArrayList<String> typeAcces = tableTypeAccesDAO.recupereToutlesTypes();
+        for (String typeAcce : typeAcces) {
+            listeModele.addElement(typeAcce);
+        }
+
         fenetre.getFenetre().removeAll();
+        fenetre.getFenetre().setBorder(BorderFactory.createEmptyBorder(40, 50, 20, 50));
         fenetre.getFenetre().add(champNomTypeAcces);
-        fenetre.getFenetre().add(bouttonAjouterTypeAcces);
+        fenetre.getFenetre().add(boutonAjouterTypeAcces);
+        fenetre.getFenetre().add( Box.createRigidArea(new Dimension(30, 0)));
+        fenetre.getFenetre().add(listScrollPane);
         fenetre.updateAffichage();
 
-        bouttonAjouterTypeAcces.addActionListener(new actionBouttonAjouter());
+        boutonAjouterTypeAcces.addActionListener(new actionBoutonAjouter());
     }
 
 
     /**
-     * Ecoute du boutton Ajouter
+     * Ecoute du bouton Ajouter
      */
-    class actionBouttonAjouter implements ActionListener{
+    class actionBoutonAjouter implements ActionListener{
 
 
         /**
-         * Ajoute le type d'accès entré dans le champ  lors de l'appuie sur le boutton Ajouter
+         * Ajoute le type d'accès entré dans le champ  lors de l'appuie sur le bouton Ajouter
          *
          * @param e Evenement
          */

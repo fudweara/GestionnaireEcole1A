@@ -33,7 +33,7 @@ public class CreationCarteLeo {
         System.out.println(" ");
         System.out.println("Affichage du menu création de cartes Léo");
 
-        JButton bouttonAjouterCarte = new JButton("Créer");
+        JButton boutonAjouterCarte = new JButton("Créer");
         recherchePersonne = new RecherchePersonne(fenetre, 2, null);
 
         //Ajout composants graphiques
@@ -41,22 +41,22 @@ public class CreationCarteLeo {
         fenetre.getFenetre().setBorder(BorderFactory.createEmptyBorder(15, 100, 15, 100));
         fenetre.getFenetre().add( recherchePersonne );
         fenetre.getFenetre().add( Box.createRigidArea(new Dimension(20, 0)));
-        fenetre.getFenetre().add(bouttonAjouterCarte);
+        fenetre.getFenetre().add(boutonAjouterCarte);
         fenetre.updateAffichage();
 
         //Ajout fonction ecoute pour le boutton ajouter
-        bouttonAjouterCarte.addActionListener(new actionBouttonAjouterCarte());
+        boutonAjouterCarte.addActionListener(new actionBoutonAjouterCarte());
     }
 
 
     /**
      * Fonction d'écoute pour le bouton Ajouter
      */
-    class actionBouttonAjouterCarte implements ActionListener{
+    class actionBoutonAjouterCarte implements ActionListener{
 
 
         /**
-         * Ajoute la carte léo à la base de données lors de l'appuie sur sur le boutton Ajouter
+         * Ajoute la carte léo à la base de données lors de l'appuie sur sur le bouton Ajouter
          * @param e Evenement
          */
         public void actionPerformed(ActionEvent e) {

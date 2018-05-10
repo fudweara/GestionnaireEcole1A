@@ -16,22 +16,7 @@ import java.awt.event.ActionListener;
  */
 class BarreDeNavigation extends JMenuBar{
 
-    private JMenuItem ajoutPersonne;
-    private JMenuItem modifierPersonne;
-    private JMenuItem supprimerPersonne;
-
-    private JMenuItem ajoutCarteLeo;
-    private JMenuItem supprimerCarteLeo;
-
-    private JMenuItem creationLieu;
-    private JMenuItem modificationLieu;
-    private JMenuItem creationTypeAcces;
-
-    private JMenuItem listeAcces;
-    private JMenuItem rechercheAcces;
-
     private final Fenetre fenetre;
-
 
     /**
      * Constructeur d'une barre de navigation
@@ -40,34 +25,25 @@ class BarreDeNavigation extends JMenuBar{
     BarreDeNavigation(Fenetre fenetre){
 
         this.fenetre=fenetre;
-        creationDesMenus();
-        ecouteDesChoix();
-    }
-
-
-    /**
-     * Création des menus de la JMenuBar
-     */
-    private void creationDesMenus(){
 
         JMenu gestionPersonne = new JMenu("Gérer les personnes...");
         JMenu gestionCarteLeo = new JMenu("Gérer les cartes Léo");
         JMenu gestionLieux = new JMenu("Gérer les lieux");
-        JMenu gestionAcces = new JMenu("Recherche accés");
+        JMenu rechercheAccesMenu = new JMenu("Recherche accés");
 
-        ajoutPersonne = new JMenuItem("Ajouter une personne");
-        modifierPersonne = new JMenuItem("Modifier une personne");
-        supprimerPersonne = new JMenuItem("Supprimer une personne");
+        JMenuItem ajoutPersonne = new JMenuItem("Ajouter une personne");
+        JMenuItem modifierPersonne = new JMenuItem("Modifier une personne");
+        JMenuItem supprimerPersonne = new JMenuItem("Supprimer une personne");
 
-        ajoutCarteLeo = new JMenuItem("Ajouter une carte Léo");
-        supprimerCarteLeo = new JMenuItem("Supprimer une carte Léo");
+        JMenuItem ajoutCarteLeo = new JMenuItem("Ajouter une carte Léo");
+        JMenuItem supprimerCarteLeo = new JMenuItem("Supprimer une carte Léo");
 
-        creationLieu = new JMenuItem("Créer un lieu");
-        modificationLieu = new JMenuItem("Modifier un lieu");
-        creationTypeAcces = new JMenuItem("Création type accès");
+        JMenuItem creationLieu = new JMenuItem("Créer un lieu");
+        JMenuItem modificationLieu = new JMenuItem("Modifier un lieu");
+        JMenuItem creationTypeAcces = new JMenuItem("Création type accès");
 
-        listeAcces = new JMenuItem("Lister");
-        rechercheAcces = new JMenuItem("Rechercher");
+        JMenuItem rechercheAcces = new JMenuItem("Rechercher un accès");
+
 
         gestionPersonne.add(ajoutPersonne);
         gestionPersonne.add(modifierPersonne);
@@ -80,20 +56,13 @@ class BarreDeNavigation extends JMenuBar{
         gestionLieux.add(modificationLieu);
         gestionLieux.add(creationTypeAcces);
 
-        gestionAcces.add(listeAcces);
-        gestionAcces.add(rechercheAcces);
+        rechercheAccesMenu.add(rechercheAcces);
 
         add(gestionPersonne);
         add(gestionCarteLeo);
         add(gestionLieux);
-        add(gestionAcces);
-    }
+        add(rechercheAccesMenu);
 
-
-    /**
-     * Associations des fonctions d'écoute avec les élements graphiques
-     */
-    private void ecouteDesChoix(){
         ajoutPersonne.addActionListener(new boutonAjoutPersonne());
         modifierPersonne.addActionListener(new boutonModifierPersonne());
         supprimerPersonne.addActionListener(new boutonSupprimerPersonne());
@@ -105,7 +74,6 @@ class BarreDeNavigation extends JMenuBar{
         modificationLieu.addActionListener(new boutonModificationLieu());
         creationTypeAcces.addActionListener(new boutonCreationTypeAcces());
 
-        listeAcces.addActionListener(new boutonListeAcces());
         rechercheAcces.addActionListener(new boutonRechercheAcces());
 
     }
@@ -243,31 +211,17 @@ class BarreDeNavigation extends JMenuBar{
     /**
      *  Ecoute du bouton Listage accés : si il y a appuie, affiche l'écran menu Listage accés dans la fenetre
      */
-    class boutonListeAcces implements ActionListener{
-
-        /**
-         * Affiche le menu XXXXXXXXXX
-         * @param arg0 Evenement à faire
-         */
-        public void actionPerformed(ActionEvent arg0) {
-            System.out.println("Liste accès");
-        }
-
-    }
-
-
-    /**
-     *  Ecoute du bouton Recherche accés : si il y a appuie, affiche l'écran menu Recherche accés dans la fenetre
-     */
     class boutonRechercheAcces implements ActionListener{
 
         /**
-         * Affiche le menu XXXXXXXXXXXXXX
+         * Affiche le menu Recherche accès
          * @param arg0 Evenement à faire
          */
         public void actionPerformed(ActionEvent arg0) {
-            System.out.println("Recherche accès");
+            new RechercheAcces( fenetre );
         }
 
     }
+
+
 }

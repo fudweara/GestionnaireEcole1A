@@ -281,4 +281,53 @@ public class TableLieuDAO {
 
         return lieu;
     }
+
+
+    /**
+     * Retorune le lieu correspondant à l'id donné
+     *
+     * @param id ID du lieu
+     * @return Lieu
+     */
+    public Lieu getLieu(int id){
+        Lieu lieu = new Lieu();
+        ResultSet rs;
+
+        try {
+            ps = getInstance().prepareStatement("SELECT * FROM LIEU WHERE IDLIEU = ?");
+            ps.setInt(1, id);
+
+            rs = ps.executeQuery();
+
+            String heure;
+            String[] separationHeureOuverture;
+            String[] separation1HeureFermeture;
+
+            rs.next();
+
+            heure = rs.getString("HORAIRE_OUVERTURE");
+            separationHeureOuverture = heure.split("\\s+");
+            separationHeureOuverture = separationHeureOuverture[1].split(":");
+
+            heure = rs.getString("HORAIRE_FERMETURE");
+            separation1HeureFermeture = heure.split("\\s+");
+            separation1HeureFermeture = separation1HeureFermeture[1].split(":");
+
+            lieu = new Lieu(rs.getString("EMPLACEMENT_LIEU"), new Horaire(separationHeureOuverture[0],separationHeureOuverture[1]), new Horaire(separation1HeureFermeture[0],separation1HeureFermeture[1]),rs.getInt("NB_ACCES"));
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Erreur");
+        } finally {
+            // fermeture du preparedStatement et de la connexion
+            try {
+                if (ps != null)
+                    ps.close();
+            } catch (Exception ignore) {
+            }
+        }
+
+        return lieu;
+    }
 }

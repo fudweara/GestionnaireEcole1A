@@ -27,7 +27,7 @@ public class FormulairePersonne extends JPanel{
     private  JDatePickerImpl datePicker;
     private  UtilDateModel model;
 
-    private final JButton bouttonCreer;
+    private final JButton boutonCreer;
 
 
     /**
@@ -46,7 +46,7 @@ public class FormulairePersonne extends JPanel{
         JPanel prenomJPanel = new JPanel();
         JPanel dateDeNaissanceJPanel = new JPanel();
         JPanel fonctionJPanel = new JPanel();
-        this.bouttonCreer=bouttonCreer;
+        this.boutonCreer=bouttonCreer;
 
         configurationAtribut();
 
@@ -83,7 +83,7 @@ public class FormulairePersonne extends JPanel{
 
         setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
         ecouteChampsTexte documentListener = new ecouteChampsTexte();
-        bouttonCreer.setEnabled(false);
+        boutonCreer.setEnabled(false);
 
         champNom = new JTextField("");
         champNom.setPreferredSize(new Dimension(150, 30));
@@ -174,38 +174,38 @@ public class FormulairePersonne extends JPanel{
 
 
     /**
-     * Activation/Désactivation du boutton valider si les champs sont vides. Activé quand on modifie un champ.
+     * Activation/Désactivation du bouton valider si les champs sont vides. Activé quand on modifie un champ.
      */
     class ecouteChampsTexte implements DocumentListener {
 
 
         @Override
         public void insertUpdate(DocumentEvent e) {
-            activationBouttonDeValidation();
+            activationBoutonDeValidation();
         }
 
 
         @Override
         public void removeUpdate(DocumentEvent e) {
-            activationBouttonDeValidation();
+            activationBoutonDeValidation();
         }
 
         @Override
         public void changedUpdate(DocumentEvent e) {
-            activationBouttonDeValidation();
+            activationBoutonDeValidation();
         }
 
 
         /**
-         * Désactive/Active le boutton si il les champs de texte sont vide ou non
+         * Désactive/Active le bouton si il les champs de texte sont vide ou non
          */
-        void activationBouttonDeValidation(){
+        void activationBoutonDeValidation(){
 
             if(champPrenom.getText().equals("")  || champNom.getText().equals("") || champFonction.getText().equals("") ){
-                bouttonCreer.setEnabled(false);
+                boutonCreer.setEnabled(false);
             }
             else{
-                bouttonCreer.setEnabled(true);
+                boutonCreer.setEnabled(true);
             }
         }
     }

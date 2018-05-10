@@ -35,7 +35,7 @@ public class RechercheLieu extends Recherche {
         this.formulaireLieu = formulaireLieu;
 
         listeLieu = new ArrayList<>();
-        bouttonRechercher.addActionListener(new actionBouttonRechercher() );
+        boutonRechercher.addActionListener(new actionBoutonRechercher() );
 
         creationInterface();
     }
@@ -52,13 +52,13 @@ public class RechercheLieu extends Recherche {
 
 
     /**
-     * Classe pour les actions du boutton rechercher
+     * Classe pour les actions du bouton rechercher
      */
-    class actionBouttonRechercher implements ActionListener {
+    class actionBoutonRechercher implements ActionListener {
 
 
         /**
-         * Met à jour les résultats de recherche lors de l'appuie sur le boutton valider
+         * Met à jour les résultats de recherche lors de l'appuie sur le bouton valider
          *
          * @param arg0 Action Evenement
          */

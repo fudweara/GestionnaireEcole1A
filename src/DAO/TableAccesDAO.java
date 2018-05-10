@@ -1,5 +1,7 @@
 package DAO;
 
+import objetStockage.Acces;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -130,5 +132,43 @@ public class TableAccesDAO {
             }
         }
         return listeAcces;
+    }
+
+
+    /**
+     * Retourne la liste de tous les accès
+     *
+     * @return Liste des accès
+     */
+    public ArrayList<Acces> recupererToutLesAcces(){
+
+        ArrayList<Acces> listeAcces = new ArrayList<>();
+        ResultSet rs;
+
+        try {
+            ps = ConnectionDAO.getInstance().prepareStatement("SELECT * FROM ACCES");
+
+            rs = ps.executeQuery();
+            System.out.println("-----");
+            System.out.print("Type accès récupérés : ");
+
+            while( rs.next() ){
+
+                listeAcces.add( new Acces(rs.getInt("IDLIEU"),rs.getInt("IDTYPEACCES")) );
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Erreur");
+        } finally {
+            // fermeture du preparedStatement et de la connexion
+            try {
+                if (ps != null)
+                    ps.close();
+            } catch (Exception ignore) {
+            }
+        }
+        return listeAcces;
+
     }
 }

@@ -26,7 +26,7 @@ public class SupprimerCarteLeo {
      */
     public SupprimerCarteLeo(Fenetre fenetre){
 
-        JButton bouttonSupprimerCarte = new JButton("Supprimer");
+        JButton boutonSupprimerCarte = new JButton("Supprimer");
 
         this.fenetre = fenetre;
         fenetre.setTitle("Gestionnaire ESIGELEC - Supprimer une carte Léo");
@@ -41,18 +41,18 @@ public class SupprimerCarteLeo {
         fenetre.getFenetre().setBorder(BorderFactory.createEmptyBorder(15, 100, 15, 100));
         fenetre.getFenetre().add( recherchePersonne );
         fenetre.getFenetre().add( Box.createRigidArea(new Dimension(20, 0)));
-        fenetre.getFenetre().add(bouttonSupprimerCarte);
+        fenetre.getFenetre().add(boutonSupprimerCarte);
         fenetre.updateAffichage();
 
         //Ajout fonction ecoute pour le boutton
-        bouttonSupprimerCarte.addActionListener(new actionBouttonSupprimer());
+        boutonSupprimerCarte.addActionListener(new actionBoutonSupprimer());
     }
 
 
     /**
      * Fonction d'écoute pour le boutton Supprimer
      */
-    class actionBouttonSupprimer implements ActionListener{
+    class actionBoutonSupprimer implements ActionListener{
 
 
         /**

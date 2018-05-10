@@ -101,6 +101,10 @@ PATCHNOTES :
 <li> Correction de problèmes qui pouvaient se poser lors de la modification de lieu</li>
 
 0.3:
-<li> Changement de l'interface pour la recherche de personnes</li>
+<li>Changement de l'interface pour la recherche de personnes</li>
 <li>Optimisation du code</li>
-<li> Ajout de la JAVADOC</li>
+<li>Ajout de la JAVADOC</li>
+
+1.0:
+<li>Ajout du menu pour le recherche des accès</li>
+<li>Correction de fautes d'orthographes dans le code</li>

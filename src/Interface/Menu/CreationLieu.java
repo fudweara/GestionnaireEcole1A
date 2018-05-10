@@ -59,15 +59,15 @@ public class CreationLieu {
         fenetre.updateAffichage();
 
         //Ajout fonctions écoute pour les bouttons
-        bouttonAjouterLieu.addActionListener( new actionBouttonAjouter() );
-        bouttonAjouterAcces.addActionListener( new actionBouttonGestionAcces() );
+        bouttonAjouterLieu.addActionListener( new actionBoutonAjouter() );
+        bouttonAjouterAcces.addActionListener( new actionBoutonGestionAcces() );
     }
 
 
     /**
      * Ecoute du bouton Ajouter lieu
      */
-    class actionBouttonAjouter implements ActionListener{
+    class actionBoutonAjouter implements ActionListener{
 
 
         /**
@@ -117,7 +117,7 @@ public class CreationLieu {
     /**
      * Ecoute du boutton GestionAcces
      */
-    class actionBouttonGestionAcces implements ActionListener{
+    class actionBoutonGestionAcces implements ActionListener{
 
         /**
          * Affiche le la fenetre pour ajouter un accès si un nombre d'accès valide est entré dans le formulaire

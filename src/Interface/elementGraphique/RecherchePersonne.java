@@ -51,7 +51,7 @@ public class RecherchePersonne extends Recherche {
 
         creationInterface();
 
-        bouttonRechercher.addActionListener(new ecouteBoutonRechercher());
+        boutonRechercher.addActionListener(new ecouteBoutonRechercher());
     }
 
 

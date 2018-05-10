@@ -17,8 +17,8 @@ public class FenetreGestionAcces extends JFrame implements ListSelectionListener
     private final JList<String> listeAcces;
     private final DefaultListModel<String> listeModele;
 
-    private final JButton buttonSupprimerSelection;
-    private final JButton bouttonAjouter;
+    private final JButton boutonSupprimerSelection;
+    private final JButton boutonAjouter;
     private final JComboBox<String> listeDeroulanteTypeAcces;
 
     private final TableTypeAccesDAO tableTypeAccesDAO;
@@ -66,17 +66,17 @@ public class FenetreGestionAcces extends JFrame implements ListSelectionListener
         JScrollPane listScrollPane = new JScrollPane(listeAcces);
 
 
-        // Création du boutton Ajouter
-        bouttonAjouter = new JButton("Ajouter");
+        // Création du bouton Ajouter
+        boutonAjouter = new JButton("Ajouter");
         if(lieu.getListeAcces().size() == lieu.getNombreAcces() && lieu.getListeAcces().size() != 0 ){
-            bouttonAjouter.setEnabled(false);
+            boutonAjouter.setEnabled(false);
         }
 
 
-        // Création du boutton Supprimer
-        buttonSupprimerSelection = new JButton("Supprimer sélection");
+        // Création du bouton Supprimer
+        boutonSupprimerSelection = new JButton("Supprimer sélection");
         if(lieu.getListeAcces().size() == 0){
-            buttonSupprimerSelection.setEnabled(false);
+            boutonSupprimerSelection.setEnabled(false);
         }
 
 
@@ -89,16 +89,16 @@ public class FenetreGestionAcces extends JFrame implements ListSelectionListener
         }
 
 
-        //Créer le JPanel qui regroupe les bouttons et le champ
+        //Créer le JPanel qui regroupe les boutons et le champ
         JPanel bouttonPanel = new JPanel();
         bouttonPanel.setLayout(new BoxLayout(bouttonPanel, BoxLayout.LINE_AXIS));
 
-        bouttonPanel.add(buttonSupprimerSelection);
+        bouttonPanel.add(boutonSupprimerSelection);
         bouttonPanel.add(Box.createHorizontalStrut(7));
         bouttonPanel.add(new JSeparator(SwingConstants.VERTICAL));
         bouttonPanel.add(Box.createHorizontalStrut(7));
         bouttonPanel.add(listeDeroulanteTypeAcces);
-        bouttonPanel.add(bouttonAjouter);
+        bouttonPanel.add(boutonAjouter);
         bouttonPanel.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
 
 
@@ -108,8 +108,8 @@ public class FenetreGestionAcces extends JFrame implements ListSelectionListener
 
 
         // Fonctions d'écoute
-        bouttonAjouter.addActionListener(new EcouteBouttonAjouter());
-        buttonSupprimerSelection.addActionListener(new actionBouttonSupprimer());
+        boutonAjouter.addActionListener(new EcouteBoutonAjouter());
+        boutonSupprimerSelection.addActionListener(new actionBoutonSupprimer());
 
         setContentPane(panel);
         setVisible(false);
@@ -119,7 +119,7 @@ public class FenetreGestionAcces extends JFrame implements ListSelectionListener
     /**
      * Ecoute boutton supprimer
      */
-    class actionBouttonSupprimer implements ActionListener {
+    class actionBoutonSupprimer implements ActionListener {
 
         /**
          * Supprime l'accès selectionné dans la liste et désactive le boutton supprimer s'il n'y a plus d'accès dans la liste
@@ -135,7 +135,7 @@ public class FenetreGestionAcces extends JFrame implements ListSelectionListener
             int tailleListe = listeModele.getSize();
 
             if (tailleListe == 0) { // Si la taille de l'index qui reste est nul => On disable la suppression
-                buttonSupprimerSelection.setEnabled(false);
+                boutonSupprimerSelection.setEnabled(false);
 
             } else { // si il reste des selections possibles
                 if (index == listeModele.getSize()) {
@@ -145,19 +145,19 @@ public class FenetreGestionAcces extends JFrame implements ListSelectionListener
                 listeAcces.ensureIndexIsVisible(index); // permet d'éviter les problèmes d'affichage lors qu'il y a possibilité de scroll
             }
             if( listeAcces.getModel().getSize() >= lieu.getNombreAcces()){
-                bouttonAjouter.setEnabled(false);
+                boutonAjouter.setEnabled(false);
             }
             else{
-                bouttonAjouter.setEnabled(true);
+                boutonAjouter.setEnabled(true);
             }
         }
     }
 
 
     /**
-     * Ecoute boutton Ajouter
+     * Ecoute bouton Ajouter
      */
-    class EcouteBouttonAjouter implements ActionListener {
+    class EcouteBoutonAjouter implements ActionListener {
 
         /**
          * Ajoute l'accès selectionné dans la liste déroulante dans la liste et désative le boutton Ajouter si le nombre d'accès est égale au nombre d'accès défini
@@ -177,7 +177,7 @@ public class FenetreGestionAcces extends JFrame implements ListSelectionListener
             listeAcces.ensureIndexIsVisible(index); // On selectionne le nouvel item ajouté
 
             if( listeAcces.getModel().getSize() >=lieu.getNombreAcces()){
-                bouttonAjouter.setEnabled(false);
+                boutonAjouter.setEnabled(false);
             }
         }
     }
@@ -192,10 +192,10 @@ public class FenetreGestionAcces extends JFrame implements ListSelectionListener
 
             if (listeAcces.getSelectedIndex() == -1) {
                 //-1 => Pas de selection : on désactive le boutton
-                buttonSupprimerSelection.setEnabled(false);
+                boutonSupprimerSelection.setEnabled(false);
 
             } else {
-                buttonSupprimerSelection.setEnabled(true);
+                boutonSupprimerSelection.setEnabled(true);
             }
         }
     }
@@ -209,7 +209,7 @@ public class FenetreGestionAcces extends JFrame implements ListSelectionListener
         setVisible(true);
 
         if(listeAcces.getModel().getSize()>=lieu.getNombreAcces()){
-            bouttonAjouter.setEnabled(false);
+            boutonAjouter.setEnabled(false);
         }
     }
 

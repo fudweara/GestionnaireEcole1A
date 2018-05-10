@@ -1,5 +1,6 @@
 import Interface.FenetreIdentification;
 
+
 /**
  * Gestionnaire ESIGELEC pour la gestion de personnes, de cartes Léo et de lieux
  *
@@ -11,7 +12,6 @@ class Main {
     public static void main(String[] args) {
 
         new FenetreIdentification();
-
     }
 
 }

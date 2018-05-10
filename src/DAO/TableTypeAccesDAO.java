@@ -149,8 +149,8 @@ public class TableTypeAccesDAO {
             ps.setInt(1,ID);
 
             rs = ps.executeQuery();
-            rs.next();
 
+            rs.next();
             nom=rs.getString("NOM_TYPEACCES");
 
         } catch (Exception e) {
