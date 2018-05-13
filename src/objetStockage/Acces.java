@@ -1,7 +1,7 @@
 package objetStockage;
 
-import DAO.TableLieuDAO;
-import DAO.TableTypeAccesDAO;
+import dao.LieuDAO;
+import dao.TypeAccesDAO;
 
 
 /**
@@ -21,11 +21,11 @@ public class Acces {
      */
     public Acces( int idLieu, int idTypeAcces){
 
-        TableLieuDAO tableLieuDAO = new TableLieuDAO();
-        TableTypeAccesDAO tableTypeAccesDAO = new TableTypeAccesDAO();
+        LieuDAO lieuDAO = new LieuDAO();
+        TypeAccesDAO typeAccesDAO = new TypeAccesDAO();
 
-        nomTypeAcces = tableTypeAccesDAO.nomTypeAcces(idTypeAcces);
-        nomLieu = tableLieuDAO.getLieu(idLieu).getEmplacement();
+        nomTypeAcces = typeAccesDAO.nomTypeAcces(idTypeAcces);
+        nomLieu = lieuDAO.getLieu(idLieu).getEmplacement();
     }
 
 
